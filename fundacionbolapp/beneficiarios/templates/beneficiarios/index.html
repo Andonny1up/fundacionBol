@@ -1,0 +1,9 @@
+{% if lista_personas %}
+    <ul>
+        {% for persona in lista_personas %}
+        <li><a href="{% url 'beneficiarios:detalles' persona.id %}">{{persona.nombres}}</a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>error en la variable</p>
+{% endif %}
