@@ -44,6 +44,7 @@ THIRD_APPS = (
 
 LOCAL_APPS = (
     'beneficiarios.apps.BeneficiariosConfig',
+    'beneficiaryapp.apps.BeneficiaryappConfig',
 )
 
 INSTALLED_APPS = THIRD_APPS + DJANGO_APPS  + LOCAL_APPS
@@ -124,7 +125,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = []
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

@@ -19,4 +19,5 @@ from django.urls import path, include
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('beneficiarios/', include("beneficiarios.urls")),
+    path('beneficiary/', include("beneficiaryapp.urls")),
 ]

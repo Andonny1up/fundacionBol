@@ -10,14 +10,15 @@
     <title>Document</title>
 </head>
 <body>
-    {% if lista_personas %}
-    <ul>
-        {% for persona in lista_personas %}
-        <li><a href="{% url 'beneficiarios:detallesBeneficiario' persona.id %}">{{persona.nombres}}</a></li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>error en la variable</p>
-    {% endif %}
+    <form method="POST" enctype="multipart/form-data">
+
+        <!-- Security token -->
+        {% csrf_token %}
+    
+        <!-- Using the formset -->
+        {{ form.as_p }}
+        
+        <input type="submit" value="Submit">
+    </form>
 </body>
 </html>

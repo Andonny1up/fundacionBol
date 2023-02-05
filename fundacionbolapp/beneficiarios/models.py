@@ -20,6 +20,15 @@ class Cancer(models.Model):
     nombre_cancer = models.TextField(max_length=200)
     detalles = models.TextField(max_length=350)
     
+    class Meta:
+        verbose_name = "Cancer"
+        verbose_name_plural = "Canceres"
+        
+    
+    def __str__(self):
+        return self.nombre_cancer
+        
+    
 class TipoGasto(models.Model):
     nombre_gastos = models.TextField(max_length=100)
     detalles_gastos = models.TextField(max_length=350)

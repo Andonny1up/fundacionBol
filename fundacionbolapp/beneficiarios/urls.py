@@ -6,5 +6,7 @@ app_name = "beneficiarios"
 urlpatterns = [
     path("",views.index,name="index"),
     #ex: deneficiarios/detalles/5/
-    path("detalles/<int:persona_id>/",views.detallesBeneficiario,name="detallesBeneficiario")
+    path("detalles/<int:persona_id>/",views.detallesBeneficiario,name="detallesBeneficiario"),
+    
+    path("create/",views.create_persona,name="createpersona"),
 ]

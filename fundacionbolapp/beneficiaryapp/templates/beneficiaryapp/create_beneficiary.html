@@ -1,0 +1,83 @@
+{% extends 'beneficiaryapp/index.html' %}
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <title>Registrar beneficiario</title>
+</head>
+<body>
+    <form action="{% url 'beneficiary:create_beneficiary' %}" method="POST">
+        {% csrf_token %}
+        <label for="id_dni">Dni:<input type="text" name="dni" maxlength="10" required id="id_dni"></label>
+        <label for="id_name">Nombre:<input type="text" name="name" maxlength="150" required id="id_name"></label>
+        <label for="id_birthday">Fecha de nacimiento:<input type="date" name="birthday" required id="id_birthday"></label>
+        <label for="id_gender">Genero:
+            <select name="gender" id="id_gender" required>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>    
+            </select>
+        </label>
+        <label for="id_phone">Telefono:<input type="text" name="phone" maxlength="10" required id="id_phone"></label>
+        <label for="id_address">Direccion:<textarea name="address" cols="40" rows="10" maxlength="250" required id="id_address"></textarea></label>
+        
+        <select name="c_name" id="">
+            {% for cancer in type_cancer %}
+            <option value="{{cancer.id}}">{{cancer.c_name}}</option>
+            {% endfor %}    
+        </select>
+        <input type="submit" value="Enviar">
+    </form>
+    <footer>
+        <div class="container">
+            <div class="row">
+
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html> {% endcomment %}
+{% block title %}Registro de beneficiario{% endblock  %}
+{% block main %}
+<div class="container">
+    <form action="{% url 'beneficiary:create_beneficiary' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <label for="id_dni" class="col-10 offset-1 col-md-6 offset-md-0">Dni:<input type="text" name="dni" maxlength="10" required id="id_dni"></label>
+            <label for="id_name" class="col-10 offset-1 col-md offset-md-0">Nombre:<input type="text" name="name" maxlength="150" required id="id_name"></label>
+        </div>
+        <div class="row">
+            <label for="id_birthday" class="col-10 offset-1 col-md-6 offset-md-0">Fecha de nacimiento:<input type="date" name="birthday" required id="id_birthday"></label>
+            <label for="id_gender" class="col-10 offset-1 col-md-6 offset-md-0">Genero:
+                <select name="gender" id="id_gender" required>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>    
+                </select>
+            </label>
+        </div>
+        <div class="row">
+            <label for="id_phone" class="col-10 offset-1 col-md offset-md-0">Telefono:<input type="text" name="phone" maxlength="10" required id="id_phone"></label>
+        </div>
+        <div class="row">
+            <label for="id_address" class="col-10 offset-1 col-md offset-md-0">Dirección:<textarea name="address" cols="40" rows="10" maxlength="250" required id="id_address"></textarea></label>
+        </div>
+        <div class="row">
+            <label for="id_c_name" class="col-10 offset-1 col-md offset-md-0">Tipo de cancer:
+                <select name="c_name" id="id_c_name">
+                    {% for cancer in type_cancer %}
+                    <option value="{{cancer.id}}">{{cancer.c_name}}</option>
+                    {% endfor %}    
+                </select>
+            </label>
+        </div>
+        <div class="row">
+            <div class="col-10 offset-1 col-md offset-md-0">
+                <input type="submit" value="Enviar" class="btn btn-dark">
+            </div>
+        </div>     
+    </form>
+</div>
+{% endblock %}
