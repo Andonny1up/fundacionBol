@@ -1,0 +1,55 @@
+{% extends 'beneficiaryapp/index.html' %}
+{% block title %}Lista de Beneficiarios{% endblock title %}
+{% block main %}
+<section id="list-bene">
+<div class="container">
+    <form action="{% url 'beneficiary:list_beneficiary' %}" role="search" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-4 offset-7">
+                <label for="id_c_name" >
+                    <select name="c_name" id="id_c_name">
+                        <option value="Todo">Todo</option>
+                        {% for cancer in type_cancer %}
+                        <option value="{{cancer.id}}">{{cancer.c_name}}</option>
+                        {% endfor %}    
+                    </select>
+                </label>
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-dark" type="submit">Filtrar</button>
+            </div>
+        </div>
+        
+        {% comment %} <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> {% endcomment %}
+        
+    </form>
+        
+</div>
+<div class="container">
+    <div class="table-responsive">
+        <hr>
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">Dni</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Tipo de Cancer</th>
+                    <th scope="col">Detalles</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for beneficiary in beneficiaries %}
+                <tr>
+                    <td>{{beneficiary.id_perso.dni}}</td>
+                    <td>{{beneficiary.id_perso.name}}</td>
+                    <td>{{beneficiary.id_cancer.c_name}}</td>
+                    <td><a href="{% url 'beneficiary:details_beneficiary' beneficiary.id %}">Ver más</a></td>  
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</section>
+{% endblock main %}

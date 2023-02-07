@@ -31,3 +31,8 @@ class Cancer(models.Model):
 class Beneficiary(models.Model):
     id_perso = models.ForeignKey(Person,on_delete=models.CASCADE)
     id_cancer = models.ForeignKey(Cancer,on_delete=models.CASCADE)
+    
+
+class Companion(models.Model):
+    id_perso = models.ForeignKey(Person,on_delete=models.CASCADE)
+    id_beneficiary = models.ForeignKey(Beneficiary,on_delete=models.CASCADE)

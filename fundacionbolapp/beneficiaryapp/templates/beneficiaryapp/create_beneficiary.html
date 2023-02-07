@@ -42,6 +42,7 @@
 </html> {% endcomment %}
 {% block title %}Registro de beneficiario{% endblock  %}
 {% block main %}
+<section id="main-create">
 <div class="container">
     <form action="{% url 'beneficiary:create_beneficiary' %}" method="POST">
         {% csrf_token %}
@@ -80,4 +81,5 @@
         </div>     
     </form>
 </div>
+</section>
 {% endblock %}
