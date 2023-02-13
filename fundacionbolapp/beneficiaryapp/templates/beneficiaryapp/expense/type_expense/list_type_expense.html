@@ -1,0 +1,35 @@
+{% extends 'beneficiaryapp/index.html' %}
+{% block title %}Lista de tipos de cancer{% endblock title %}
+{% block main %}
+<section id="list-cancer">
+<div class="container">
+    <div class="hstack">
+        <a href="{% url 'beneficiary:create_type_expense' %}" class="btn btn-primary ms-auto">Agregar Tipo de gasto</a>
+    </div>
+    <div class="table-responsive">
+        <hr>
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Aciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in type_expense %}
+                <tr>
+                    <td>{{expense.name}}</td>
+                    <td>{{expense.details}}</td>
+                    <td>
+                        <a href="{% url 'beneficiary:edit_type_expense' expense.id %}" class="badge text-bg-danger">Editar</a>
+                        <a href="{% url 'beneficiary:destroy_type_expense' expense.id %}" class="badge text-bg-danger">Borrar</a>
+                    </td>  
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</section>
+{% endblock main %}

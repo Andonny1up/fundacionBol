@@ -1,0 +1,31 @@
+{% extends 'beneficiaryapp/index.html' %}
+{% block title %}Lista de Voluntarios{% endblock title %}
+{% block main %}
+<section id="list-bene">
+<div class="container">
+    <div class="table-responsive">
+        <hr>
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">Dni</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Cargo</th>
+                    <th scope="col">Detalles</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for voluntary in voluntaries %}
+                <tr>
+                    <td>{{voluntary.id_perso.dni}}</td>
+                    <td>{{voluntary.id_perso.name}}</td>
+                    <td>{{voluntary.job}}</td>
+                    <td><a href="{% url 'beneficiary:details_voluntary' voluntary.id %}">Ver más</a></td>  
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</section>
+{% endblock main %}

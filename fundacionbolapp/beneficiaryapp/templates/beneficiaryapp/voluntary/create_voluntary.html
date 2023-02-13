@@ -1,9 +1,10 @@
 {% extends 'beneficiaryapp/index.html' %}
-{% block title %}Registro de beneficiario{% endblock  %}
+{% block title %}Registro de voluntarios{% endblock  %}
 {% block main %}
 <section id="main-create">
 <div class="container">
-    <form action="{% url 'beneficiary:create_beneficiary' %}" method="POST">
+    <h2>Registro de voluntarios</h2>
+    <form action="{% url 'beneficiary:create_voluntary' %}" method="POST">
         {% csrf_token %}
         <div class="row">
             <label for="id_dni" class="col-10 offset-1 col-md-6 offset-md-0">Dni:<input type="text" name="dni" maxlength="10" required id="id_dni"></label>
@@ -20,18 +21,10 @@
         </div>
         <div class="row">
             <label for="id_phone" class="col-10 offset-1 col-md offset-md-0">Telefono:<input type="text" name="phone" maxlength="10" required id="id_phone"></label>
+            <label for="id_job" class="col-10 offset-1 col-md offset-md-0">Cargo:<input type="text" name="job" maxlength="150" required id="id_job"></label>
         </div>
         <div class="row">
             <label for="id_address" class="col-10 offset-1 col-md offset-md-0">Dirección:<textarea name="address" cols="40" rows="10" maxlength="250" required id="id_address"></textarea></label>
-        </div>
-        <div class="row">
-            <label for="id_c_name" class="col-10 offset-1 col-md offset-md-0">Tipo de cancer:
-                <select name="c_name" id="id_c_name">
-                    {% for cancer in type_cancer %}
-                    <option value="{{cancer.id}}">{{cancer.c_name}}</option>
-                    {% endfor %}    
-                </select>
-            </label>
         </div>
         <div class="row">
             <div class="col-10 offset-1 col-md offset-md-0">

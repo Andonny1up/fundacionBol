@@ -20,7 +20,13 @@ class BeneficiaryForm(forms.ModelForm):
         #specify fields to be used
         fields="__all__"
         
-    
+
+class DonationForm(forms.ModelForm):
+    class Meta:
+        model = models.Donation
+        
+        #specify fields to be used
+        fields="__all__"
 #Example:::       
 """     
 # creating a form

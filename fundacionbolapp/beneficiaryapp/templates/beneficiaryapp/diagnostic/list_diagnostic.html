@@ -1,0 +1,46 @@
+{% extends 'beneficiaryapp/index.html' %}
+{% block title %}Diagnosticos{% endblock title %}
+{% block main %}
+<section id="details">
+    <div class="container">
+        <div class="hstack">
+            <a href="{% url 'beneficiary:create_diagnostic' beneficiary.id %}" class="btn btn-primary ms-auto">Añadir diagnostico</a>
+        </div>
+        
+    </div>
+    {% if diagnostics %}
+    <div class="container">
+        <h2>Historial</h2>
+        <div class="table-responsive">
+            <hr>
+            <table class="table table-bordered">
+                <thead>
+                    <tr class="table-dark">
+                        <th scope="col">Nombre presuntivo</th>
+                        <th scope="col">Detalles</th>
+                        <th scope="col">Fecha diagnostico</th>
+                        <th scope="col">Documento</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for diagnostic in diagnostics %}
+                    <tr>
+                        <td>{{diagnostic.presumptive_name}}</td>
+                        <td>{{diagnostic.details}}</td>
+                        <td>{{diagnostic.diagnostic_date}}</td>
+                        <td><a href="{{diagnostic.document.url}}">{{diagnostic.document}}</a></td>  
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% else %}
+    <div class="container">
+        <p>Aun no se ha registrado ningun diagnostico</p>
+    </div>
+    {% endif %}
+</section>
+
+
+{% endblock main %}

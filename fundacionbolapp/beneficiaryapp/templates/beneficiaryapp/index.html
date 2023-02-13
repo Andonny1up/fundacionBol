@@ -33,8 +33,23 @@
                       <li><a class="dropdown-item" href="{% url 'beneficiary:create_beneficiary' %}">Registrar</a></li>
                       <li><a class="dropdown-item" href="{% url 'beneficiary:list_beneficiary' %}">Lista de Beneficiarios</a></li>
                       <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Obtener Ayuda</a></li>
+                      <li><a class="dropdown-item" href="{% url 'beneficiary:list_cancer' %}">Cancer</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="{% url 'beneficiary:list_expense_beneficiary' %}">Gastos beneficiarios</a></li>
+                      <li><a class="dropdown-item" href="{% url 'beneficiary:list_type_expense' %}">Tipos Gastos beneficiarios</a></li>
                       
+                    </ul>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Donaciones
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{% url 'beneficiary:create_donor' %}">Registrar nuevo donador</a></li>
+                      <li><a class="dropdown-item" href="{% url 'beneficiary:list_donor' %}">Lista de Donadores</a></li>
+                      <li><a class="dropdown-item" href="{% url 'beneficiary:list_donation' %}">Ultimas Donaciones</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">Obtener Ayuda</a></li>
                     </ul>
                   </li>
                   <li class="nav-item dropdown">
@@ -42,17 +57,22 @@
                       Voluntarios
                     </a>
                     <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{% url 'beneficiary:create_beneficiary' %}">Registrar voluntario</a></li>
-                      <li><a class="dropdown-item" href="{% url 'beneficiary:list_beneficiary' %}">Lista de voluntarios</a></li>
+                      <li><a class="dropdown-item" href="{% url 'beneficiary:create_voluntary' %}">Registrar voluntario</a></li>
+                      <li><a class="dropdown-item" href="{% url 'beneficiary:list_voluntary' %}">Lista de voluntarios</a></li>
                       <li><hr class="dropdown-divider"></li>
                       <li><a class="dropdown-item" href="#">Obtener Ayuda</a></li>
                     </ul>
                   </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Voluntarios</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link disabled">Disabled</a>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Gastos
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{% url 'beneficiary:create_voluntary' %}">Registrar Gastos</a></li>
+                      <li><a class="dropdown-item" href="{% url 'beneficiary:list_expense' %}">Lista de Gastos</a></li>
+                      <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">Obtener Ayuda</a></li>
+                    </ul>
                   </li>
                 </ul>
               </div>

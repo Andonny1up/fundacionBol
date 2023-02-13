@@ -10,6 +10,14 @@
         </div>
         <div class="row">
             <div class="col">
+                <p><strong>Dni:</strong></p>
+            </div>
+            <div class="col">
+                <p>{{beneficiary.id_perso.dni}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 <p><strong>Nombre:</strong></p>
             </div>
             <div class="col">
@@ -58,8 +66,14 @@
         </div>
         <div class="row">
             <div class="col">
-                <a href="" class="btn btn-primary">Editar</a>
+                <a href="{% url 'beneficiary:edit_beneficiary' beneficiary.id %}" class="btn btn-primary">Editar</a>
+                <a href="{% url 'beneficiary:list_diagnostic' beneficiary.id %}" class="btn btn-primary">Diagnosticos</a>
                 <a href="" class="btn btn-danger">Eliminar</a>
+            </div>
+            <div class="col">
+                <div class="hstack">
+                    <a href="{% url 'beneficiary:create_expense_beneficiary' beneficiary.id %}" class="btn btn-primary ms-auto">Gasto beneficiario</a>
+                </div>
             </div>
         </div>
     </div>
@@ -70,6 +84,35 @@
             </div>
         </div>
         <a href="{% url 'beneficiary:create_companion' beneficiary.id %}" class="btn btn-primary">Agregar Acompañante</a>
+        {% if companions %}
+            
+            <div class="table-responsive">
+                <hr>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="table-dark">
+                            <th scope="col">Dni</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Telefono</th>
+                            <th scope="col">Detalles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for companion in companions %}
+                        <tr>
+                            <td>{{companion.id_perso.dni}}</td>
+                            <td>{{companion.id_perso.name}}</td>
+                            <td>{{companion.id_perso.phone}}</td>
+                            <td><a href="{% url 'beneficiary:details_companion' companion.id %}">Ver más</a></td>  
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+        {% else %}
+            <p>Este beneficiario no tiene acompañantes aun.</p>
+        {% endif %}
     </div>
 </section>
 

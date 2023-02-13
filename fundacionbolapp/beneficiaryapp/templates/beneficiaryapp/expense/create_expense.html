@@ -1,0 +1,36 @@
+{% extends 'beneficiaryapp/index.html' %}
+{% block title %}Registro de Gastos{% endblock  %}
+{% block main %}
+<section id="main-create">
+<div class="container">
+    <h2 class="text-center">Registrar Gastos</h2>
+</div>
+<div class="container">
+    <form action="{% url 'beneficiary:create_expense' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <label for="id_expense_amount" class="col-10 offset-1 col-md-6 offset-md-0">Monto Gasto:<input type="number" name="expense_amount" step="0.01" required id="id_expense_amount"></label>
+            <label for="id_expense_date" class="col-10 offset-1 col-md-6 offset-md-0">Fecha del Gasto:<input type="date" name="expense_date" required id="id_expense_date"></label>
+        </div>
+        <div class="row">
+            <label for="id_id_voluntary" class="col-10 offset-1 col-md-6 offset-md-0">Voluntario:
+                <select name="id_voluntary" id="id_id_voluntary" required>
+                    {% for voluntary in voluntaries %}
+                        <option value="{{voluntary.id}}">{{voluntary.id_perso.name}}</option>
+                    {% endfor %} 
+                </select>
+            </label>
+            <label for="id_voucher_expense" class="col-10 offset-1 col-md-6 offset-md-0">Comprobante:<input type="file" name="voucher_expense" required id="voucher_expense"></label>
+        </div>
+        <div class="row">
+            <label for="id_Description_expense" class="col-10 offset-1 col-md offset-md-0">Descripción:<textarea name="Description_expense" cols="40" rows="10" maxlength="350" required id="id_Description_expense"></textarea></label>
+        </div>
+        <div class="row">
+            <div class="col-10 offset-1 col-md offset-md-0">
+                <input type="submit" value="Enviar" class="btn btn-dark">
+            </div>
+        </div>     
+    </form>
+</div>
+</section>
+{% endblock %}

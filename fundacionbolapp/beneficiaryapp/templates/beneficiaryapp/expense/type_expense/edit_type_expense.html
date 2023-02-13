@@ -1,0 +1,22 @@
+{% extends 'beneficiaryapp/index.html' %}
+{% block title %}Editar Tipo de Gasto{% endblock  %}
+{% block main %}
+<section id="main-create">
+<div class="container">
+    <form action="{% url 'beneficiary:edit_type_expense' type_expense.id %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <label for="id_name" class="col-10 offset-1 col-md offset-md-0">Nombre:<input type="text" name="name" maxlength="100" required id="name" value="{{type_expense.name}}"></label>
+        </div>
+        <div class="row">
+            <label for="id_details" class="col-10 offset-1 col-md offset-md-0">Descripción:<textarea name="details" cols="40" rows="10" maxlength="350" required id="id_details">{{type_expense.details}}</textarea></label>
+        </div>
+        <div class="row">
+            <div class="col-10 offset-1 col-md offset-md-0">
+                <input type="submit" value="Enviar" class="btn btn-dark">
+            </div>
+        </div>     
+    </form>
+</div>
+</section>
+{% endblock %}

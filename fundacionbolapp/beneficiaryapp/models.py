@@ -36,3 +36,58 @@ class Beneficiary(models.Model):
 class Companion(models.Model):
     id_perso = models.ForeignKey(Person,on_delete=models.CASCADE)
     id_beneficiary = models.ForeignKey(Beneficiary,on_delete=models.CASCADE)
+    
+
+class Voluntary(models.Model):
+    id_perso = models.ForeignKey(Person,on_delete=models.CASCADE)
+    job = models.TextField("cargo",max_length=150)
+    
+    
+# Tablas aparte donante donacion    
+class Donor(models.Model):
+    dni = models.TextField(max_length=10)
+    name = models.TextField("nombre",max_length=150)
+    type_donor = models.TextField("Tipo de donador",max_length=20)
+    
+
+class Donation(models.Model):
+    id_donor = models.ForeignKey(Donor,on_delete=models.CASCADE)
+    amount_donation = models.DecimalField("monto de la donacion",max_digits=10,decimal_places=2)
+    date_donation = models.DateField("fecha donacion")
+    num_cta = models.TextField(max_length=20)
+    #Aconpanante
+    voucher_dona = models.FileField(upload_to="uploads/")
+ 
+    
+#
+class Diagnostic(models.Model):
+    presumptive_name = models.CharField("nombre presuntivo",max_length=100)
+    details = models.TextField("detalles",max_length=350)
+    diagnostic_date = models.DateField("fecha diagnostico")
+    document = models.FileField("documento",upload_to="uploads/")
+    id_beneficiary = models.ForeignKey(Beneficiary,on_delete=models.CASCADE)
+ 
+    
+# Tablas de Gastos
+class Type_expense(models.Model):
+    name = models.CharField("nombre gasto",max_length=100)
+    details = models.CharField("detalles",max_length=350)
+    
+    
+class ExpenseBeneficiary(models.Model):
+    id_beneficiary = models.ForeignKey(Beneficiary,on_delete=models.CASCADE)
+    id_type_expense = models.ForeignKey(Type_expense,on_delete=models.CASCADE)
+    expense_amount = models.DecimalField("monto de gasto",max_digits=10,decimal_places=2)
+    expense_date = models.DateField("fecha gasto")
+    motive = models.TextField(max_length=150)
+    #Aconpanante
+    id_voluntary = models.ForeignKey(Voluntary,on_delete=models.CASCADE)
+    voucher_expense = models.FileField(upload_to="uploads/")
+    
+    
+class Expense(models.Model):
+    expense_amount = models.DecimalField("monto de otros gastos",max_digits=10,decimal_places=2)
+    expense_date = models.DateField("fecha otros gastos")
+    Description_expense  = models.TextField("Descripcion de gastos",max_length=350)
+    voucher_expense  = models.FileField("comprobante de gastos",upload_to="uploads/")
+    id_voluntary = models.ForeignKey(Voluntary,on_delete=models.CASCADE)

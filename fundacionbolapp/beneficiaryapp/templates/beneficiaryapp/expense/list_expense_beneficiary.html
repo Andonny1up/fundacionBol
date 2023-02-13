@@ -1,0 +1,33 @@
+{% extends 'beneficiaryapp/index.html' %}
+{% block title %}Lista de Gastos{% endblock title %}
+{% block main %}
+<section id="list-expense">
+<div class="container">
+    <div class="table-responsive">
+        <hr>
+        <table class="table table-bordered">
+            <thead>
+                <tr class="table-dark">
+                    <th scope="col">Beneficiario</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">Descripción</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Comprobante</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                <tr>
+                    <td>{{expense.id_beneficiary.id_perso.name}}</td>
+                    <td>{{expense.expense_amount}}</td>
+                    <td>{{expense.motive}}</td>
+                    <td>{{expense.expense_date}}</td>
+                    <td><a href="">{{expense.voucher_expense}}</a></td>  
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+</section>
+{% endblock main %}

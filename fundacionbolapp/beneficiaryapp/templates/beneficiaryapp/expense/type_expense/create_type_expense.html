@@ -1,0 +1,22 @@
+{% extends 'beneficiaryapp/index.html' %}
+{% block title %}Registro de Tipo de cancer{% endblock  %}
+{% block main %}
+<section id="main-create">
+<div class="container">
+    <form action="{% url 'beneficiary:create_type_expense' %}" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <label for="id_name" class="col-10 offset-1 col-md offset-md-0">Nombre:<input type="text" name="name" maxlength="100" required id="name"></label>
+        </div>
+        <div class="row">
+            <label for="id_details" class="col-10 offset-1 col-md offset-md-0">Detalles:<textarea name="details" cols="40" rows="10" maxlength="350" required id="id_details"></textarea></label>
+        </div>
+        <div class="row">
+            <div class="col-10 offset-1 col-md offset-md-0">
+                <input type="submit" value="Enviar" class="btn btn-dark">
+            </div>
+        </div>     
+    </form>
+</div>
+</section>
+{% endblock %}
