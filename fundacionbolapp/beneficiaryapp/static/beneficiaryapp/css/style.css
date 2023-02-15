@@ -10,17 +10,27 @@ body{
     min-width: 320px;
     font-size: 1.6rem;
 }
+#header {
+    font-size: 2rem;
+}
+#header .navbar-toggler-icon,#header .navbar-brand{
+    font-size: 2rem;
+}
 #header .dropdown-item{
     font-size: 1.2rem;
 }
 #main{
     min-height: 90vh;
-    margin: 2rem auto;
+    margin: 8rem auto;
 }
 #main label, #main input, #main select,#main textarea{
     display: block;
 }
 #main label{
+}
+#balance input{
+    height: 4rem;
+    font-size: 1.4rem;
 }
 #main-create input,#main select{
     width: 100%;

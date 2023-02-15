@@ -64,7 +64,7 @@ class Diagnostic(models.Model):
     presumptive_name = models.CharField("nombre presuntivo",max_length=100)
     details = models.TextField("detalles",max_length=350)
     diagnostic_date = models.DateField("fecha diagnostico")
-    document = models.FileField("documento",upload_to="uploads/")
+    document = models.FileField("documento",upload_to="uploads")
     id_beneficiary = models.ForeignKey(Beneficiary,on_delete=models.CASCADE)
  
     

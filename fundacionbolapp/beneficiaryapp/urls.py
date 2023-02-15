@@ -47,6 +47,8 @@ urlpatterns = [
     path("type-expense/edit/<int:type_expense_id>",views.edit_type_expense,name="edit_type_expense"),
     path("type-expense/delete/<int:type_expense_id>",views.destroy_type_expense,name="destroy_type_expense"),
     
+    #expense-balance
+    path("balance/",views.balance,name="balance"),
 ]
 
 

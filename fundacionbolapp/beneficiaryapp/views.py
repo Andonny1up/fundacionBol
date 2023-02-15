@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from django.utils import timezone
+import datetime
 from . import forms, models 
 
 
@@ -294,7 +296,6 @@ def create_expense_beneficiary(request,beneficiary_id):
         expense_date = request.POST["expense_date"]
         motive = request.POST["motive"]
         voucher_expense= request.POST["voucher_expense"]
-        
         id_type_expense = request.POST["id_type_expense"]
         id_voluntary = request.POST["id_voluntary"]
         
@@ -362,3 +363,22 @@ def destroy_type_expense(request, type_expense_id):
     type_expense = models.Type_expense.objects.get(pk=type_expense_id)
     type_expense.delete()
     return HttpResponseRedirect(reverse("beneficiary:list_type_expense"))
+
+
+#<--vista cuentas-->
+def balance(request):
+    if request.method=="POST":
+        date_init= request.POST["date_init"]
+        date_limit= request.POST["date_limit"]
+    else:
+        date_init = (timezone.now() - datetime.timedelta(days = 30)).strftime('%Y-%m-%d')
+        date_limit = timezone.now().strftime('%Y-%m-%d')
+        
+    expenses = models.Expense.objects.filter(expense_date__gte=date_init,expense_date__lte=date_limit)
+    
+    return render(request,"beneficiaryapp/balance/balance_expense.html",{
+            'expenses':expenses,
+            'date_init':date_init,
+            'date_limit':date_limit,
+        })
+    
