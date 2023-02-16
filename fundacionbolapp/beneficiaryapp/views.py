@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
+from django.db.models import Sum
 import datetime
 from . import forms, models 
 
@@ -375,10 +376,21 @@ def balance(request):
         date_limit = timezone.now().strftime('%Y-%m-%d')
         
     expenses = models.Expense.objects.filter(expense_date__gte=date_init,expense_date__lte=date_limit)
+    expenses_beneficiary = models.ExpenseBeneficiary.objects.filter(expense_date__gte=date_init,expense_date__lte=date_limit)
+    total_num_expense = expenses.count() + expenses_beneficiary.count()
+    t_expense_gasto = expenses.aggregate(total=Sum('expense_amount',default=0))['total']
+    t_expense_gasto_beneficiary = expenses_beneficiary.aggregate(total=Sum('expense_amount',default=0))['total']
+    total_expense = t_expense_gasto + t_expense_gasto_beneficiary
+    
     
     return render(request,"beneficiaryapp/balance/balance_expense.html",{
             'expenses':expenses,
             'date_init':date_init,
             'date_limit':date_limit,
+            'total_num_expense':total_num_expense,
+            't_expense_gasto':t_expense_gasto,
+            't_expense_gasto_beneficiary':t_expense_gasto_beneficiary,
+            'total_expense': total_expense,
+            'expenses_beneficiary':expenses_beneficiary,
         })
     

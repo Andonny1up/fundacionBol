@@ -29,7 +29,7 @@
                 <div class="offcanvas-body">
                   <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{% url 'beneficiary:home' %}">Inicio</a>
+                      <a class="nav-link active" aria-current="page" href="{% url 'beneficiary:home' %}"><i class="fa-solid fa-house me-2"></i>Inicio</a>
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -58,16 +58,8 @@
                         <li><a class="dropdown-item" href="#">Obtener Ayuda</a></li>
                       </ul>
                     </li>
-                    <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Voluntarios
-                      </a>
-                      <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="{% url 'beneficiary:create_voluntary' %}">Registrar voluntario</a></li>
-                        <li><a class="dropdown-item" href="{% url 'beneficiary:list_voluntary' %}">Lista de voluntarios</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Obtener Ayuda</a></li>
-                      </ul>
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="{% url 'beneficiary:list_voluntary' %}">Voluntarios</a>
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -112,6 +104,7 @@
         </div>
     </footer>
     <!--footer -->
+    <script src="https://kit.fontawesome.com/df236c7e60.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>

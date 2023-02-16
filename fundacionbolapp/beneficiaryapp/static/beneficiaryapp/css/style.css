@@ -26,8 +26,6 @@ body{
 #main label, #main input, #main select,#main textarea{
     display: block;
 }
-#main label{
-}
 #balance input{
     height: 4rem;
     font-size: 1.4rem;
@@ -82,7 +80,6 @@ body{
     margin-top: 3rem;
     margin-bottom: 3rem;
 }
-
-#list-bene .btn{
-    margin: 0.5rem auto;
+#list a{
+    text-decoration: none;
 }

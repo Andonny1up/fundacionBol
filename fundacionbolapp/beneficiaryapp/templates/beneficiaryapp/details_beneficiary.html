@@ -3,76 +3,79 @@
 {% block main %}
 <section id="details">
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <h3>Detalles del beneficiario:</h3>
+        <div class="card ">
+            <div class="card-header text-bg-primary">
+                <h2 class="text-center">Detalles del beneficiario:</h2>
             </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p><strong>Dni:</strong></p>
-            </div>
-            <div class="col">
-                <p>{{beneficiary.id_perso.dni}}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p><strong>Nombre:</strong></p>
-            </div>
-            <div class="col">
-                <p>{{beneficiary.id_perso.name}}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p><strong>Fecha de Nacimiento:</strong></p>
-            </div>
-            <div class="col">
-                <p>{{beneficiary.id_perso.birthday}}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p><strong>Genero:</strong></p>
-            </div>
-            <div class="col">
-                <p>{{beneficiary.id_perso.gender}}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p><strong>Telefono:</strong></p>
-            </div>
-            <div class="col">
-                <p>{{beneficiary.id_perso.phone}}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p><strong>Dirección:</strong></p>
-            </div>
-            <div class="col">
-                <p>{{beneficiary.id_perso.address}}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <p><strong>Tipo de cancer:</strong></p>
-            </div>
-            <div class="col">
-                <p>{{beneficiary.id_cancer.c_name}}</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <a href="{% url 'beneficiary:edit_beneficiary' beneficiary.id %}" class="btn btn-primary">Editar</a>
-                <a href="{% url 'beneficiary:list_diagnostic' beneficiary.id %}" class="btn btn-primary">Diagnosticos</a>
-                <a href="" class="btn btn-danger">Eliminar</a>
-            </div>
-            <div class="col">
-                <div class="hstack">
-                    <a href="{% url 'beneficiary:create_expense_beneficiary' beneficiary.id %}" class="btn btn-primary ms-auto">Gasto beneficiario</a>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Dni:</strong></p>
+                    </div>
+                    <div class="col">
+                        <p>{{beneficiary.id_perso.dni}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Nombre:</strong></p>
+                    </div>
+                    <div class="col">
+                        <p>{{beneficiary.id_perso.name}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Fecha de Nacimiento:</strong></p>
+                    </div>
+                    <div class="col">
+                        <p>{{beneficiary.id_perso.birthday}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Genero:</strong></p>
+                    </div>
+                    <div class="col">
+                        <p>{{beneficiary.id_perso.gender}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Telefono:</strong></p>
+                    </div>
+                    <div class="col">
+                        <p>{{beneficiary.id_perso.phone}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Dirección:</strong></p>
+                    </div>
+                    <div class="col">
+                        <p>{{beneficiary.id_perso.address}}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p><strong>Tipo de cancer:</strong></p>
+                    </div>
+                    <div class="col">
+                        <p>{{beneficiary.id_cancer.c_name}}</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <a href="{% url 'beneficiary:edit_beneficiary' beneficiary.id %}" class="btn btn-primary">Editar</a>
+                        <a href="{% url 'beneficiary:list_diagnostic' beneficiary.id %}" class="btn btn-primary">Diagnosticos</a>
+                        <a href="" class="btn btn-danger">Eliminar</a>
+                    </div>
+                    <div class="col">
+                        <div class="hstack">
+                            <a href="{% url 'beneficiary:create_expense_beneficiary' beneficiary.id %}" class="btn btn-info ms-auto">Gasto beneficiario</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
