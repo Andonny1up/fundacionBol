@@ -1,0 +1,71 @@
+{% extends 'beneficiaryapp/index.html' %}
+{% block title %}Balance de gastos{% endblock  %}
+{% block main %}
+<section id="balance">
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center text-bg-primary">
+            <h2 class="h1 ">Balance Total</h2>
+        </div>
+        <div class="card-body">
+            <div class="">
+                <form action="{% url 'beneficiary:balance_total' %}" class="row g-3" method="POST">
+                    {% csrf_token %}
+                    <div class="col-6 col-sm-auto">
+                        <input class="form-control" type="date" value="{{date_init}}" name="date_init">
+                    </div>
+                    <div class="col-6 col-sm-auto">
+                        <input class="form-control" type="date" value="{{date_limit}}" name="date_limit">
+                    </div>
+                    <div class="col d-grid gap-2 d-sm-block">
+                        <input class="btn btn-primary mb-3" type="submit" value="Filtrar">
+                    </div>
+                </form>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-3">
+                    <div class="card border-warning mb-3">
+                        <div class="card-header text-bg-warning"><i class="fa-solid fa-money-bill me-2"></i>Monto de donaciones:</div>
+                        <div class="card-body">
+                          <h5 class="card-title">La sumatoria ha sido</h5>
+                          <p class="card-text">{{total_donations}} bs</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-3">
+                    <div class="card border-warning mb-3">
+                        <div class="card-header text-bg-warning"><i class="fa-solid fa-money-bill me-2"></i>Gasto Total:</div>
+                        <div class="card-body">
+                          <h5 class="card-title">La sumatoria ha sido</h5>
+                          <p class="card-text">{{total_expense}} bs</p>
+                        </div>
+                    </div>
+                </div>
+                {% if total_balance < 0 %}
+                <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-3">
+                    <div class="card border-danger mb-3">
+                        <div class="card-header text-bg-danger"><i class="fa-solid fa-money-bill me-2"></i>Balance:</div>
+                        <div class="card-body">
+                          <h5 class="card-title">La sumatoria ha sido</h5>
+                          <p class="card-text">{{total_balance}} bs</p>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-3">
+                    <div class="card border-success mb-3">
+                        <div class="card-header text-bg-success"><i class="fa-solid fa-money-bill me-2"></i>Balance:</div>
+                        <div class="card-body">
+                          <h5 class="card-title">La sumatoria ha sido</h5>
+                          <p class="card-text">{{total_balance}} bs</p>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}

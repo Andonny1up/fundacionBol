@@ -9,7 +9,7 @@
         </div>
         <div class="card-body">
             <div class="">
-                <form action="" class="row g-3" method="POST">
+                <form action="{% url 'beneficiary:balance' %}" class="row g-3" method="POST">
                     {% csrf_token %}
                     <div class="col-6 col-sm-auto">
                         <input class="form-control" type="date" value="{{date_init}}" name="date_init">

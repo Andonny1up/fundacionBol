@@ -393,4 +393,60 @@ def balance(request):
             'total_expense': total_expense,
             'expenses_beneficiary':expenses_beneficiary,
         })
+
     
+def balance_donations(request):
+    if request.method=="POST":
+        date_init= request.POST["date_init"]
+        date_limit= request.POST["date_limit"]
+    else:
+        date_init = (timezone.now() - datetime.timedelta(days = 30)).strftime('%Y-%m-%d')
+        date_limit = timezone.now().strftime('%Y-%m-%d')
+        
+    donations = models.Donation.objects.filter(date_donation__gte=date_init,date_donation__lte=date_limit)
+    total_num_donations = donations.count()
+    total_donations = donations.aggregate(total=Sum('amount_donation',default=0))['total']
+    
+    return render(request,"beneficiaryapp/balance/balance_donations.html",{
+            'donations':donations,
+            'date_init':date_init,
+            'date_limit':date_limit,
+            'total_num_donations':total_num_donations,
+            'total_donations': total_donations,
+        })
+    
+    
+def balance_total(request):
+    if request.method=="POST":
+        date_init= request.POST["date_init"]
+        date_limit= request.POST["date_limit"]
+    else:
+        date_init = (timezone.now() - datetime.timedelta(days = 30)).strftime('%Y-%m-%d')
+        date_limit = timezone.now().strftime('%Y-%m-%d')
+        
+    donations = models.Donation.objects.filter(date_donation__gte=date_init,date_donation__lte=date_limit)
+    total_donations = donations.aggregate(total=Sum('amount_donation',default=0))['total']
+    
+    expenses = models.Expense.objects.filter(expense_date__gte=date_init,expense_date__lte=date_limit)
+    expenses_beneficiary = models.ExpenseBeneficiary.objects.filter(expense_date__gte=date_init,expense_date__lte=date_limit)
+    t_expense_gasto = expenses.aggregate(total=Sum('expense_amount',default=0))['total']
+    t_expense_gasto_beneficiary = expenses_beneficiary.aggregate(total=Sum('expense_amount',default=0))['total']
+    total_expense = t_expense_gasto + t_expense_gasto_beneficiary
+    
+    balance = total_donations - total_expense
+    
+    return render(request,"beneficiaryapp/balance/balance_total.html",{
+            'date_init':date_init,
+            'date_limit':date_limit,
+            
+            'donations':donations,
+            'total_donations': total_donations,
+            
+            'expenses':expenses,
+            't_expense_gasto':t_expense_gasto,
+            't_expense_gasto_beneficiary':t_expense_gasto_beneficiary,
+            'total_expense': total_expense,
+            'expenses_beneficiary':expenses_beneficiary,
+            'total_balance': balance
+        })
+

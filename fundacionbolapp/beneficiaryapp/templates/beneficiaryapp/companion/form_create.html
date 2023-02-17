@@ -3,33 +3,42 @@
 {% block main %}
 <section id="main-create">
 <div class="container">
-    <form action="{% url 'beneficiary:create_companion' beneficiary_id %}" method="POST">
-        {% csrf_token %}
-        <div class="row">
-            <label for="id_dni" class="col-10 offset-1 col-md-6 offset-md-0">Dni:<input type="text" name="dni" maxlength="10" required id="id_dni"></label>
-            <label for="id_name" class="col-10 offset-1 col-md offset-md-0">Nombre:<input type="text" name="name" maxlength="150" required id="id_name"></label>
+    <div class="card mb-3">
+        <div class="card-header text-bg-primary">
+            <h2 class="h1">Registrar acompañante</h2>
         </div>
-        <div class="row">
-            <label for="id_birthday" class="col-10 offset-1 col-md-6 offset-md-0">Fecha de nacimiento:<input type="date" name="birthday" required id="id_birthday"></label>
-            <label for="id_gender" class="col-10 offset-1 col-md-6 offset-md-0">Genero:
-                <select name="gender" id="id_gender" required>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Femenino">Femenino</option>    
-                </select>
-            </label>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <form action="{% url 'beneficiary:create_companion' beneficiary_id %}" method="POST">
+                {% csrf_token %}
+                <div class="row">
+                    <label for="id_dni" class="col-10 offset-1 col-md-6 offset-md-0">Dni:<input type="text" name="dni" maxlength="10" required id="id_dni"></label>
+                    <label for="id_name" class="col-10 offset-1 col-md offset-md-0">Nombre:<input type="text" name="name" maxlength="150" required id="id_name"></label>
+                </div>
+                <div class="row">
+                    <label for="id_birthday" class="col-10 offset-1 col-md-6 offset-md-0">Fecha de nacimiento:<input type="date" name="birthday" required id="id_birthday"></label>
+                    <label for="id_gender" class="col-10 offset-1 col-md-6 offset-md-0">Genero:
+                        <select name="gender" id="id_gender" required>
+                            <option value="Masculino">Masculino</option>
+                            <option value="Femenino">Femenino</option>    
+                        </select>
+                    </label>
+                </div>
+                <div class="row">
+                    <label for="id_phone" class="col-10 offset-1 col-md offset-md-0">Telefono:<input type="text" name="phone" maxlength="10" required id="id_phone"></label>
+                </div>
+                <div class="row">
+                    <label for="id_address" class="col-10 offset-1 col-md offset-md-0">Dirección:<textarea name="address" cols="40" rows="10" maxlength="250" required id="id_address"></textarea></label>
+                </div>
+                <div class="row">
+                    <div class="col-10 offset-1 col-md offset-md-0">
+                        <input type="submit" value="Enviar" class="btn btn-dark">
+                    </div>
+                </div>     
+            </form>
         </div>
-        <div class="row">
-            <label for="id_phone" class="col-10 offset-1 col-md offset-md-0">Telefono:<input type="text" name="phone" maxlength="10" required id="id_phone"></label>
-        </div>
-        <div class="row">
-            <label for="id_address" class="col-10 offset-1 col-md offset-md-0">Dirección:<textarea name="address" cols="40" rows="10" maxlength="250" required id="id_address"></textarea></label>
-        </div>
-        <div class="row">
-            <div class="col-10 offset-1 col-md offset-md-0">
-                <input type="submit" value="Enviar" class="btn btn-dark">
-            </div>
-        </div>     
-    </form>
+    </div>
 </div>
 </section>
 {% endblock %}

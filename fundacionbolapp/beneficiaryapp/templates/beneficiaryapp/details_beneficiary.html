@@ -3,10 +3,12 @@
 {% block main %}
 <section id="details">
     <div class="container">
-        <div class="card ">
+        <div class="card mb-3 ">
             <div class="card-header text-bg-primary">
-                <h2 class="text-center">Detalles del beneficiario:</h2>
+                <h2 class="h1">Detalles del beneficiario:</h2>
             </div>
+        </div>
+        <div class="card ">
             <div class="card-body">
                 <div class="row">
                     <div class="col">
@@ -80,42 +82,49 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h3>Acompañantes:</h3>
+    <div class="container mt-5">
+        <div class="card mb-3">
+            <div class="card-header text-bg-primary">
+                <h2 class="h1">Acompañantes:</h2>
             </div>
         </div>
-        <a href="{% url 'beneficiary:create_companion' beneficiary.id %}" class="btn btn-primary">Agregar Acompañante</a>
-        {% if companions %}
+        <div class="card">
+            <div class="card-body">
+                <div class="hstack">
+                    <a href="{% url 'beneficiary:create_companion' beneficiary.id %}" class="btn btn-primary">Agregar Acompañante</a>
+                </div>
+                {% if companions %}
             
-            <div class="table-responsive">
-                <hr>
-                <table class="table table-bordered">
-                    <thead>
-                        <tr class="table-dark">
-                            <th scope="col">Dni</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Telefono</th>
-                            <th scope="col">Detalles</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for companion in companions %}
-                        <tr>
-                            <td>{{companion.id_perso.dni}}</td>
-                            <td>{{companion.id_perso.name}}</td>
-                            <td>{{companion.id_perso.phone}}</td>
-                            <td><a href="{% url 'beneficiary:details_companion' companion.id %}">Ver más</a></td>  
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <hr>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="table-primary">
+                                <th scope="col">Dni</th>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Telefono</th>
+                                <th scope="col">Detalles</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for companion in companions %}
+                            <tr>
+                                <td>{{companion.id_perso.dni}}</td>
+                                <td>{{companion.id_perso.name}}</td>
+                                <td>{{companion.id_perso.phone}}</td>
+                                <td><a class="badge text-bg-warning" href="{% url 'beneficiary:details_companion' companion.id %}"><i class="fa-solid fa-eye me-1"></i>Ver más</a></td>  
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            
+                {% else %}
+                <p>Este beneficiario no tiene acompañantes aun.</p>
+                {% endif %}
             </div>
-            
-        {% else %}
-            <p>Este beneficiario no tiene acompañantes aun.</p>
-        {% endif %}
+        </div>
+        
     </div>
 </section>
 

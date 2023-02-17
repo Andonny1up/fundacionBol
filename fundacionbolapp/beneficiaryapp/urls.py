@@ -48,7 +48,9 @@ urlpatterns = [
     path("type-expense/delete/<int:type_expense_id>",views.destroy_type_expense,name="destroy_type_expense"),
     
     #expense-balance
-    path("balance/",views.balance,name="balance"),
+    path("balance/expense/",views.balance,name="balance"),
+    path("balance/donations/",views.balance_donations,name="balance_donations"),
+    path("balance/total/",views.balance_total,name="balance_total"),
 ]
 
 

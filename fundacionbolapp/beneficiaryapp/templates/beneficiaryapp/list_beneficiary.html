@@ -1,40 +1,48 @@
 {% extends 'beneficiaryapp/index.html' %}
 {% block title %}Lista de Beneficiarios{% endblock title %}
 {% block main %}
-<section id="list-bene">
+<section id="list">
     <div class="container">
+        <div class="card  mb-3">
+            <div class="card-header text-bg-primary">
+                <h2 class="h1">Lista de beneficiarios</h2>
+            </div>
+        </div>
         <div class="card">
             <div class="card-body">
                 <div class="container">
-                    <form action="{% url 'beneficiary:list_beneficiary' %}" role="search" method="POST">
-                        {% csrf_token %}
-                        <div class="row">
-                            <div class="col-4 offset-7">
-                                <label for="id_c_name" >
-                                    <select name="c_name" id="id_c_name">
-                                        <option value="Todo">Todo</option>
-                                        {% for cancer in type_cancer %}
-                                        <option value="{{cancer.id}}">{{cancer.c_name}}</option>
-                                        {% endfor %}    
-                                    </select>
-                                </label>
-                            </div>
-                            <div class="col">
-                                <button class="btn btn-outline-dark" type="submit">Filtrar</button>
-                            </div>
+                    <div class="row">
+                        <div class="col-md-6 col-12">
+                            
                         </div>
-                        
-                        {% comment %} <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> {% endcomment %}
-                        
-                    </form>
-                        
+                        <div class="col">
+                            <form action="{% url 'beneficiary:list_beneficiary' %}" role="search" method="POST">
+                                {% csrf_token %}
+                                <div class="hstack gap-2">
+                                    <label for="id_c_name" class="ms-md-auto">
+                                        <select name="c_name" id="id_c_name">
+                                            <option value="Todo">Todo</option>
+                                            {% for cancer in type_cancer %}
+                                            <option value="{{cancer.id}}">{{cancer.c_name}}</option>
+                                            {% endfor %}    
+                                        </select>
+                                    </label>
+                                    <button class="btn btn-outline-primary" type="submit">Filtrar</button> 
+                                </div>
+                            </form>
+                        </div>
+                        <hr>
+                        <div class="hstack">
+                            <a href="{% url 'beneficiary:create_beneficiary' %}" class="btn btn-primary ms-auto me-auto">Registrar beneficiario</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="container">
                     <div class="table-responsive">
                         <hr>
                         <table class="table table-bordered">
                             <thead>
-                                <tr class="table-dark">
+                                <tr class="table-primary">
                                     <th scope="col">Dni</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Tipo de Cancer</th>
@@ -47,7 +55,7 @@
                                     <td>{{beneficiary.id_perso.dni}}</td>
                                     <td>{{beneficiary.id_perso.name}}</td>
                                     <td>{{beneficiary.id_cancer.c_name}}</td>
-                                    <td><a class="badge text-bg-info" href="{% url 'beneficiary:details_beneficiary' beneficiary.id %}">Ver más</a></td>  
+                                    <td><a class="badge text-bg-warning" href="{% url 'beneficiary:details_beneficiary' beneficiary.id %}"><i class="fa-solid fa-eye me-1"></i>Ver más</a></td>  
                                 </tr>
                                 {% endfor %}
                             </tbody>

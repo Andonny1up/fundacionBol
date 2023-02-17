@@ -22,7 +22,7 @@
               </a>
               <div class="offcanvas offcanvas-start text-bg-primary" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
-                  <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Dark offcanvas</h5>
+                  <h5 class="offcanvas-title h1" id="offcanvasDarkNavbarLabel">Menu</h5>
                   <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <hr>
@@ -32,23 +32,20 @@
                       <a class="nav-link active" aria-current="page" href="{% url 'beneficiary:home' %}"><i class="fa-solid fa-house me-2"></i>Inicio</a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Beneficiarios
+                      <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-hospital-user me-2"></i>Beneficiarios
                       </a>
                       <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="{% url 'beneficiary:create_beneficiary' %}">Registrar</a></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_beneficiary' %}">Lista de Beneficiarios</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{% url 'beneficiary:list_cancer' %}">Cancer</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="{% url 'beneficiary:list_expense_beneficiary' %}">Gastos beneficiarios</a></li>
+                        <li><a class="dropdown-item" href="{% url 'beneficiary:list_expense_beneficiary' %}">Lista de Gastos beneficiarios</a></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_type_expense' %}">Tipos Gastos beneficiarios</a></li>
-                        
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'beneficiary:list_cancer' %}">Lista de Tipos de Cancer</a></li>                        
                       </ul>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Donaciones
+                      <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-circle-dollar-to-slot me-1"></i>Donaciones
                       </a>
                       <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="{% url 'beneficiary:create_donor' %}">Registrar nuevo donador</a></li>
@@ -59,7 +56,7 @@
                       </ul>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{% url 'beneficiary:list_voluntary' %}">Voluntarios</a>
+                      <a class="nav-link active" aria-current="page" href="{% url 'beneficiary:list_voluntary' %}"><i class="fa-solid fa-circle-user me-1"></i>Voluntarios</a>
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -72,8 +69,15 @@
                         <li><a class="dropdown-item" href="#">Obtener Ayuda</a></li>
                       </ul>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link" aria-current="page" href="{% url 'beneficiary:balance' %}">balance</a>
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Balance
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="{% url 'beneficiary:balance_total' %}">Total</a></li>
+                        <li><a class="dropdown-item" href="{% url 'beneficiary:balance_donations' %}">Donaciones</a></li>
+                        <li><a class="dropdown-item" href="{% url 'beneficiary:balance' %}">Gastos</a></li>
+                      </ul>
                     </li>
                   </ul>
                 </div>
