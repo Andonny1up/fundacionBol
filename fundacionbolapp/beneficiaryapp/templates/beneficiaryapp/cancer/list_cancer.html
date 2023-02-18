@@ -23,7 +23,7 @@
                     <td>{{cancer.description}}</td>
                     <td>
                         <a href="{% url 'beneficiary:edit_cancer' cancer.id %}" class="badge text-bg-danger">Editar</a>
-                        <a href="{% url 'beneficiary:destroy_cancer' cancer.id %}" class="badge text-bg-danger">Borrar</a>
+                        <a href="{% url 'beneficiary:destroy_cancer' cancer.id %}" class="badge text-bg-danger" onclick='return confirmDelete()'>Borrar</a>
                     </td>  
                 </tr>
                 {% endfor %}

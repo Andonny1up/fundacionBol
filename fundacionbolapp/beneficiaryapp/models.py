@@ -9,7 +9,7 @@ class Person(models.Model):
     gender = models.CharField("genero",max_length=10)
     phone = models.CharField("telefono",max_length=10)
     address = models.TextField("direccion",max_length=(250))
-    #estado_per = models.BooleanField("Estado persona",default=1)
+    active = models.BooleanField("activo",default=1)
     
     def __str__(self):
         return self.name
@@ -30,7 +30,7 @@ class Cancer(models.Model):
 
 class Beneficiary(models.Model):
     id_perso = models.ForeignKey(Person,on_delete=models.CASCADE)
-    id_cancer = models.ForeignKey(Cancer,on_delete=models.CASCADE)
+    id_cancer = models.ForeignKey(Cancer,on_delete=models.SET_NULL, null=True, blank=True)
     
 
 class Companion(models.Model):

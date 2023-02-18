@@ -27,7 +27,12 @@
                 </div>
                 <div class="row">
                     <label for="id_phone" class="col-10 offset-1 col-md offset-md-0">Telefono:<input type="text" name="phone" maxlength="10" required id="id_phone"></label>
-                    <label for="id_job" class="col-10 offset-1 col-md offset-md-0">Cargo:<input type="text" name="job" maxlength="150" required id="id_job"></label>
+                    <label for="id_job" class="col-10 offset-1 col-md-6 offset-md-0">Cargo:
+                        <select name="job" id="id_job" required>
+                            <option value="Administrador del sistema">Administrador del sistema</option>
+                            <option value="Personal">Personal</option>    
+                        </select>
+                    </label>
                 </div>
                 <div class="row">
                     <label for="id_address" class="col-10 offset-1 col-md offset-md-0">Dirección:<textarea name="address" cols="40" rows="10" maxlength="250" required id="id_address"></textarea></label>

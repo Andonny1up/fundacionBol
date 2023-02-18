@@ -5,25 +5,33 @@
 <section id="main-create">
     
 <div class="container">
-    <h2>Diagnostico de: {{beneficiary.id_perso.name}}</h2>
-    <form action="{% url 'beneficiary:create_diagnostic' beneficiary.id  %}" method="POST">
-        {% csrf_token %}
-        <div class="row">
-            <label for="id_presumptive_name" class="col-10 offset-1 col-md-6 offset-md-0">Nombre presuntivo:<input type="text" name="presumptive_name" maxlength="100" required id="id_presumptive_name"></label>
-            <label for="id_diagnostic_date" class="col-10 offset-1 col-md offset-md-0">Fecha diagnostico:<input type="date" name="diagnostic_date" required id="id_diagnostic_date"></label>
+    <div class="card mb-3 text-bg-primary">
+        <div class="card-header">
+            <h2 class="h1">Diagnostico de: {{beneficiary.id_perso.name}}</h2>
         </div>
-        <div class="row">
-            <label for="id_details" class="col-10 offset-1 col-md offset-md-0">Detalles:<textarea name="details" cols="40" rows="10" maxlength="250" required id="id_details"></textarea></label>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <form action="{% url 'beneficiary:create_diagnostic' beneficiary.id  %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <label for="id_presumptive_name" class="col-10 offset-1 col-md-6 offset-md-0">Nombre presuntivo:<input type="text" name="presumptive_name" maxlength="100" required id="id_presumptive_name"></label>
+                    <label for="id_diagnostic_date" class="col-10 offset-1 col-md offset-md-0">Fecha diagnostico:<input type="date" name="diagnostic_date" required id="id_diagnostic_date" value={{date_now}}></label>
+                </div>
+                <div class="row">
+                    <label for="id_details" class="col-10 offset-1 col-md offset-md-0">Detalles:<textarea name="details" cols="40" rows="10" maxlength="250" required id="id_details"></textarea></label>
+                </div>
+                <div class="row">
+                    <label for="id_document" class="col-10 offset-1 col-md-6 offset-md-0">Documento:<input type="file" name="document" required id="id_document"></label>
+                </div>
+                <div class="row">
+                    <div class="col-10 offset-1 col-md offset-md-0">
+                        <input type="submit" value="Enviar" class="btn btn-dark">
+                    </div>
+                </div>     
+            </form>
         </div>
-        <div class="row">
-            <label for="id_document" class="col-10 offset-1 col-md-6 offset-md-0">Documento:<input type="file" name="document" required id="id_document"></label>
-        </div>
-        <div class="row">
-            <div class="col-10 offset-1 col-md offset-md-0">
-                <input type="submit" value="Enviar" class="btn btn-dark">
-            </div>
-        </div>     
-    </form>
+    </div>
 </div>
 </section>
 {% endblock %}

@@ -23,7 +23,7 @@
                     <td>{{expense.expense_amount}}</td>
                     <td>{{expense.Description_expense}}</td>
                     <td>{{expense.expense_date}}</td>
-                    <td><a href="">{{expense.voucher_expense}}</a></td>  
+                    <td><a href="{{expense.voucher_expense.url}}">{{expense.voucher_expense}}</a></td>  
                 </tr>
                 {% endfor %}
             </tbody>

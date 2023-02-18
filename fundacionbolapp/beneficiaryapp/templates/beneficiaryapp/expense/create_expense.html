@@ -6,7 +6,7 @@
     <h2 class="text-center">Registrar Gastos</h2>
 </div>
 <div class="container">
-    <form action="{% url 'beneficiary:create_expense' %}" method="POST">
+    <form action="{% url 'beneficiary:create_expense' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="row">
             <label for="id_expense_amount" class="col-10 offset-1 col-md-6 offset-md-0">Monto Gasto:<input type="number" name="expense_amount" step="0.01" required id="id_expense_amount"></label>

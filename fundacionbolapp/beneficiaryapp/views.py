@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
+from django.core.files.storage import FileSystemStorage
 from django.db.models import Sum
 import datetime
 from . import forms, models 
@@ -29,9 +30,11 @@ def create_beneficiary(request):
         bene= models.Beneficiary.objects.create(id_perso=person,id_cancer=cancer)
         return HttpResponseRedirect(reverse("beneficiary:details_beneficiary",args=(bene.id,)))
     else:
+        date_now = timezone.now().strftime('%Y-%m-%d')
         type_cancer = models.Cancer.objects.all()
         return render(request,"beneficiaryapp/create_beneficiary.html",{
-            'type_cancer':type_cancer
+            'type_cancer':type_cancer,
+            'date_now': date_now,
         })
 
 
@@ -64,13 +67,37 @@ def list_beneficiary(request):
         c_name = request.POST["c_name"]
         beneficiaries = models.Beneficiary.objects.filter(id_cancer=c_name)
     else:    
-        beneficiaries = models.Beneficiary.objects.all()
+        beneficiaries = models.Beneficiary.objects.filter(id_perso__active=True)
         
     cancer = models.Cancer.objects.all()
     return render(request,"beneficiaryapp/list_beneficiary.html",{
         'beneficiaries': beneficiaries,
         'type_cancer': cancer,
     })
+    
+
+def search_beneficiary(request):
+    
+    if request.GET["search_text"]:
+        f_filter = request.GET["f_filter"]
+        search_text = request.GET["search_text"]
+        
+        if f_filter == "dni":
+            beneficiaries = models.Beneficiary.objects.filter(id_perso__active=True,id_perso__dni__icontains=search_text)
+            #article = Article.objects.filter(name__icontains=product)
+            dni = True
+        else:
+            beneficiaries = models.Beneficiary.objects.filter(id_perso__active=True,id_perso__name__icontains=search_text)
+            dni = False
+            
+        return render(request,"beneficiaryapp/search_beneficiary.html",{
+                'beneficiaries': beneficiaries,
+                'search_text':search_text,
+                'f_filter':dni,
+                
+            })
+    
+    return HttpResponseRedirect(reverse("beneficiary:list_beneficiary",))
     
 
 def details(request,beneficiary_id):
@@ -81,6 +108,15 @@ def details(request,beneficiary_id):
         'beneficiary': bene,
         'companions': companions,
     })
+    
+
+def delete_beneficiary(request,beneficiary_id):
+    bene = models.Beneficiary.objects.get(pk=beneficiary_id)
+    bene.id_perso.active=False
+    bene.id_perso.save()
+    return HttpResponseRedirect(reverse("beneficiary:list_beneficiary",))
+
+
 # <-- Beneficiary -->
 # <-- Companion -->
 def create_companion(request,beneficiary_id):
@@ -97,8 +133,10 @@ def create_companion(request,beneficiary_id):
         companion = models.Companion.objects.create(id_perso=person,id_beneficiary=bene)
         return HttpResponseRedirect(reverse("beneficiary:details_beneficiary",args=(bene.id,)))
     else:
-       return render(request,"beneficiaryapp/companion/form_create.html",{
-        'beneficiary_id': beneficiary_id
+        date_now = timezone.now().strftime('%Y-%m-%d')
+        return render(request,"beneficiaryapp/companion/form_create.html",{
+        'beneficiary_id': beneficiary_id,
+        'date_now':date_now
     })
        
 
@@ -210,17 +248,21 @@ def list_diagnostic(request,beneficiary_id):
     
 def create_diagnostic(request,beneficiary_id):
     beneficiary = models.Beneficiary.objects.get(pk=beneficiary_id)
-    if request.method=="POST":
+    if request.method=="POST" and request.FILES["document"]:
         presumptive_name = request.POST["presumptive_name"]
         details = request.POST["details"]
         diagnostic_date = request.POST["diagnostic_date"]
-        document = request.POST["document"]
+        file = request.FILES["document"]
+        fs = FileSystemStorage()
+        document = fs.save(file.name,file)
         
         diagnostic = models.Diagnostic.objects.create(presumptive_name=presumptive_name,details=details,diagnostic_date=diagnostic_date,document=document,id_beneficiary = beneficiary)
         return HttpResponseRedirect(reverse("beneficiary:list_diagnostic",args=(beneficiary.id,)))
     else:
-       return render(request,"beneficiaryapp/diagnostic/create_diagnostic.html",{
-        'beneficiary': beneficiary
+        date_now = timezone.now().strftime('%Y-%m-%d')
+        return render(request,"beneficiaryapp/diagnostic/create_diagnostic.html",{
+        'beneficiary': beneficiary,
+        'date_now':date_now,
     })
 #<-- Diagnostic -->
 
@@ -268,7 +310,9 @@ def create_expense(request):
         expense_amount = request.POST["expense_amount"]
         expense_date = request.POST["expense_date"]
         Description_expense = request.POST["Description_expense"]
-        voucher_expense= request.POST["voucher_expense"]
+        file = request.FILES["voucher_expense"]
+        fs = FileSystemStorage()
+        voucher_expense = fs.save(file.name,file)
         id_voluntary = request.POST["id_voluntary"]
         
         voluntary = models.Voluntary.objects.get(pk=id_voluntary)
@@ -313,7 +357,7 @@ def create_expense_beneficiary(request,beneficiary_id):
         )
         return HttpResponseRedirect(reverse("beneficiary:list_expense_beneficiary"))
     else:
-        voluntaries = models.Voluntary.objects.all()
+        voluntaries = models.Voluntary.objects.filter(job='Administrador del sistema')
         type_expense = models.Type_expense.objects.all()
         return render(request,"beneficiaryapp/expense/create_expense_beneficiary.html",{
             'voluntaries':voluntaries,

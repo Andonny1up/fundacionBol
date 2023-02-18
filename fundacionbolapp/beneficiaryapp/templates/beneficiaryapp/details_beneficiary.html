@@ -71,7 +71,7 @@
                     <div class="col">
                         <a href="{% url 'beneficiary:edit_beneficiary' beneficiary.id %}" class="btn btn-primary">Editar</a>
                         <a href="{% url 'beneficiary:list_diagnostic' beneficiary.id %}" class="btn btn-primary">Diagnosticos</a>
-                        <a href="" class="btn btn-danger">Eliminar</a>
+                        <a href="{% url 'beneficiary:delete_beneficiary' beneficiary.id %}" class="btn btn-danger" onclick="return confirmBaja()">Dar de baja</a>
                     </div>
                     <div class="col">
                         <div class="hstack">

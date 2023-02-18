@@ -8,8 +8,10 @@ urlpatterns = [
     path("",views.home,name="home"),
     path("create/",views.create_beneficiary,name="create_beneficiary"),
     path("list/",views.list_beneficiary,name="list_beneficiary"),
+    path("search/",views.search_beneficiary,name="search_beneficiary"),
     path("edit/<int:beneficiary_id>",views.edit_beneficiary,name="edit_beneficiary"),
     path("details/<int:beneficiary_id>",views.details,name="details_beneficiary"),
+    path("delete/<int:beneficiary_id>",views.delete_beneficiary,name="delete_beneficiary"),
     #ex: deneficiarios/detalles/5/
     #cancers
     path("cancer/create/",views.create_cancer,name="create_cancer"),
