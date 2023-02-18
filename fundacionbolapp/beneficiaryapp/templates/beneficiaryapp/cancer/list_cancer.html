@@ -3,32 +3,42 @@
 {% block main %}
 <section id="list-cancer">
 <div class="container">
-    <div class="hstack">
-        <a href="{% url 'beneficiary:create_cancer' %}" class="btn btn-primary ms-auto">Agregar cancer</a>
-    </div>
-    <div class="table-responsive">
-        <hr>
-        <table class="table table-bordered">
-            <thead>
-                <tr class="table-dark">
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Aciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for cancer in cancers %}
-                <tr>
-                    <td>{{cancer.c_name}}</td>
-                    <td>{{cancer.description}}</td>
-                    <td>
-                        <a href="{% url 'beneficiary:edit_cancer' cancer.id %}" class="badge text-bg-danger">Editar</a>
-                        <a href="{% url 'beneficiary:destroy_cancer' cancer.id %}" class="badge text-bg-danger" onclick='return confirmDelete()'>Borrar</a>
-                    </td>  
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="card">
+        <div class="card-header text-bg-primary">
+            <h2 class="h1">Lista de cancer registrados</h2>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <div class="hstack">
+                    <a href="{% url 'beneficiary:create_cancer' %}" class="btn btn-primary ms-auto">Agregar cancer</a>
+                </div>
+            
+                <div class="table-responsive">
+                    <hr>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="table-primary">
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Descripción</th>
+                                <th scope="col">Aciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cancer in cancers %}
+                            <tr>
+                                <td>{{cancer.c_name}}</td>
+                                <td>{{cancer.description}}</td>
+                                <td>
+                                    <a href="{% url 'beneficiary:edit_cancer' cancer.id %}" class="badge text-bg-warning" style="text-decoration:none;">Editar</a>
+                                    <a href="{% url 'beneficiary:destroy_cancer' cancer.id %}" class="badge text-bg-danger" onclick='return confirmDelete()' style="text-decoration:none;">Borrar</a>
+                                </td>  
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 </section>

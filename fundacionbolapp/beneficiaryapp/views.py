@@ -236,10 +236,31 @@ def details_donor(request,donor_id):
         'donor': donor,
         'donations':donations
     })
-    
-    
+
+
+def edit_donor(request,donor_id):
+    donor = models.Donor.objects.get(pk=donor_id)
+    if request.method=="POST":
+        donor.dni = request.POST["dni"]
+        donor.name = request.POST["name"]
+        donor.type_donor = request.POST["type_donor"]
+        donor.save()
+        return HttpResponseRedirect(reverse("beneficiary:details_donor",args=(donor.id,)))
+    else:
+        return render(request,"beneficiaryapp/donor/edit_donor.html",{
+            'donor':donor,
+        })  
+
+
+def delete_donor(request,donor_id):
+    donor = models.Donor.objects.get(pk=donor_id)
+    donor.active=False
+    donor.save()
+    return HttpResponseRedirect(reverse("beneficiary:list_donor",))
+
+   
 def list_donor(request):   
-    donors = models.Donor.objects.all()
+    donors = models.Donor.objects.filter(active=True)
     return render(request,"beneficiaryapp/donor/list_donor.html",{
         'donors': donors,
     })
@@ -259,13 +280,17 @@ def create_donation(request,donor_id):
         amount_donation = request.POST["amount_donation"]
         date_donation = request.POST["date_donation"]
         num_cta = request.POST["num_cta"]
-        voucher_dona = request.POST["voucher_dona"]
+        file = request.FILES["voucher_dona"]
+        fs = FileSystemStorage()
+        voucher_dona = fs.save(file.name,file)
         
         donation = models.Donation.objects.create(id_donor=donor,amount_donation=amount_donation,date_donation=date_donation,num_cta=num_cta,voucher_dona=voucher_dona)
         return HttpResponseRedirect(reverse("beneficiary:details_donor",args=(donor.id,)))
     else:
-       return render(request,"beneficiaryapp/donor/create_donation.html",{
-        'donor': donor
+        date_now = timezone.now().strftime('%Y-%m-%d')
+        return render(request,"beneficiaryapp/donor/create_donation.html",{
+        'donor': donor,
+        'date_now':date_now,
     })
 
       

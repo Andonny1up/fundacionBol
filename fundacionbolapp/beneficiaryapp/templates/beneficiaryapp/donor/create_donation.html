@@ -5,25 +5,34 @@
 <section id="main-create">
     
 <div class="container">
-    <h2>donacion de: {{donor.name}}</h2>
-    <form action="{% url 'beneficiary:create_donation' donor.id  %}" method="POST">
-        {% csrf_token %}
-        <div class="row">
-            <label for="id_amount_donation" class="col-10 offset-1 col-md-6 offset-md-0">Monto de la donacion:<input type="number" name="amount_donation" step="0.01" required id="id_amount_donation"></label>
-            <label for="id_date_donation" class="col-10 offset-1 col-md offset-md-0">Fecha donacion:<input type="date" name="date_donation" required id="id_date_donation"></label>
+    <div class="card mb-3 mt-5">
+        <div class="card-header text-bg-primary">
+            <h2 class="h1">Nueva donación de: {{donor.name}}</h2>
         </div>
-        <div class="row">
-            <label for="id_num_cta" class="col-10 offset-1 col-md-6 offset-md-0">Numero de cuenta:<input type="text" name="num_cta" maxlength="20" required id="id_num_cta"></label>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <form action="{% url 'beneficiary:create_donation' donor.id  %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <label for="id_amount_donation" class="col-10 offset-1 col-md-6 offset-md-0">Monto de la donacion:<input type="number" name="amount_donation" step="0.01" required id="id_amount_donation"></label>
+                    <label for="id_date_donation" class="col-10 offset-1 col-md offset-md-0">Fecha donacion:<input type="date" name="date_donation" required id="id_date_donation" value={{date_now}}></label>
+                </div>
+                <div class="row">
+                    <label for="id_num_cta" class="col-10 offset-1 col-md-6 offset-md-0">Numero de cuenta:<input type="text" name="num_cta" maxlength="20" required id="id_num_cta"></label>
+                </div>
+                <div class="row">
+                    <label for="id_voucher_dona" class="col-10 offset-1 col-md-6 offset-md-0">Comprobante:<input type="file" name="voucher_dona" required id="id_voucher_dona"></label>
+                </div>
+                <div class="row">
+                    <div class="col-10 offset-1 col-md offset-md-0">
+                        <input type="submit" value="Enviar" class="btn btn-dark">
+                    </div>
+                </div>     
+            </form>
         </div>
-        <div class="row">
-            <label for="id_voucher_dona" class="col-10 offset-1 col-md-6 offset-md-0">Comprobante:<input type="file" name="voucher_dona" required id="id_voucher_dona"></label>
-        </div>
-        <div class="row">
-            <div class="col-10 offset-1 col-md offset-md-0">
-                <input type="submit" value="Enviar" class="btn btn-dark">
-            </div>
-        </div>     
-    </form>
+    </div>
+    
 </div>
 </section>
 {% endblock %}

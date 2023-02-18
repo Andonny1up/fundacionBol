@@ -49,9 +49,8 @@
                       <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="{% url 'beneficiary:create_donor' %}">Registrar nuevo donador</a></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_donor' %}">Lista de Donadores</a></li>
-                        <li><a class="dropdown-item" href="{% url 'beneficiary:list_donation' %}">Ultimas Donaciones</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Obtener Ayuda</a></li>
+                        <li><a class="dropdown-item" href="{% url 'beneficiary:list_donation' %}">Lista de Donaciones</a></li>
                       </ul>
                     </li>
                     <li class="nav-item">
@@ -70,13 +69,14 @@
                       </ul>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Balance
+                      <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-scale-balanced me-1"></i>Balance
                       </a>
                       <ul class="dropdown-menu dropdown-menu-dark">
-                        <li><a class="dropdown-item" href="{% url 'beneficiary:balance_total' %}">Total</a></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:balance_donations' %}">Donaciones</a></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:balance' %}">Gastos</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{% url 'beneficiary:balance_total' %}">Total</a></li>
                       </ul>
                     </li>
                   </ul>

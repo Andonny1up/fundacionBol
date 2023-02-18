@@ -3,28 +3,37 @@
 {% block main %}
 <section id="list-donor">
 <div class="container">
-    <div class="table-responsive">
-        <hr>
-        <table class="table table-bordered">
-            <thead>
-                <tr class="table-dark">
-                    <th scope="col">Dni</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Tipo de donante</th>
-                    <th scope="col">Detalles</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for donor in donors %}
-                <tr>
-                    <td>{{donor.dni}}</td>
-                    <td>{{donor.name}}</td>
-                    <td>{{donor.type_donor}}</td>
-                    <td><a href="{% url 'beneficiary:details_donor' donor.id %}">Ver más</a></td>  
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="card text-bg-primary mb-3">
+        <div class="card-header">
+            <h2 class="h1">Lista de donadores actuales</h2>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <hr>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="table-primary">
+                            <th scope="col">Dni</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Tipo de donante</th>
+                            <th scope="col">Detalles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for donor in donors %}
+                        <tr>
+                            <td>{{donor.dni}}</td>
+                            <td>{{donor.name}}</td>
+                            <td>{{donor.type_donor}}</td>
+                            <td><a href="{% url 'beneficiary:details_donor' donor.id %}" class="badge text-bg-warning">Ver más</a></td>  
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 </section>

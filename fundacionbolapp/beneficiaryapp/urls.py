@@ -31,6 +31,8 @@ urlpatterns = [
     #donations-donor
     path("donor/create/",views.create_donor,name="create_donor"),
     path("donor/details/<int:donor_id>",views.details_donor,name="details_donor"),
+    path("donor/edit/<int:donor_id>",views.edit_donor,name="edit_donor"),
+    path("donor/delete/<int:donor_id>",views.delete_donor,name="delete_donor"),
     path("donor/list/",views.list_donor,name="list_donor"),
     path("donation/list/",views.list_donation,name="list_donation"),
     path("donor/<int:donor_id>/donation/create/",views.create_donation,name="create_donation"),
