@@ -26,7 +26,11 @@ def create_beneficiary(request):
         c_name =request.POST["c_name"]
         
         person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address)
-        cancer = models.Cancer.objects.get(pk=c_name)
+        if c_name:
+            cancer = models.Cancer.objects.get(pk=c_name)
+        else:
+            cancer = None
+            
         bene= models.Beneficiary.objects.create(id_perso=person,id_cancer=cancer)
         return HttpResponseRedirect(reverse("beneficiary:details_beneficiary",args=(bene.id,)))
     else:
@@ -103,10 +107,12 @@ def search_beneficiary(request):
 def details(request,beneficiary_id):
     #bene = models.Beneficiary.objects.get(pk=beneficiary_id)
     bene = get_object_or_404(models.Beneficiary,pk=beneficiary_id)
-    companions = models.Companion.objects.filter(id_beneficiary=beneficiary_id)
+    companions = bene.companion_set.filter(id_perso__active=True)
+    expense_pendien = bene.expensebeneficiary_set.filter(finalized=False)
     return render(request,"beneficiaryapp/details_beneficiary.html",{
         'beneficiary': bene,
         'companions': companions,
+        'expense_pendien':expense_pendien,
     })
     
 
@@ -145,6 +151,32 @@ def details_companion(request,companion_id):
     return render(request,"beneficiaryapp/companion/details_companion.html",{
         'companion': companion,
     })
+
+
+def edit_companion(request,companion_id):
+    companion = models.Companion.objects.get(pk=companion_id)
+    if request.method=="POST":
+        companion.id_perso.dni = request.POST["dni"]
+        companion.id_perso.name = request.POST["name"]
+        companion.id_perso.birthday = request.POST["birthday"]
+        companion.id_perso.gender = request.POST["gender"]
+        companion.id_perso.phone = request.POST["phone"]
+        companion.id_perso.address = request.POST["address"]
+        companion.id_perso.save()
+        return HttpResponseRedirect(reverse("beneficiary:details_companion",args=(companion.id,)))
+    else:
+        text_birthday = companion.id_perso.birthday.__str__()
+        return render(request,"beneficiaryapp/companion/edit_companion.html",{
+            'companion':companion,
+            'text_birthday': text_birthday
+        })   
+
+
+def delete_companion(request,companion_id):
+    companion = models.Companion.objects.get(pk=companion_id)
+    companion.id_perso.active=False
+    companion.id_perso.save()
+    return HttpResponseRedirect(reverse("beneficiary:details_beneficiary",args=(companion.id_beneficiary.id,)))
 # <-- Companion -->
 
 
@@ -340,37 +372,55 @@ def create_expense_beneficiary(request,beneficiary_id):
         expense_amount = request.POST["expense_amount"]
         expense_date = request.POST["expense_date"]
         motive = request.POST["motive"]
-        voucher_expense= request.POST["voucher_expense"]
-        id_type_expense = request.POST["id_type_expense"]
+        file = request.FILES["voucher_expense"]
+        fs = FileSystemStorage()
+        voucher_expense= fs.save(file.name,file)
+        #id_type_expense = request.POST["id_type_expense"]
+        id_companion = request.POST["id_companion"]
         id_voluntary = request.POST["id_voluntary"]
-        
+        finalized = request.POST["finalized"]
         voluntary = models.Voluntary.objects.get(pk=id_voluntary)
-        type_expense = models.Type_expense.objects.get(pk=id_type_expense)
+        if id_companion:
+            companion = models.Companion.objects.get(pk=id_companion)
+        else:
+            companion = None
         expense = models.ExpenseBeneficiary.objects.create(
             id_beneficiary= beneficiary,
-            id_type_expense = type_expense,
             expense_amount = expense_amount,
             expense_date = expense_date,
             motive = motive,
             voucher_expense = voucher_expense,
-            id_voluntary = voluntary
+            id_companion = companion,
+            id_voluntary = voluntary,
+            finalized = finalized,
         )
-        return HttpResponseRedirect(reverse("beneficiary:list_expense_beneficiary"))
+        return HttpResponseRedirect(reverse("beneficiary:list_expense_beneficiary",args=(beneficiary.id,)))
     else:
         voluntaries = models.Voluntary.objects.filter(job='Administrador del sistema')
-        type_expense = models.Type_expense.objects.all()
+        companions = beneficiary.companion_set.all()
+        date_now = timezone.now().strftime('%Y-%m-%d')
         return render(request,"beneficiaryapp/expense/create_expense_beneficiary.html",{
             'voluntaries':voluntaries,
-            'type_expense':type_expense,
+            'companions':companions,
             'beneficiary':beneficiary,
+            'date_now': date_now,
         })
+    
 
-
-def list_expense_beneficiary(request):
-    expenses = models.ExpenseBeneficiary.objects.all()
+def list_expense_beneficiary(request,beneficiary_id):
+    beneficiary = models.Beneficiary.objects.get(pk=beneficiary_id)
+    expenses = beneficiary.expensebeneficiary_set.all()
     return render(request,"beneficiaryapp/expense/list_expense_beneficiary.html",{
+        'beneficiary':beneficiary,
         'expenses':expenses
     })
+    
+
+def finalized_expense_beneficiary(request,expense_beneficiary_id):
+    expense = models.ExpenseBeneficiary.objects.get(pk=expense_beneficiary_id)
+    expense.finalized = True
+    expense.save()
+    return HttpResponseRedirect(reverse("beneficiary:list_expense_beneficiary",args=(expense.id_beneficiary.id,)))
     
     
 #type-expense

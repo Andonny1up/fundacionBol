@@ -3,6 +3,12 @@
 {% block main %}
 <section id="details">
     <div class="container">
+        {% if expense_pendien %}
+        <div class="alert alert-danger" role="alert">
+            ¡Alerta este beneficiario tiene gastos pendientes!
+        </div>
+        {% endif %}
+        
         <div class="card mb-3 ">
             <div class="card-header text-bg-primary">
                 <h2 class="h1">Detalles del beneficiario:</h2>
@@ -75,7 +81,7 @@
                     </div>
                     <div class="col">
                         <div class="hstack">
-                            <a href="{% url 'beneficiary:create_expense_beneficiary' beneficiary.id %}" class="btn btn-info ms-auto">Gasto beneficiario</a>
+                            <a href="{% url 'beneficiary:list_expense_beneficiary' beneficiary.id %}" class="btn btn-warning ms-auto">Gasto beneficiario</a>
                         </div>
                     </div>
                 </div>
@@ -120,7 +126,7 @@
                 </div>
             
                 {% else %}
-                <p>Este beneficiario no tiene acompañantes aun.</p>
+                <p class="text-center">Este beneficiario no tiene acompañantes aun.</p>
                 {% endif %}
             </div>
         </div>

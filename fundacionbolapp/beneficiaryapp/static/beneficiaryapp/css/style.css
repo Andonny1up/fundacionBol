@@ -36,6 +36,11 @@ body{
     margin: 0.5rem 0;
     padding: 0.5rem;
 }
+#main-create input[type="radio"]{
+    width: 1rem;
+    height: 1rem;
+    padding: 0.5rem;
+}
 #main textarea{
     width: 100%;
     margin: 0.5rem 0;

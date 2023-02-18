@@ -68,8 +68,8 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        <a href="" class="btn btn-primary">Editar</a>
-                        <a href="" class="btn btn-danger">Eliminar</a>
+                        <a href="{% url 'beneficiary:edit_companion' companion.id %}" class="btn btn-primary">Editar</a>
+                        <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirDelete">Eliminar</a>
                     </div>
                 </div>
             </div>
@@ -77,6 +77,23 @@
         
     </div>
 </section>
-
+<!-- Modal -->
+<div class="modal fade" id="confirDelete" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Confirmación</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          ¿Esta seguro de que desea eliminar el registro?
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancelar</a>
+          <a href="{% url 'beneficiary:delete_companion' companion.id %}" class="btn btn-danger">Eliminar</a>
+        </div>
+      </div>
+    </div>
+  </div>
 
 {% endblock main %}

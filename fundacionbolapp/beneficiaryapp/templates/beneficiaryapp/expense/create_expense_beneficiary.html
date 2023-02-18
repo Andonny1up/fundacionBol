@@ -10,17 +10,18 @@
     </div>
     <div class="card">
         <div class="card-body">
-            <form action="{% url 'beneficiary:create_expense_beneficiary' beneficiary.id %}" method="POST">
+            <form action="{% url 'beneficiary:create_expense_beneficiary' beneficiary.id %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row">
                     <label for="id_expense_amount" class="col-10 offset-1 col-md-6 offset-md-0">Monto Gasto:<input type="number" name="expense_amount" step="0.01" required id="id_expense_amount"></label>
-                    <label for="id_expense_date" class="col-10 offset-1 col-md-6 offset-md-0">Fecha del Gasto:<input type="date" name="expense_date" required id="id_expense_date"></label>
+                    <label for="id_expense_date" class="col-10 offset-1 col-md-6 offset-md-0">Fecha del Gasto:<input type="date" name="expense_date" required id="id_expense_date" value="{{date_now}}"></label>
                 </div>
                 <div class="row">
-                    <label for="id_id_type_expense" class="col-10 offset-1 col-md-6 offset-md-0">Tipo de Gasto:
-                        <select name="id_type_expense" id="id_id_type_expense" required>
-                            {% for expense in type_expense %}
-                                <option value="{{expense.id}}">{{expense.name}}</option>
+                    <label for="id_id_companion" class="col-10 offset-1 col-md-6 offset-md-0">Acompañante:
+                        <select name="id_companion" id="id_id_companion">
+                            <option value="">--Ninguno--</option>
+                            {% for companion in companions %}
+                                <option value="{{companion.id}}">{{companion.id_perso.name}}</option>
                             {% endfor %} 
                         </select>
                     </label>
@@ -37,6 +38,12 @@
                     <label for="id_motive" class="col-10 offset-1 col-md offset-md-0">Motivo:<textarea name="motive" cols="40" rows="10" maxlength="350" required id="id_motive"></textarea></label>
                 </div>
                 <div class="row">
+                    <label for="id_finalized" class="col-10 offset-1 col-md-6 offset-md-0">Estado:
+                        <select name="finalized" id="id_finalized" required>
+                            <option value="0">Pendiente</option>
+                            <option value="1">Finalizado</option>
+                        </select>
+                    </label>
                     <label for="id_voucher_expense" class="col-10 offset-1 col-md-6 offset-md-0">Comprobante:<input type="file" name="voucher_expense" required id="voucher_expense"></label>
                 </div>
                 <div class="row">

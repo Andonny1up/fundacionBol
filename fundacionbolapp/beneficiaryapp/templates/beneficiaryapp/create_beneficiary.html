@@ -34,6 +34,7 @@
                 <div class="row">
                     <label for="id_c_name" class="col-10 offset-1 col-md offset-md-0">Tipo de cancer:
                         <select name="c_name" id="id_c_name">
+                            <option value="">--Por definir--</option>
                             {% for cancer in type_cancer %}
                             <option value="{{cancer.id}}">{{cancer.c_name}}</option>
                             {% endfor %}    

@@ -48,6 +48,7 @@ class Donor(models.Model):
     dni = models.TextField(max_length=10)
     name = models.TextField("nombre",max_length=150)
     type_donor = models.TextField("Tipo de donador",max_length=20)
+    active = models.BooleanField("activo", default=1)
     
 
 class Donation(models.Model):
@@ -55,8 +56,8 @@ class Donation(models.Model):
     amount_donation = models.DecimalField("monto de la donacion",max_digits=10,decimal_places=2)
     date_donation = models.DateField("fecha donacion")
     num_cta = models.TextField(max_length=20)
-    #Aconpanante
     voucher_dona = models.FileField(upload_to="uploads/")
+    active = models.BooleanField("activo", default=1)
  
     
 #
@@ -76,13 +77,13 @@ class Type_expense(models.Model):
     
 class ExpenseBeneficiary(models.Model):
     id_beneficiary = models.ForeignKey(Beneficiary,on_delete=models.CASCADE)
-    id_type_expense = models.ForeignKey(Type_expense,on_delete=models.CASCADE)
     expense_amount = models.DecimalField("monto de gasto",max_digits=10,decimal_places=2)
     expense_date = models.DateField("fecha gasto")
     motive = models.TextField(max_length=150)
-    #Aconpanante
+    id_companion = models.ForeignKey(Companion,on_delete=models.SET_NULL, null=True, blank=True)
     id_voluntary = models.ForeignKey(Voluntary,on_delete=models.CASCADE)
     voucher_expense = models.FileField(upload_to="uploads/")
+    finalized = models.BooleanField("finalizado", default=1)
     
     
 class Expense(models.Model):
@@ -91,3 +92,5 @@ class Expense(models.Model):
     Description_expense  = models.TextField("Descripcion de gastos",max_length=350)
     voucher_expense  = models.FileField("comprobante de gastos",upload_to="uploads/")
     id_voluntary = models.ForeignKey(Voluntary,on_delete=models.CASCADE)
+    type_expense = models.ForeignKey(Companion,on_delete=models.SET_NULL, null=True, blank=True)
+    active = models.BooleanField("activo", default=1)

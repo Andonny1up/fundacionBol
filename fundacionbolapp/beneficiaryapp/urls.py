@@ -22,6 +22,8 @@ urlpatterns = [
     #companion
     path("companion/create/<int:beneficiary_id>",views.create_companion,name="create_companion"),
     path("companion/details/<int:companion_id>",views.details_companion,name="details_companion"),
+    path("companion/edit/<int:companion_id>",views.edit_companion,name="edit_companion"),
+    path("companion/delete/<int:companion_id>",views.delete_companion,name="delete_companion"),
     #voluntarios
     path("voluntary/create/",views.create_voluntary,name="create_voluntary"),
     path("voluntary/list/",views.list_voluntary,name="list_voluntary"),
@@ -42,7 +44,8 @@ urlpatterns = [
     #expenses-beneficiary
     path("expense-beneficiary/create/<int:beneficiary_id>",views.create_expense_beneficiary,name="create_expense_beneficiary"),
     #path("donor/details/<int:donor_id>",views.details_donor,name="details_donor"),
-    path("expense-beneficiary/list/",views.list_expense_beneficiary,name="list_expense_beneficiary"),
+    path("expense-beneficiary/list/<int:beneficiary_id>",views.list_expense_beneficiary,name="list_expense_beneficiary"),
+    path("expense-beneficiary/finalized/<int:expense_beneficiary_id>",views.finalized_expense_beneficiary,name="finalized_expense_beneficiary"),
     #type_expense
     path("type-expense/create/",views.create_type_expense,name="create_type_expense"),
     path("type-expense/list/",views.list_type_expense,name="list_type_expense"),
