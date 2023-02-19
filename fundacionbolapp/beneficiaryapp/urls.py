@@ -28,6 +28,8 @@ urlpatterns = [
     path("voluntary/create/",views.create_voluntary,name="create_voluntary"),
     path("voluntary/list/",views.list_voluntary,name="list_voluntary"),
     path("voluntary/details/<int:voluntary_id>",views.details_voluntary,name="details_voluntary"),
+    path("voluntary/edit/<int:voluntary_id>",views.edit_voluntary,name="edit_voluntary"),
+    path("voluntary/delete/<int:voluntary_id>",views.delete_voluntary,name="delete_voluntary"),
     #donations-donor
     path("donor/create/",views.create_donor,name="create_donor"),
     path("donor/details/<int:donor_id>",views.details_donor,name="details_donor"),

@@ -200,7 +200,7 @@ def create_voluntary(request):
 
 
 def list_voluntary(request):
-    voluntaries = models.Voluntary.objects.all()    
+    voluntaries = models.Voluntary.objects.filter(id_perso__active=True)    
     return render(request,"beneficiaryapp/voluntary/list_voluntary.html",{
         'voluntaries': voluntaries,
     })
@@ -211,6 +211,40 @@ def details_voluntary(request,voluntary_id):
     return render(request,"beneficiaryapp/voluntary/details_voluntary.html",{
         'voluntary': voluntary,
     })
+
+
+def edit_voluntary(request,voluntary_id):
+    voluntary = models.Voluntary.objects.get(pk=voluntary_id)
+    if request.method=="POST":
+        voluntary.id_perso.dni = request.POST["dni"]
+        voluntary.id_perso.name = request.POST["name"]
+        voluntary.id_perso.birthday = request.POST["birthday"]
+        voluntary.id_perso.gender = request.POST["gender"]
+        voluntary.id_perso.phone = request.POST["phone"]
+        voluntary.id_perso.address = request.POST["address"]
+        voluntary.job =request.POST["job"]
+        voluntary.id_perso.save()
+        voluntary.save()
+        return HttpResponseRedirect(reverse("beneficiary:details_voluntary",args=(voluntary.id,)))
+    else:
+        text_birthday = voluntary.id_perso.birthday.__str__()
+        return render(request,"beneficiaryapp/voluntary/edit_voluntary.html",{
+            'voluntary':voluntary,
+            'text_birthday':text_birthday,
+        })  
+
+
+def delete_voluntary(request,voluntary_id):
+    voluntary = models.Voluntary.objects.get(pk=voluntary_id)
+    if voluntary.id_perso.active:
+        voluntary.id_perso.active=False
+        voluntary.id_perso.save()
+        return HttpResponseRedirect(reverse("beneficiary:list_voluntary",))
+    else:
+        voluntary.id_perso.active=True
+        voluntary.id_perso.save()
+        
+    return HttpResponseRedirect(reverse("beneficiary:list_voluntary",))
 # <-- Voluntary -->
 
 
