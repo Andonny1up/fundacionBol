@@ -60,6 +60,14 @@ urlpatterns = [
     path("balance/expense/",views.balance,name="balance"),
     path("balance/donations/",views.balance_donations,name="balance_donations"),
     path("balance/total/",views.balance_total,name="balance_total"),
+    
+    #delete-balance
+    path("delete/donation/<donation_id>",views.delete_donation,name="delete_donation"),
+    path("delete/expense/<expense_id>",views.delete_expense,name="delete_expense"),
+    path("delete/expense-beneficiary/<expense_id>",views.delete_expense_beneficiary,name="delete_expense_beneficiary"),
+    
+    #deleted
+     path("deleted/",views.deleted,name="deleted"),
 ]
 
 

@@ -405,14 +405,24 @@ def create_expense(request):
         fs = FileSystemStorage()
         voucher_expense = fs.save(file.name,file)
         id_voluntary = request.POST["id_voluntary"]
+        id_type_expense = request.POST["type_expense"]
         
+        if id_type_expense:
+            type_expense = models.Type_expense.objects.get(pk=id_type_expense)
+        else:
+            type_expense = None
+            
         voluntary = models.Voluntary.objects.get(pk=id_voluntary)
-        expense = models.Expense.objects.create(expense_amount=expense_amount,expense_date=expense_date,Description_expense=Description_expense,voucher_expense=voucher_expense,id_voluntary=voluntary)
+        expense = models.Expense.objects.create(expense_amount=expense_amount,expense_date=expense_date,Description_expense=Description_expense,voucher_expense=voucher_expense,type_expense=type_expense,id_voluntary=voluntary)
         return HttpResponseRedirect(reverse("beneficiary:list_expense"))
     else:
-        voluntaries = models.Voluntary.objects.all()
+        date_now = timezone.now().strftime('%Y-%m-%d')
+        voluntaries = models.Voluntary.objects.filter(job='Administrador del sistema',id_perso__active = True)
+        type_expense = models.Type_expense.objects.all()
         return render(request,"beneficiaryapp/expense/create_expense.html",{
-            'voluntaries':voluntaries
+            'voluntaries':voluntaries,
+            'date_now':date_now,
+            'type_expense':type_expense,
         })
 
 
@@ -455,7 +465,7 @@ def create_expense_beneficiary(request,beneficiary_id):
         )
         return HttpResponseRedirect(reverse("beneficiary:list_expense_beneficiary",args=(beneficiary.id,)))
     else:
-        voluntaries = models.Voluntary.objects.filter(job='Administrador del sistema')
+        voluntaries = models.Voluntary.objects.filter(job='Administrador del sistema',id_perso__active = True)
         companions = beneficiary.companion_set.all()
         date_now = timezone.now().strftime('%Y-%m-%d')
         return render(request,"beneficiaryapp/expense/create_expense_beneficiary.html",{
@@ -520,7 +530,7 @@ def destroy_type_expense(request, type_expense_id):
 
 
 #<--vista cuentas-->
-def balance(request):
+def balance(request): #expenses
     if request.method=="POST":
         date_init= request.POST["date_init"]
         date_limit= request.POST["date_limit"]
@@ -528,11 +538,15 @@ def balance(request):
         date_init = (timezone.now() - datetime.timedelta(days = 30)).strftime('%Y-%m-%d')
         date_limit = timezone.now().strftime('%Y-%m-%d')
         
-    expenses = models.Expense.objects.filter(expense_date__gte=date_init,expense_date__lte=date_limit)
-    expenses_beneficiary = models.ExpenseBeneficiary.objects.filter(expense_date__gte=date_init,expense_date__lte=date_limit)
+    expenses = models.Expense.objects.filter(expense_date__gte=date_init,expense_date__lte=date_limit).order_by('-expense_date')
+    expenses_beneficiary = models.ExpenseBeneficiary.objects.filter(expense_date__gte=date_init,expense_date__lte=date_limit).order_by('-expense_date')
+    
+    expenses_active = expenses.filter(active=True)
+    expenses_active_beneficiary = expenses_beneficiary.filter(active=True)
+    
     total_num_expense = expenses.count() + expenses_beneficiary.count()
-    t_expense_gasto = expenses.aggregate(total=Sum('expense_amount',default=0))['total']
-    t_expense_gasto_beneficiary = expenses_beneficiary.aggregate(total=Sum('expense_amount',default=0))['total']
+    t_expense_gasto = expenses_active.aggregate(total=Sum('expense_amount',default=0))['total']
+    t_expense_gasto_beneficiary = expenses_active_beneficiary.aggregate(total=Sum('expense_amount',default=0))['total']
     total_expense = t_expense_gasto + t_expense_gasto_beneficiary
     
     
@@ -556,9 +570,10 @@ def balance_donations(request):
         date_init = (timezone.now() - datetime.timedelta(days = 30)).strftime('%Y-%m-%d')
         date_limit = timezone.now().strftime('%Y-%m-%d')
         
-    donations = models.Donation.objects.filter(date_donation__gte=date_init,date_donation__lte=date_limit)
+    donations = models.Donation.objects.filter(date_donation__gte=date_init,date_donation__lte=date_limit).order_by('-date_donation')
+    donations_valide = donations.filter(active=True)
     total_num_donations = donations.count()
-    total_donations = donations.aggregate(total=Sum('amount_donation',default=0))['total']
+    total_donations = donations_valide.aggregate(total=Sum('amount_donation',default=0))['total']
     
     return render(request,"beneficiaryapp/balance/balance_donations.html",{
             'donations':donations,
@@ -578,12 +593,18 @@ def balance_total(request):
         date_limit = timezone.now().strftime('%Y-%m-%d')
         
     donations = models.Donation.objects.filter(date_donation__gte=date_init,date_donation__lte=date_limit)
-    total_donations = donations.aggregate(total=Sum('amount_donation',default=0))['total']
+    donations_valide = donations.filter(active=True)
+    total_donations = donations_valide.aggregate(total=Sum('amount_donation',default=0))['total']
     
     expenses = models.Expense.objects.filter(expense_date__gte=date_init,expense_date__lte=date_limit)
     expenses_beneficiary = models.ExpenseBeneficiary.objects.filter(expense_date__gte=date_init,expense_date__lte=date_limit)
-    t_expense_gasto = expenses.aggregate(total=Sum('expense_amount',default=0))['total']
-    t_expense_gasto_beneficiary = expenses_beneficiary.aggregate(total=Sum('expense_amount',default=0))['total']
+    
+    expenses_active = expenses.filter(active=True)
+    expenses_active_beneficiary = expenses_beneficiary.filter(active=True)
+    
+    
+    t_expense_gasto = expenses_active.aggregate(total=Sum('expense_amount',default=0))['total']
+    t_expense_gasto_beneficiary = expenses_active_beneficiary.aggregate(total=Sum('expense_amount',default=0))['total']
     total_expense = t_expense_gasto + t_expense_gasto_beneficiary
     
     balance = total_donations - total_expense
@@ -603,3 +624,38 @@ def balance_total(request):
             'total_balance': balance
         })
 
+
+#<-- delete balance -->
+def delete_donation(request,donation_id):
+    donation = models.Donation.objects.get(pk=donation_id)
+    donation.active=False
+    donation.save()
+    return HttpResponseRedirect(reverse("beneficiary:balance_donations",))
+
+
+def delete_expense(request,expense_id):
+    expense = models.Expense.objects.get(pk=expense_id)
+    expense.active=False
+    expense.save()
+    return HttpResponseRedirect(reverse("beneficiary:balance",))
+
+
+def delete_expense_beneficiary(request,expense_id):#expense beneficiary
+    expense = models.ExpenseBeneficiary.objects.get(pk=expense_id)
+    expense.active=False
+    expense.save()
+    return HttpResponseRedirect(reverse("beneficiary:balance",))
+
+
+def deleted(request):
+    beneficiary = models.Beneficiary.objects.filter(id_perso__active=False)
+    companion = models.Companion.objects.filter(id_perso__active=False)
+    voluntary = models.Voluntary.objects.filter(id_perso__active=False)
+    donor = models.Donor.objects.filter(active=False)
+    
+    return render(request,'beneficiaryapp/deleted/list_deleted.html',{
+        'beneficiaries':beneficiary,
+        'companions':companion,
+        'voluntaries': voluntary,
+        'donors': donor,
+    })

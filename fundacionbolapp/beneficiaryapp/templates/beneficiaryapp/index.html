@@ -44,7 +44,7 @@
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-circle-dollar-to-slot me-1"></i>Donaciones
+                        <i class="fa-solid fa-circle-dollar-to-slot me-2"></i>Donaciones
                       </a>
                       <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="{% url 'beneficiary:create_donor' %}">Registrar nuevo donador</a></li>
@@ -54,23 +54,22 @@
                       </ul>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{% url 'beneficiary:list_voluntary' %}"><i class="fa-solid fa-circle-user me-1"></i>Voluntarios</a>
+                      <a class="nav-link active" aria-current="page" href="{% url 'beneficiary:list_voluntary' %}"><i class="fa-solid fa-circle-user me-2"></i>Voluntarios</a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Gastos
+                      <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-money-check-dollar me-2"></i>Gastos
                       </a>
                       <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="{% url 'beneficiary:create_expense' %}">Registrar Gastos</a></li>
-                        <li><a class="dropdown-item" href="{% url 'beneficiary:list_type_expense' %}">Tipos Gastos beneficiarios</a></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_expense' %}">Lista de Gastos</a></li>
                         <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Obtener Ayuda</a></li>
+                        <li><a class="dropdown-item" href="{% url 'beneficiary:list_type_expense' %}">Tipos Gastos beneficiarios</a></li>
                       </ul>
                     </li>
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-scale-balanced me-1"></i>Balance
+                        <i class="fa-solid fa-scale-balanced me-2"></i>Balance
                       </a>
                       <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="{% url 'beneficiary:balance_donations' %}">Donaciones</a></li>

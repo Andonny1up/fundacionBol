@@ -3,32 +3,41 @@
 {% block main %}
 <section id="list-cancer">
 <div class="container">
-    <div class="hstack">
-        <a href="{% url 'beneficiary:create_type_expense' %}" class="btn btn-primary ms-auto">Agregar Tipo de gasto</a>
+    <div class="card mb-3">
+        <div class="card-header text-bg-primary">
+            <h2 class="h1">Lista de tipos de gastos</h2>
+        </div>
     </div>
-    <div class="table-responsive">
-        <hr>
-        <table class="table table-bordered">
-            <thead>
-                <tr class="table-dark">
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Aciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for expense in type_expense %}
-                <tr>
-                    <td>{{expense.name}}</td>
-                    <td>{{expense.details}}</td>
-                    <td>
-                        <a href="{% url 'beneficiary:edit_type_expense' expense.id %}" class="badge text-bg-danger">Editar</a>
-                        <a href="{% url 'beneficiary:destroy_type_expense' expense.id %}" class="badge text-bg-danger">Borrar</a>
-                    </td>  
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <div class="card">
+        <div class="card-body">
+            <div class="hstack">
+                <a href="{% url 'beneficiary:create_type_expense' %}" class="btn btn-primary ms-auto">Agregar Tipo de gasto</a>
+            </div>
+            <div class="table-responsive">
+                <hr>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr class="table-primary">
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripción</th>
+                            <th scope="col">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for expense in type_expense %}
+                        <tr>
+                            <td>{{expense.name}}</td>
+                            <td>{{expense.details}}</td>
+                            <td>
+                                <a href="{% url 'beneficiary:edit_type_expense' expense.id %}" class="badge text-bg-warning">Editar</a>
+                                <a href="{% url 'beneficiary:destroy_type_expense' expense.id %}" class="badge text-bg-danger" onclick="return confirmDelete()">Borrar</a>
+                            </td>  
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
 </section>

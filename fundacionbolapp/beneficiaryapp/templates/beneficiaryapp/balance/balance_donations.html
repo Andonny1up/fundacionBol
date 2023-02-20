@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-3">
-                    <div class="card border-success-mb-3">
+                    <div class="card border-success mb-3">
                         <div class="card-header text-bg-success"><i class="fa-solid fa-money-bill me-2"></i>Monto Total:</div>
                         <div class="card-body">
                           <h5 class="card-title">La sumatoria ha sido</h5>
@@ -61,18 +61,37 @@
                             <tr class="table-primary">
                                 <th scope="col">Monto</th>
                                 <th scope="col">Donante</th>
+                                <th scope="col">Numero de cuenta</th>
                                 <th scope="col">Fecha</th>
                                 <th scope="col">Comprobante</th>
+                                <th scope="col">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for donation in donations %}
+                            {% if donation.active %}
                             <tr>
                                 <td>{{donation.amount_donation}}</td>
                                 <td>{{donation.id_donor.name}}</td>
+                                <td>{{donation.num_cta}}</td>
                                 <td>{{donation.date_donation}}</td>
-                                <td><a href="">{{donation.voucher_dona}}</a></td>  
+                                <td><a href="">{{donation.voucher_dona}}</a></td>
+                                <td>
+                                    <a href="{% url 'beneficiary:delete_donation' donation.id %}" class="badge text-bg-danger" onclick='return confirmDelete()' style="text-decoration:none;">Borrar</a>
+                                </td>
                             </tr>
+                            {% else %}
+                            <tr class="text-bg-danger">
+                                <td><del>{{donation.amount_donation}}</del></td>
+                                <td><del>{{donation.id_donor.name}}</del></td>
+                                <td><del>{{donation.num_cta}}</del></td>
+                                <td><del>{{donation.date_donation}}</del></td>
+                                <td><del><a href="" style="color: #fff;">{{donation.voucher_dona}}</a></del></td>
+                                <td>
+                                    <span class="badge text-bg-danger" style="text-decoration:none;">Eliminado</span>
+                                </td>
+                            </tr>
+                            {% endif %}
                             {% endfor %}
                         </tbody>
                     </table>
