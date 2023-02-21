@@ -1,5 +1,12 @@
 {% extends 'beneficiaryapp/index.html' %}
 {% block title %}Balance de gastos{% endblock  %}
+{% load static %}
+{% block t-head %}
+<script src="{% static 'beneficiaryapp/lib/Highcharts-10.3.3/code/highcharts.js' %}"></script>
+<script src="{% static 'beneficiaryapp/lib/Highcharts-10.3.3/code/modules/data.js' %}"></script>
+<script src="{% static 'beneficiaryapp/lib/Highcharts-10.3.3/code/modules/exporting.js' %}"></script>
+<script src="{% static 'beneficiaryapp/lib/Highcharts-10.3.3/code/modules/accessibility.js' %}"></script>
+{% endblock t-head %}
 {% block main %}
 <section id="balance">
 <div class="container">
@@ -64,8 +71,58 @@
                 </div>
                 {% endif %}
             </div>
+            <hr>
+            <div id="container"></div>
+            <table id="datatable" hidden>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Donaciones</th>
+                        <th>Gastos</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Desde {{date_init}} hasta {{date_limit}}</th>
+                        <td>{{total_donations}}</td>
+                        <td>{{total_expense}}</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
 </section>
+<script type="application/javascript">
+    Highcharts.chart('container', {
+        data: {
+            table: 'datatable'
+        },
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Vista en grafico'
+        },
+        subtitle: {
+            text:
+                ''
+        },
+        xAxis: {
+            type: 'category'
+        },
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Monto en bs'
+            }
+        },
+        tooltip: {
+            formatter: function () {
+                return '<b>' + this.series.name + '</b><br/>' +
+                    this.point.y + ' ' + this.point.name.toLowerCase();
+            }
+        }
+    });
+</script>
 {% endblock %}

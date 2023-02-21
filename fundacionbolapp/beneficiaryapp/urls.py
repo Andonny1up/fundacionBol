@@ -67,7 +67,10 @@ urlpatterns = [
     path("delete/expense-beneficiary/<expense_id>",views.delete_expense_beneficiary,name="delete_expense_beneficiary"),
     
     #deleted
-     path("deleted/",views.deleted,name="deleted"),
+    path("deleted/",views.deleted,name="deleted"),
+     
+    #graphics
+    path("graphics/",views.graphic_type_cancer,name="graphic_type_cancer"),
 ]
 
 

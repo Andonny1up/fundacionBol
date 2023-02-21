@@ -608,6 +608,7 @@ def balance_total(request):
     total_expense = t_expense_gasto + t_expense_gasto_beneficiary
     
     balance = total_donations - total_expense
+    #grafico
     
     return render(request,"beneficiaryapp/balance/balance_total.html",{
             'date_init':date_init,
@@ -658,4 +659,34 @@ def deleted(request):
         'companions':companion,
         'voluntaries': voluntary,
         'donors': donor,
+    })
+    
+
+#<----------------------- GRAPHICS ------------------>
+def graphic_type_cancer(request):
+    data = []
+    first = True
+    type_cancer = models.Cancer.objects.all()
+    total_beneficiary = models.Beneficiary.objects.filter(id_perso__active=True).count()
+    for cancer in type_cancer:
+        beneficiary_list= cancer.beneficiary_set.filter(id_perso__active=True)
+        number_beneficiary_part = beneficiary_list.count()
+        porc = (number_beneficiary_part * 100)/total_beneficiary
+        if first:
+            dic = {
+            'name':cancer.c_name,
+            'y': porc,
+        }
+        else:
+            dic = {
+            'name':cancer.c_name,
+            'y': porc,
+            'sliced': 'true',
+            'selected': 'true'
+        }
+        data.append(dic)
+        first=False
+        
+    return render(request,'beneficiaryapp/graphics/type_cancer.html',{
+        'data_type_cancer': data,
     })

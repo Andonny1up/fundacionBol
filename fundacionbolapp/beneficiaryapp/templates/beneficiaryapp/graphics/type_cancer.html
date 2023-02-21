@@ -1,0 +1,107 @@
+{% extends 'beneficiaryapp/index.html' %}
+{% block title %}Grafico de tipos de cancer{% endblock title %}
+{% load static %}
+{% block t-head %}
+<script src="{% static 'beneficiaryapp/lib/Highcharts-10.3.3/code/highcharts.js' %}"></script>
+<script src="{% static 'beneficiaryapp/lib/Highcharts-10.3.3/code/modules/exporting.js' %}"></script>
+<script src="{% static 'beneficiaryapp/lib/Highcharts-10.3.3/code/modules/export-data.js' %}"></script>
+<script src="{% static 'beneficiaryapp/lib/Highcharts-10.3.3/code/modules/accessibility.js' %}"></script>
+{% endblock t-head %}
+{% block main %}
+<section>
+    <div class="container">
+        <div class="card border-primary">
+            <div class="card-header text-bg-primary">
+                <h2 class="h1">Beneficiarios por tipo de cancer</h2>
+            </div>
+            <div class="card-body">
+                <div id="container">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="application/javascript">
+    Highcharts.chart('container', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie'
+        },
+        title: {
+            text: 'Porcentaje de beneficiarios segun su tipo de cancer',
+            align: 'left'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        accessibility: {
+            point: {
+                valueSuffix: '%'
+            }
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+                }
+            }
+        },
+        series: [{
+            name: 'Brands',
+            colorByPoint: true,
+            data: [
+            {% for d in data_type_cancer %}
+            {
+                name: '{{d.name}}',
+                y: {{d.y}}
+            },
+            {% endfor %}
+            ]
+        }]
+    });
+</script>
+{% comment %} 
+{
+                name:'{{data_type_cancer.1.name}}',
+                y:{{data_type_cancer.1.y}}
+            },{
+                name:'puto2',
+                y:{{data_type_cancer.0.y}}
+            }
+data: [{
+                'name': 'Chromelo',
+                'y': 30,
+                'sliced': 'true',
+                'selected': 'true'
+            }, {
+                name: 'Edge',
+                'y': 40
+            },  {
+                name: 'Firefox',
+                y: 10
+            }, {
+                name: 'Safari',
+                y: 5
+            }, {
+                name: 'Internet Explorer',
+                y: 5
+            },  {
+                name: 'Opera',
+                y: 5
+            }, {
+                name: 'Sogou Explorer',
+                y: 5
+            }, {
+                name: 'QQ',
+                y: 0
+            }, {
+                name: 'Other',
+                y: 0
+            }]
+{% endcomment %}
+{% endblock main %}
