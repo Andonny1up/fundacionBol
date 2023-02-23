@@ -9,6 +9,7 @@ class Person(models.Model):
     gender = models.CharField("genero",max_length=10)
     phone = models.CharField("telefono",max_length=10)
     address = models.TextField("direccion",max_length=(250))
+    photo = models.ImageField("Foto",upload_to='images/', null=True, blank=True)
     active = models.BooleanField("activo",default=1)
     
     def __str__(self):
@@ -56,7 +57,7 @@ class Donation(models.Model):
     amount_donation = models.DecimalField("monto de la donacion",max_digits=10,decimal_places=2)
     date_donation = models.DateField("fecha donacion")
     num_cta = models.TextField(max_length=20)
-    voucher_dona = models.FileField(upload_to="uploads/")
+    voucher_dona = models.FileField(upload_to="donations/")
     active = models.BooleanField("activo", default=1)
  
     
@@ -65,7 +66,7 @@ class Diagnostic(models.Model):
     presumptive_name = models.CharField("nombre presuntivo",max_length=100)
     details = models.TextField("detalles",max_length=350)
     diagnostic_date = models.DateField("fecha diagnostico")
-    document = models.FileField("documento",upload_to="uploads")
+    document = models.FileField("documento",upload_to="diagnostic/")
     id_beneficiary = models.ForeignKey(Beneficiary,on_delete=models.CASCADE)
  
     
@@ -82,7 +83,7 @@ class ExpenseBeneficiary(models.Model):
     motive = models.TextField(max_length=150)
     id_companion = models.ForeignKey(Companion,on_delete=models.SET_NULL, null=True, blank=True)
     id_voluntary = models.ForeignKey(Voluntary,on_delete=models.CASCADE)
-    voucher_expense = models.FileField(upload_to="uploads/")
+    voucher_expense = models.FileField(upload_to="expense/")
     finalized = models.BooleanField("finalizado", default=1)
     active = models.BooleanField("activo", default=1)
     
@@ -91,7 +92,7 @@ class Expense(models.Model):
     expense_amount = models.DecimalField("monto de otros gastos",max_digits=10,decimal_places=2)
     expense_date = models.DateField("fecha otros gastos")
     Description_expense  = models.TextField("Descripcion de gastos",max_length=350)
-    voucher_expense  = models.FileField("comprobante de gastos",upload_to="uploads/")
+    voucher_expense  = models.FileField("comprobante de gastos",upload_to="expense/")
     id_voluntary = models.ForeignKey(Voluntary,on_delete=models.CASCADE)
     type_expense = models.ForeignKey(Type_expense,on_delete=models.SET_NULL, null=True, blank=True)
     active = models.BooleanField("activo", default=1)

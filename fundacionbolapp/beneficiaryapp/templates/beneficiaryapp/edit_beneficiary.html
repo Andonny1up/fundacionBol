@@ -10,7 +10,7 @@
     </div>
     <div class="card">
         <div class="card card-body">
-            <form action="{% url 'beneficiary:edit_beneficiary' beneficiary.id %}" method="POST">
+            <form action="{% url 'beneficiary:edit_beneficiary' beneficiary.id %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row">
                     <label for="id_dni" class="col-10 offset-1 col-md-6 offset-md-0">Dni:<input type="text" name="dni" maxlength="10" required id="id_dni" value="{{beneficiary.id_perso.dni}}"></label>
@@ -48,6 +48,9 @@
                             
                             {% endfor %}    
                         </select>
+                        <label for="id_photo" class="col-10 offset-1 col-md offset-md-0">Foto:
+                            <input type="file" name="photo" accept="image/*" id="id_photo">
+                        </label>
                     </label>
                 </div>
                 <div class="row">

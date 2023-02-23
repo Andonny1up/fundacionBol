@@ -11,65 +11,78 @@
         <div class="card mb-3">
             <div class="card-body">
                 <div class="row">
-                    <div class="col">
-                        <p><strong>Dni:</strong></p>
+                    <div class="col-12 col-lg-3 mb-2">
+                        {% if companion.id_perso.photo %}
+                        <div class="row">
+                            <div class="col d-flex justify-content-center">
+                                <img src="{{companion.id_perso.photo.url}}" alt="foto del beneficiario"  class="img-thumbnail" style="max-width:20rem">
+                            </div>
+                        </div>
+                        {% endif %} 
                     </div>
-                    <div class="col">
-                        <p>{{companion.id_perso.dni}}</p>
+                    <div class="col-12 col-lg-9">
+                        <div class="row">
+                            <div class="col">
+                                <p><strong>Dni:</strong></p>
+                            </div>
+                            <div class="col">
+                                <p>{{companion.id_perso.dni}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p><strong>Nombre:</strong></p>
+                            </div>
+                            <div class="col">
+                                <p>{{companion.id_perso.name}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p><strong>Fecha de Nacimiento:</strong></p>
+                            </div>
+                            <div class="col">
+                                <p>{{companion.id_perso.birthday}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p><strong>Genero:</strong></p>
+                            </div>
+                            <div class="col">
+                                <p>{{companion.id_perso.gender}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p><strong>Telefono:</strong></p>
+                            </div>
+                            <div class="col">
+                                <p>{{companion.id_perso.phone}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p><strong>Dirección:</strong></p>
+                            </div>
+                            <div class="col">
+                                <p>{{companion.id_perso.address}}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p><strong>Acompañante de:</strong></p>
+                            </div>
+                            <div class="col">
+                                <p>{{companion.id_beneficiary.id_perso.name}}</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p><strong>Nombre:</strong></p>
-                    </div>
-                    <div class="col">
-                        <p>{{companion.id_perso.name}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p><strong>Fecha de Nacimiento:</strong></p>
-                    </div>
-                    <div class="col">
-                        <p>{{companion.id_perso.birthday}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p><strong>Genero:</strong></p>
-                    </div>
-                    <div class="col">
-                        <p>{{companion.id_perso.gender}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p><strong>Telefono:</strong></p>
-                    </div>
-                    <div class="col">
-                        <p>{{companion.id_perso.phone}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p><strong>Dirección:</strong></p>
-                    </div>
-                    <div class="col">
-                        <p>{{companion.id_perso.address}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <p><strong>Acompañante de:</strong></p>
-                    </div>
-                    <div class="col">
-                        <p>{{companion.id_beneficiary.id_perso.name}}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <a href="{% url 'beneficiary:edit_companion' companion.id %}" class="btn btn-primary">Editar</a>
-                        <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirDelete">Eliminar</a>
+                    <div class="row">
+                        <div class="col">
+                            <a href="{% url 'beneficiary:edit_companion' companion.id %}" class="btn btn-primary">Editar</a>
+                            <a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirDelete">Eliminar</a>
+                        </div>
                     </div>
                 </div>
             </div>

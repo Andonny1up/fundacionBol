@@ -5,7 +5,8 @@ from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 from django.db.models import Sum
 import datetime
-from . import forms, models 
+from . import forms, models
+from django.views.generic.base import View
 
 
 # Create your views here.
@@ -24,8 +25,10 @@ def create_beneficiary(request):
         phone = request.POST["phone"]
         address = request.POST["address"]
         c_name =request.POST["c_name"]
+    
+        photo= request.FILES["photo"]
         
-        person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address)
+        person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address,photo=photo)
         if c_name:
             cancer = models.Cancer.objects.get(pk=c_name)
         else:
@@ -43,7 +46,7 @@ def create_beneficiary(request):
 
 
 def edit_beneficiary(request,beneficiary_id):
-    beneficiary = models.Beneficiary.objects.get(pk=beneficiary_id)
+    beneficiary = get_object_or_404(models.Beneficiary,pk=beneficiary_id)
     if request.method=="POST":
         beneficiary.id_perso.dni = request.POST["dni"]
         beneficiary.id_perso.name = request.POST["name"]
@@ -51,7 +54,11 @@ def edit_beneficiary(request,beneficiary_id):
         beneficiary.id_perso.gender = request.POST["gender"]
         beneficiary.id_perso.phone = request.POST["phone"]
         beneficiary.id_perso.address = request.POST["address"]
+        if request.FILES.get('photo'):
+            beneficiary.id_perso.photo = request.FILES['photo']
+            
         beneficiary.id_perso.save()
+            
         cancer =models.Cancer.objects.get(pk=request.POST["c_name"])
         beneficiary.id_cancer = cancer
         beneficiary.save()
@@ -133,9 +140,11 @@ def create_companion(request,beneficiary_id):
         gender = request.POST["gender"]
         phone = request.POST["phone"]
         address = request.POST["address"]
+
+        photo= request.FILES["photo"]
         
         bene = models.Beneficiary.objects.get(pk=beneficiary_id)
-        person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address)
+        person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address,photo=photo)
         companion = models.Companion.objects.create(id_perso=person,id_beneficiary=bene)
         return HttpResponseRedirect(reverse("beneficiary:details_beneficiary",args=(bene.id,)))
     else:
@@ -191,7 +200,9 @@ def create_voluntary(request):
         address = request.POST["address"]
         job =request.POST["job"]
         
-        person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address)
+        photo= request.FILES["photo"]
+        
+        person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address, photo=photo)
         voluntary = models.Voluntary.objects.create(id_perso=person,job=job)
         return HttpResponseRedirect(reverse("beneficiary:details_voluntary",args=(voluntary.id,)))
     else:
@@ -314,9 +325,7 @@ def create_donation(request,donor_id):
         amount_donation = request.POST["amount_donation"]
         date_donation = request.POST["date_donation"]
         num_cta = request.POST["num_cta"]
-        file = request.FILES["voucher_dona"]
-        fs = FileSystemStorage()
-        voucher_dona = fs.save(file.name,file)
+        voucher_dona = request.FILES["voucher_dona"]
         
         donation = models.Donation.objects.create(id_donor=donor,amount_donation=amount_donation,date_donation=date_donation,num_cta=num_cta,voucher_dona=voucher_dona)
         return HttpResponseRedirect(reverse("beneficiary:details_donor",args=(donor.id,)))
@@ -343,9 +352,7 @@ def create_diagnostic(request,beneficiary_id):
         presumptive_name = request.POST["presumptive_name"]
         details = request.POST["details"]
         diagnostic_date = request.POST["diagnostic_date"]
-        file = request.FILES["document"]
-        fs = FileSystemStorage()
-        document = fs.save(file.name,file)
+        document = request.FILES["document"]
         
         diagnostic = models.Diagnostic.objects.create(presumptive_name=presumptive_name,details=details,diagnostic_date=diagnostic_date,document=document,id_beneficiary = beneficiary)
         return HttpResponseRedirect(reverse("beneficiary:list_diagnostic",args=(beneficiary.id,)))
@@ -401,9 +408,7 @@ def create_expense(request):
         expense_amount = request.POST["expense_amount"]
         expense_date = request.POST["expense_date"]
         Description_expense = request.POST["Description_expense"]
-        file = request.FILES["voucher_expense"]
-        fs = FileSystemStorage()
-        voucher_expense = fs.save(file.name,file)
+        voucher_expense = request.FILES["voucher_expense"]
         id_voluntary = request.POST["id_voluntary"]
         id_type_expense = request.POST["type_expense"]
         
@@ -441,9 +446,7 @@ def create_expense_beneficiary(request,beneficiary_id):
         expense_amount = request.POST["expense_amount"]
         expense_date = request.POST["expense_date"]
         motive = request.POST["motive"]
-        file = request.FILES["voucher_expense"]
-        fs = FileSystemStorage()
-        voucher_expense= fs.save(file.name,file)
+        voucher_expense= request.FILES["voucher_expense"]
         #id_type_expense = request.POST["id_type_expense"]
         id_companion = request.POST["id_companion"]
         id_voluntary = request.POST["id_voluntary"]
