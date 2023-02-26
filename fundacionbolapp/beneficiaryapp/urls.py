@@ -2,16 +2,17 @@ from django.urls import path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
 
 app_name = "beneficiary"
 urlpatterns = [
     path("",views.home,name="home"),
-    path("create/",views.create_beneficiary,name="create_beneficiary"),
-    path("list/",views.list_beneficiary,name="list_beneficiary"),
-    path("search/",views.search_beneficiary,name="search_beneficiary"),
-    path("edit/<int:beneficiary_id>",views.edit_beneficiary,name="edit_beneficiary"),
-    path("details/<int:beneficiary_id>",views.details,name="details_beneficiary"),
-    path("delete/<int:beneficiary_id>",views.delete_beneficiary,name="delete_beneficiary"),
+    path("beneficiary/create/",views.create_beneficiary,name="create_beneficiary"),
+    path("beneficiary/list/",views.list_beneficiary,name="list_beneficiary"),
+    path("beneficiary/search/",views.search_beneficiary,name="search_beneficiary"),
+    path("beneficiary/edit/<int:beneficiary_id>",views.edit_beneficiary,name="edit_beneficiary"),
+    path("beneficiary/details/<int:beneficiary_id>",views.details,name="details_beneficiary"),
+    path("beneficiary/delete/<int:beneficiary_id>",views.delete_beneficiary,name="delete_beneficiary"),
     #ex: deneficiarios/detalles/5/
     #cancers
     path("cancer/create/",views.create_cancer,name="create_cancer"),
@@ -71,7 +72,14 @@ urlpatterns = [
      
     #graphics
     path("graphics/",views.graphic_type_cancer,name="graphic_type_cancer"),
+    
+    #login
+    path("login/", auth_views.LoginView.as_view(),name='login'),
+    path('register/', views.register, name='register'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
 ]
 
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+from django.contrib.auth import views as auth_views

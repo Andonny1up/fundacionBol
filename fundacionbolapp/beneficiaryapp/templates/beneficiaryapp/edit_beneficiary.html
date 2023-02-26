@@ -13,7 +13,7 @@
             <form action="{% url 'beneficiary:edit_beneficiary' beneficiary.id %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row">
-                    <label for="id_dni" class="col-10 offset-1 col-md-6 offset-md-0">Dni:<input type="text" name="dni" maxlength="10" required id="id_dni" value="{{beneficiary.id_perso.dni}}"></label>
+                    <label for="id_dni" class="col-10 offset-1 col-md-6 offset-md-0">Carnet de Identidad:<input type="text" name="dni" maxlength="10" required id="id_dni" value="{{beneficiary.id_perso.dni}}"></label>
                     <label for="id_name" class="col-10 offset-1 col-md offset-md-0">Nombre:<input type="text" name="name" maxlength="150" required id="id_name" value="{{beneficiary.id_perso.name}}"></label>
                 </div>
                 <div class="row">

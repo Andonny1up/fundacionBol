@@ -45,6 +45,7 @@ THIRD_APPS = (
 LOCAL_APPS = (
     'beneficiarios.apps.BeneficiariosConfig',
     'beneficiaryapp.apps.BeneficiaryappConfig',
+    'main.apps.MainConfig',
 )
 
 INSTALLED_APPS = THIRD_APPS + DJANGO_APPS  + LOCAL_APPS
@@ -135,3 +136,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = 'beneficiary:home'
+LOGOUT_REDIRECT_URL = 'main:home'
+

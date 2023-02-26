@@ -13,7 +13,7 @@
             <form action="{% url 'beneficiary:create_voluntary' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row">
-                    <label for="id_dni" class="col-10 offset-1 col-md-6 offset-md-0">Dni:<input type="text" name="dni" maxlength="10" required id="id_dni"></label>
+                    <label for="id_dni" class="col-10 offset-1 col-md-6 offset-md-0">Carnet de identidad:<input type="text" name="dni" maxlength="10" required id="id_dni"></label>
                     <label for="id_name" class="col-10 offset-1 col-md offset-md-0">Nombre:<input type="text" name="name" maxlength="150" required id="id_name"></label>
                 </div>
                 <div class="row">

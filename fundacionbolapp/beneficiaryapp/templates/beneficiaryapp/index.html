@@ -19,7 +19,7 @@
                 <span class="navbar-toggler-icon"></span>
               </button>
               <a class="navbar-brand" href="#">
-                LOGO
+                <img src="{% static 'beneficiaryapp/img/un_boliviano_REDONDO.png' %}" alt="" style="width: 4rem; height:3.5rem">
               </a>
               <div class="offcanvas offcanvas-start text-bg-primary" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
@@ -79,6 +79,13 @@
                         <li><a class="dropdown-item" href="{% url 'beneficiary:balance_total' %}">Total</a></li>
                       </ul>
                     </li>
+                    <li><hr></li>
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'beneficiary:logout' %}">Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'beneficiary:login' %}">Login</a></li>
+                    {% endif %}
+
                   </ul>
                 </div>
               </div>

@@ -1,12 +1,14 @@
 {% extends 'beneficiaryapp/index.html' %}
 
 {% block title %}Inicio{% endblock title %}
-
+{% load static %}
 {% block main %}
 <section id="home">
     <div class="main-home">
+        <img src="{% static 'beneficiaryapp/img/un_boliviano_REDONDO.png' %}" alt="" style="width: 20rem;">
         <h2>Bienvenido</h2>
         <p>El mundo es grande, pero mira... lo estoy pisando</p>
+        
     </div>
 </section>
 {% endblock main %}

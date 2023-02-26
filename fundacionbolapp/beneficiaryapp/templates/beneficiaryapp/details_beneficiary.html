@@ -5,7 +5,7 @@
     <div class="container">
         {% if expense_pendien %}
         <div class="alert alert-danger" role="alert">
-            ¡Alerta este beneficiario tiene gastos pendientes!
+            ¡Alerta este beneficiario tiene decargos pendientes!
         </div>
         {% endif %}
         
@@ -30,7 +30,7 @@
                         <div class="col-12 col-lg-9">
                             <div class="row">
                                 <div class="col">
-                                    <p><strong>Dni:</strong></p>
+                                    <p><strong>Carnet de identidad:</strong></p>
                                 </div>
                                 <div class="col">
                                     <p>{{beneficiary.id_perso.dni}}</p>
@@ -96,7 +96,7 @@
                     </div>
                     <div class="col">
                         <div class="hstack">
-                            <a href="{% url 'beneficiary:list_expense_beneficiary' beneficiary.id %}" class="btn btn-warning ms-auto me-sm-0 me-auto">Gasto beneficiario</a>
+                            <a href="{% url 'beneficiary:list_expense_beneficiary' beneficiary.id %}" class="btn btn-warning ms-auto me-sm-0 me-auto">Descargo beneficiario</a>
                         </div>
                     </div>
                 </div>
@@ -121,7 +121,7 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr class="table-primary">
-                                <th scope="col">Dni</th>
+                                <th scope="col">CI</th>
                                 <th scope="col">Nombre</th>
                                 <th scope="col">Telefono</th>
                                 <th scope="col">Detalles</th>

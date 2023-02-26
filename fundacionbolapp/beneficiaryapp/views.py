@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render,redirect, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.utils import timezone
@@ -6,7 +6,26 @@ from django.core.files.storage import FileSystemStorage
 from django.db.models import Sum
 import datetime
 from . import forms, models
-from django.views.generic.base import View
+from django.contrib.auth.decorators import login_required
+
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+
+
+@login_required
+def register(request):
+    if request.user.can_register:
+        if request.method == 'POST':
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                user = form.save()
+                login(request, user)
+                return redirect('beneficiary:home')
+        else:
+            form = UserCreationForm()
+        return render(request, 'registration/register.html', {'form': form})
+    else:
+        return HttpResponse("You are not authorized to register new users.")
 
 
 # Create your views here.
@@ -16,6 +35,7 @@ def home(request):
 # <-- home-->
 
 # <-- Beneficiary -->
+@login_required
 def create_beneficiary(request):
     if request.method=="POST":
         dni = request.POST["dni"]
@@ -25,10 +45,13 @@ def create_beneficiary(request):
         phone = request.POST["phone"]
         address = request.POST["address"]
         c_name =request.POST["c_name"]
-    
-        photo= request.FILES["photo"]
+
+        if request.FILES.get('photo'):
+            photo= request.FILES["photo"]
+            person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address,photo=photo)
+        else:
+            person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address)
         
-        person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address,photo=photo)
         if c_name:
             cancer = models.Cancer.objects.get(pk=c_name)
         else:
@@ -141,10 +164,14 @@ def create_companion(request,beneficiary_id):
         phone = request.POST["phone"]
         address = request.POST["address"]
 
-        photo= request.FILES["photo"]
+        if request.FILES.get('photo'):
+            photo= request.FILES["photo"]
+            person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address,photo=photo)
+        else:
+            person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address)
         
         bene = models.Beneficiary.objects.get(pk=beneficiary_id)
-        person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address,photo=photo)
+        
         companion = models.Companion.objects.create(id_perso=person,id_beneficiary=bene)
         return HttpResponseRedirect(reverse("beneficiary:details_beneficiary",args=(bene.id,)))
     else:
@@ -171,6 +198,9 @@ def edit_companion(request,companion_id):
         companion.id_perso.gender = request.POST["gender"]
         companion.id_perso.phone = request.POST["phone"]
         companion.id_perso.address = request.POST["address"]
+        if request.FILES.get('photo'):
+            companion.id_perso.photo = request.FILES['photo']
+            
         companion.id_perso.save()
         return HttpResponseRedirect(reverse("beneficiary:details_companion",args=(companion.id,)))
     else:
@@ -200,9 +230,12 @@ def create_voluntary(request):
         address = request.POST["address"]
         job =request.POST["job"]
         
-        photo= request.FILES["photo"]
+        if request.FILES.get('photo'):
+            photo= request.FILES["photo"]
+            person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address, photo=photo)
+        else:
+            person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address)
         
-        person = models.Person.objects.create(dni=dni,name = name,birthday=birthday,gender=gender,phone=phone,address=address, photo=photo)
         voluntary = models.Voluntary.objects.create(id_perso=person,job=job)
         return HttpResponseRedirect(reverse("beneficiary:details_voluntary",args=(voluntary.id,)))
     else:
@@ -234,6 +267,9 @@ def edit_voluntary(request,voluntary_id):
         voluntary.id_perso.phone = request.POST["phone"]
         voluntary.id_perso.address = request.POST["address"]
         voluntary.job =request.POST["job"]
+        if request.FILES.get('photo'):
+            voluntary.id_perso.photo = request.FILES['photo']
+            
         voluntary.id_perso.save()
         voluntary.save()
         return HttpResponseRedirect(reverse("beneficiary:details_voluntary",args=(voluntary.id,)))
