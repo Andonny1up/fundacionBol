@@ -4,7 +4,7 @@
 <section id="balance">
 <div class="container">
     <div class="card">
-        <div class="card-header text-center text-bg-primary">
+        <div class="card-header text-center">
             <h2 class="h1 ">Balance de gasto</h2>
         </div>
         <div class="card-body">
@@ -18,7 +18,7 @@
                         <input class="form-control" type="date" value="{{date_limit}}" name="date_limit">
                     </div>
                     <div class="col d-grid gap-2 d-sm-block">
-                        <input class="btn btn-primary mb-3" type="submit" value="Filtrar">
+                        <input class="btn btn-rose mb-3" type="submit" value="Filtrar">
                     </div>
                 </form>
             </div>
@@ -26,7 +26,7 @@
             {% if expenses or expenses_beneficiary %}
             <div class="row">
                 <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-3">
-                    <div class="card border-success mb-3">
+                    <div class="card card-no border-success mb-3">
                         <div class="card-header text-bg-success"><i class="fa-solid fa-file me-2"></i>Registros totales:</div>
                         <div class="card-body">
                           <h5 class="card-title">Se han encontrado</h5>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-3">
-                    <div class="card border-warning mb-3">
+                    <div class="card card-no border-warning mb-3">
                         <div class="card-header text-bg-warning"><i class="fa-solid fa-money-bill me-2"></i>Gasto:</div>
                         <div class="card-body">
                           <h5 class="card-title">La sumatoria ha sido</h5>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-3">
-                    <div class="card border-warning mb-3">
+                    <div class="card card-no border-warning mb-3">
                         <div class="card-header text-bg-warning"><i class="fa-solid fa-money-bill me-2"></i>Gasto en beneficiarios:</div>
                         <div class="card-body">
                           <h5 class="card-title">La sumatoria ha sido</h5>
@@ -53,7 +53,7 @@
                     </div>
                 </div>
                 <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-3">
-                    <div class="card border-danger mb-3">
+                    <div class="card card-no border-danger mb-3">
                         <div class="card-header text-bg-danger"><i class="fa-solid fa-money-bill me-2"></i>Gasto Total:</div>
                         <div class="card-body">
                           <h5 class="card-title">La sumatoria ha sido</h5>
@@ -68,12 +68,9 @@
                 
                 <div class="table-responsive" id="table-expense">
                     <hr>
-                    <div class="card text-bg-primary">
-                        <div class="card-header">
-                            <h2 class="h1">Gastos</h2>
-                        </div>
+                    <div class="card-header my-secundary">
+                        <h2 class="h1">Gastos</h2>
                     </div>
-                    
                     <table class="table table-bordered">
                         <thead>
                             <tr class="table-primary">
@@ -95,7 +92,7 @@
                                 <td>{{expense.Description_expense}}</td>
                                 <td>{{expense.expense_date}}</td>
                                 <td>{{expense.id_voluntary.id_perso.name}}</td>
-                                <td><a href="{{expense.voucher_expense.url}}">{{expense.voucher_expense}}</a></td>
+                                <td><a href="{{expense.voucher_expense.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></td>
                                 <td>
                                     <a href="{% url 'beneficiary:delete_expense' expense.id %}" class="badge text-bg-danger" onclick='return confirmDelete()' style="text-decoration:none;">Borrar</a>
                                 </td>
@@ -107,7 +104,7 @@
                                 <td><del>{{expense.Description_expense}}</del></td>
                                 <td><del>{{expense.expense_date}}</del></td>
                                 <td><del>{{expense.id_voluntary.id_perso.name}}</del></td>
-                                <td><del><a href="" style="color:white">{{expense.voucher_expense}}</a></del></td>
+                                <td><del><a href="" style="color:white"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></del></td>
                                 <td>
                                     <span class="badge text-bg-danger" style="text-decoration:none;">Eliminado</span>
                                 </td>
@@ -119,10 +116,8 @@
                 </div>
                 {% else %}
                     <hr>
-                    <div class="card text-bg-primary">
-                        <div class="card-header">
-                            <h2 class="h1">Gastos</h2>
-                        </div>
+                    <div class="card-header my-secundary">
+                        <h2 class="h1">Gastos</h2>
                     </div>
                     <p class="text-center">No se encontro registro entre estas fechas</p>
                 {% endif %}
@@ -130,10 +125,8 @@
                 
                 <div class="table-responsive" id="table-expense">
                     <hr>
-                    <div class="card text-bg-primary">
-                        <div class="card-header">
-                            <h2 class="h1">Gastos en Beneficiarios</h2>
-                        </div>
+                    <div class="card-header my-secundary">
+                        <h2 class="h1">Gastos en Beneficiarios</h2>
                     </div>
                     
                     <table class="table table-bordered">
@@ -157,7 +150,7 @@
                                 <td>{{expense.expense_date}}</td>
                                 <td>{{expense.id_voluntary.id_perso.name}}</td>
                                 <td>{{expense.id_companion.id_perso.name}}</td>
-                                <td><a href="{{expense.voucher_expense.url}}">{{expense.voucher_expense}}</a></td>
+                                <td><a href="{{expense.voucher_expense.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></td>
                                 <td>
                                     <a href="{% url 'beneficiary:delete_expense_beneficiary' expense.id %}" class="badge text-bg-danger" onclick='return confirmDelete()' style="text-decoration:none;">Borrar</a>
                                 </td> 
@@ -169,7 +162,7 @@
                                 <td><del>{{expense.expense_date}}</del></td>
                                 <td><del>{{expense.id_voluntary.id_perso.name}}</del></td>
                                 <td><del>{{expense.id_companion.id_perso.name}}</del></td>
-                                <td><del><a style="color:white">{{expense.voucher_expense}}</del></a></td>
+                                <td><del><a style="color:white"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</del></a></td>
                                 <td>
                                     <span class="badge text-bg-danger" style="text-decoration:none;">Eliminado</span>
                                 </td>
@@ -181,10 +174,8 @@
                 </div>
                 {% else %}
                     <hr>
-                    <div class="card text-bg-primary">
-                        <div class="card-header">
-                            <h2 class="h1">Gastos en beneficiario</h2>
-                        </div>
+                    <div class="card-header my-secundary">
+                        <h2 class="h1">Gastos en beneficiario</h2>
                     </div>
                     <p class="text-center">No se encontro registro entre estas fechas</p>
                 {% endif %}

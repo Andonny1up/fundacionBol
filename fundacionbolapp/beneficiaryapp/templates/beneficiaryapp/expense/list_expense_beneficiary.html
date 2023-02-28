@@ -7,13 +7,11 @@
     <div class="card">
         <div class="card-body">
             <div class="hstack">
-                <a href="{% url 'beneficiary:create_expense_beneficiary' beneficiary.id %}" class="btn btn-primary ms-auto">Resgistrar nuevo gasto</a>
+                <a href="{% url 'beneficiary:create_expense_beneficiary' beneficiary.id %}" class="btn btn-rose ms-auto">Resgistrar nuevo gasto</a>
             </div>
             <hr>
-            <div class="card mb-2">
-                <div class="card-header text-bg-primary">
-                    <h2 class="h1">Descargo del beneficiario: {{beneficiary.id_perso.name}}</h2>
-                </div>
+            <div class="card-header my-secundary">
+                <h2 class="h1">Descargo del beneficiario: {{beneficiary.id_perso.name}}</h2>
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered">

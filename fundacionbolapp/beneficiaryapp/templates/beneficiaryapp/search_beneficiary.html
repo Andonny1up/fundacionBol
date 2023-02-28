@@ -3,12 +3,10 @@
 {% block main %}
 <section id="list">
     <div class="container">
-        <div class="card  mb-3">
-            <div class="card-header text-bg-primary">
+        <div class="card">
+            <div class="card-header my-secundary">
                 <h2 class="h1">Lista de beneficiarios</h2>
             </div>
-        </div>
-        <div class="card">
             <div class="card-body">
                 <div class="container">
                     <div class="row">
@@ -28,7 +26,7 @@
                                     </select>
                                     <label for="id_text" class="visually-hidden">Escribe lo que deseas buscar</label>
                                     <input  value="{{search_text}}" name="search_text"type="text" class="form-control" id="id_text" placeholder="Escribe.." maxlength="150" style="font-size: 1.6rem; padding: 0.7rem;">
-                                    <button type="submit" class="btn btn-primary">Buscar</button>
+                                    <button type="submit" class="btn btn-rose">Buscar</button>
                                 </div>    
                             </form>
                         </div>
@@ -36,7 +34,7 @@
                         </div>
                         <hr>
                         <div class="d-grid">
-                            <a href="{% url 'beneficiary:create_beneficiary' %}" class="btn btn-primary">Registrar nuevo beneficiario</a>
+                            <a href="{% url 'beneficiary:create_beneficiary' %}" class="btn btn-rose">Registrar nuevo beneficiario</a>
                         </div>
                     </div>
                 </div>
@@ -45,7 +43,7 @@
                         <hr>
                         <table class="table table-bordered">
                             <thead>
-                                <tr class="table-primary">
+                                <tr class="my-secundary">
                                     <th scope="col">CI</th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Tipo de Cancer</th>

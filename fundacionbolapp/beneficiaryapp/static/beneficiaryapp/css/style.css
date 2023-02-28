@@ -1,3 +1,10 @@
+:root{
+    --color-primary: #EA4C89;
+    --color-secundary:#F082AC;
+    --color-background: #DDDDDD;
+    --color-text-secundary: #7c7c7c;
+}
+
 *{
     box-sizing: border-box;
     margin: 0;
@@ -11,8 +18,43 @@ html{
     font-size: 62.5%;
 }
 body{
+    font-family: 'Merriweather','sans-serif';
+    background-color: white;
     min-width: 320px;
     font-size: 1.6rem;
+}
+.card{
+    box-shadow: 0rem 0rem 2rem 1.5rem var(--color-background);
+}
+.card-no{
+    box-shadow: none !important;
+}
+.my-primary{
+    background-color: var(--color-primary);
+}
+.my-secundary{
+    background-color: var(--color-secundary);
+    color: white;
+}
+.my-primary-text{
+    color: var(--color-primary);
+}
+.my-secundary-text{
+    color: var(--color-text-secundary);
+}
+.link-btn{
+    color: var(--color-text-secundary);
+}
+.link-btn:hover{
+    color: var(--color-primary);
+}
+.btn-rose{
+    background-color:var(--color-primary);
+    color: white;
+}
+.btn-rose:hover{
+    background-color:var(--color-secundary);
+    color: white;
 }
 #header {
     font-size: 2rem;
@@ -22,6 +64,9 @@ body{
 }
 #header .dropdown-item{
     font-size: 1.2rem;
+}
+#header .navbar {
+    border-bottom: 0.5px solid var(--color-background);
 }
 #main{
     min-height: 90vh;
@@ -54,7 +99,7 @@ body{
     font-size: 1.6rem;
 }
 #footer{
-    background: linear-gradient(90deg, #1c3643, #273b47 25%, #1e5472);
+    background: linear-gradient(90deg, #157D7E, #2CAA9F 25%, #61C6C0);
 }
 #footer a{
     color: white;

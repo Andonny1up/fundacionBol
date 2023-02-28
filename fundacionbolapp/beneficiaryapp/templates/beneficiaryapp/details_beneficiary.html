@@ -8,13 +8,10 @@
             ¡Alerta este beneficiario tiene decargos pendientes!
         </div>
         {% endif %}
-        
-        <div class="card mb-3 ">
-            <div class="card-header text-bg-primary">
+        <div class="card ">
+            <div class="card-header">
                 <h2 class="h1">Detalles del beneficiario:</h2>
             </div>
-        </div>
-        <div class="card ">
             <div class="card-body">
                 <div class="container">
                     <div class="row">
@@ -104,12 +101,10 @@
         </div>
     </div>
     <div class="container mt-5">
-        <div class="card mb-3">
-            <div class="card-header text-bg-primary">
+        <div class="card">
+            <div class="card-header">
                 <h2 class="h1">Acompañantes:</h2>
             </div>
-        </div>
-        <div class="card">
             <div class="card-body">
                 <div class="hstack">
                     <a href="{% url 'beneficiary:create_companion' beneficiary.id %}" class="btn btn-primary">Agregar Acompañante</a>

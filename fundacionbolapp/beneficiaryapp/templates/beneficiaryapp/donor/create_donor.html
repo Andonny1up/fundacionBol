@@ -4,12 +4,10 @@
 {% block main %}
 <section id="main-create">
 <div class="container">
-    <div class="card text-bg-primary mb-3">
+    <div class="card">
         <div class="card-header">
             <h2 class="h1">Registrar nuevos donadores</h2>
         </div>
-    </div>
-    <div class="card">
         <div class="card-body">
             <form action="{% url 'beneficiary:create_donor' %}" method="POST">
                 {% csrf_token %}

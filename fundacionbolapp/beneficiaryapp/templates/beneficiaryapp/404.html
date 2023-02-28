@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'beneficiaryapp/css/404.css' %}">
+    <title>Página no encontrada</title>
+</head>
+<body>
+    <main>
+        <figure class="imagen-contenedor">
+            <img src="{% static 'beneficiaryapp/img/inge-puma404full.jpg' %}" alt="ingeniero puma" style=" height:98vh;width: 90vw; float: right;">
+            <audio id="music" src="/media/404.mp3"></audio>
+            <span id="volume" class="button-play">
+                <i class="fas fa-volume-up hidden"></i>
+                <i class="fas fa-volume-mute"></i>
+            </span>
+        </figure>
+        
+        
+    </main>
+    
+</body>
+<script src="https://kit.fontawesome.com/df236c7e60.js" crossorigin="anonymous"></script>
+<script src="{% static 'beneficiaryapp/js/404.js' %}"></script>
+</html>

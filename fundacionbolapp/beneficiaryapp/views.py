@@ -11,6 +11,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
+from django.http import HttpResponseNotFound
+
 
 @login_required
 def register(request):
@@ -30,6 +32,7 @@ def register(request):
 
 # Create your views here.
 # <-- home -->
+@login_required
 def home(request):
     return render(request,"beneficiaryapp/home.html")
 # <-- home-->
@@ -68,6 +71,7 @@ def create_beneficiary(request):
         })
 
 
+@login_required
 def edit_beneficiary(request,beneficiary_id):
     beneficiary = get_object_or_404(models.Beneficiary,pk=beneficiary_id)
     if request.method=="POST":
@@ -96,6 +100,7 @@ def edit_beneficiary(request,beneficiary_id):
         })
     
 
+@login_required
 def list_beneficiary(request):
     if request.method=="POST" and request.POST["c_name"]!="Todo":
         c_name = request.POST["c_name"]
@@ -110,6 +115,7 @@ def list_beneficiary(request):
     })
     
 
+@login_required
 def search_beneficiary(request):
     
     if request.GET["search_text"]:
@@ -134,6 +140,7 @@ def search_beneficiary(request):
     return HttpResponseRedirect(reverse("beneficiary:list_beneficiary",))
     
 
+@login_required
 def details(request,beneficiary_id):
     #bene = models.Beneficiary.objects.get(pk=beneficiary_id)
     bene = get_object_or_404(models.Beneficiary,pk=beneficiary_id)
@@ -146,6 +153,7 @@ def details(request,beneficiary_id):
     })
     
 
+@login_required
 def delete_beneficiary(request,beneficiary_id):
     bene = models.Beneficiary.objects.get(pk=beneficiary_id)
     bene.id_perso.active=False
@@ -155,6 +163,7 @@ def delete_beneficiary(request,beneficiary_id):
 
 # <-- Beneficiary -->
 # <-- Companion -->
+@login_required
 def create_companion(request,beneficiary_id):
     if request.method=="POST":
         dni = request.POST["dni"]
@@ -182,6 +191,7 @@ def create_companion(request,beneficiary_id):
     })
        
 
+@login_required
 def details_companion(request,companion_id):
     companion = get_object_or_404(models.Companion,pk=companion_id)
     return render(request,"beneficiaryapp/companion/details_companion.html",{
@@ -189,6 +199,7 @@ def details_companion(request,companion_id):
     })
 
 
+@login_required
 def edit_companion(request,companion_id):
     companion = models.Companion.objects.get(pk=companion_id)
     if request.method=="POST":
@@ -211,6 +222,7 @@ def edit_companion(request,companion_id):
         })   
 
 
+@login_required
 def delete_companion(request,companion_id):
     companion = models.Companion.objects.get(pk=companion_id)
     companion.id_perso.active=False
@@ -220,6 +232,7 @@ def delete_companion(request,companion_id):
 
 
 # <-- Voluntary -->
+@login_required
 def create_voluntary(request):
     if request.method=="POST":
         dni = request.POST["dni"]
@@ -243,6 +256,7 @@ def create_voluntary(request):
         })
 
 
+@login_required
 def list_voluntary(request):
     voluntaries = models.Voluntary.objects.filter(id_perso__active=True)    
     return render(request,"beneficiaryapp/voluntary/list_voluntary.html",{
@@ -250,6 +264,7 @@ def list_voluntary(request):
     })
     
 
+@login_required
 def details_voluntary(request,voluntary_id):
     voluntary = get_object_or_404(models.Voluntary,pk=voluntary_id)
     return render(request,"beneficiaryapp/voluntary/details_voluntary.html",{
@@ -257,6 +272,7 @@ def details_voluntary(request,voluntary_id):
     })
 
 
+@login_required
 def edit_voluntary(request,voluntary_id):
     voluntary = models.Voluntary.objects.get(pk=voluntary_id)
     if request.method=="POST":
@@ -281,6 +297,7 @@ def edit_voluntary(request,voluntary_id):
         })  
 
 
+@login_required
 def delete_voluntary(request,voluntary_id):
     voluntary = models.Voluntary.objects.get(pk=voluntary_id)
     if voluntary.id_perso.active:
@@ -296,6 +313,7 @@ def delete_voluntary(request,voluntary_id):
 
 
 # <-- Donor -->
+@login_required
 def create_donor(request):
     if request.method=="POST":
         dni = request.POST["dni"]
@@ -309,7 +327,8 @@ def create_donor(request):
         
     })
        
-       
+
+@login_required      
 def details_donor(request,donor_id):
     donor = get_object_or_404(models.Donor,pk=donor_id)
     donations = donor.donation_set.all()
@@ -319,6 +338,7 @@ def details_donor(request,donor_id):
     })
 
 
+@login_required
 def edit_donor(request,donor_id):
     donor = models.Donor.objects.get(pk=donor_id)
     if request.method=="POST":
@@ -333,20 +353,23 @@ def edit_donor(request,donor_id):
         })  
 
 
+@login_required
 def delete_donor(request,donor_id):
     donor = models.Donor.objects.get(pk=donor_id)
     donor.active=False
     donor.save()
     return HttpResponseRedirect(reverse("beneficiary:list_donor",))
 
-   
+
+@login_required 
 def list_donor(request):   
     donors = models.Donor.objects.filter(active=True)
     return render(request,"beneficiaryapp/donor/list_donor.html",{
         'donors': donors,
     })
     
-    
+
+@login_required 
 def list_donation(request):   
     donations = models.Donation.objects.all()
     return render(request,"beneficiaryapp/donor/list_donation.html",{
@@ -355,6 +378,7 @@ def list_donation(request):
 # <-- Donor -->
 
 
+@login_required
 def create_donation(request,donor_id):
     donor = models.Donor.objects.get(pk=donor_id)
     if request.method=="POST":
@@ -374,6 +398,7 @@ def create_donation(request,donor_id):
 
       
 #<-- Diagnostic -->
+@login_required
 def list_diagnostic(request,beneficiary_id):
     beneficiary = get_object_or_404(models.Beneficiary,pk=beneficiary_id)
     diagnostics = beneficiary.diagnostic_set.all()
@@ -381,7 +406,9 @@ def list_diagnostic(request,beneficiary_id):
         'beneficiary': beneficiary,
         'diagnostics':diagnostics,
     })
-    
+
+
+@login_required    
 def create_diagnostic(request,beneficiary_id):
     beneficiary = models.Beneficiary.objects.get(pk=beneficiary_id)
     if request.method=="POST" and request.FILES["document"]:
@@ -402,6 +429,7 @@ def create_diagnostic(request,beneficiary_id):
 
 
 #<-- Cancer -->
+@login_required
 def create_cancer(request):
     if request.method=="POST":
         c_name = request.POST["c_name"]
@@ -413,12 +441,14 @@ def create_cancer(request):
            
     })
        
-       
+
+@login_required    
 def list_cancer(request):
     cancers = models.Cancer.objects.all()
     return render(request,"beneficiaryapp/cancer/list_cancer.html",{'cancers':cancers})
 
 
+@login_required
 def edit_cancer(request,cancer_id):
     cancer = models.Cancer.objects.get(pk=cancer_id)
     if request.method=="POST":
@@ -432,6 +462,7 @@ def edit_cancer(request,cancer_id):
         })
     
 
+@login_required
 def destroy_cancer(request, cancer_id):
     cancer = models.Cancer.objects.get(id=cancer_id)
     cancer.delete()
@@ -439,6 +470,7 @@ def destroy_cancer(request, cancer_id):
 
 
 #<-- expense -->
+@login_required
 def create_expense(request):
     if request.method == "POST":
         expense_amount = request.POST["expense_amount"]
@@ -467,6 +499,7 @@ def create_expense(request):
         })
 
 
+@login_required
 def list_expense(request):
     expenses = models.Expense.objects.all()
     return render(request,"beneficiaryapp/expense/list_expense.html",{
@@ -476,6 +509,7 @@ def list_expense(request):
 
 
 #<-- expense beneficiary-->
+@login_required
 def create_expense_beneficiary(request,beneficiary_id):
     beneficiary = models.Beneficiary.objects.get(pk=beneficiary_id)
     if request.method == "POST":
@@ -515,6 +549,7 @@ def create_expense_beneficiary(request,beneficiary_id):
         })
     
 
+@login_required
 def list_expense_beneficiary(request,beneficiary_id):
     beneficiary = models.Beneficiary.objects.get(pk=beneficiary_id)
     expenses = beneficiary.expensebeneficiary_set.all()
@@ -524,6 +559,7 @@ def list_expense_beneficiary(request,beneficiary_id):
     })
     
 
+@login_required
 def finalized_expense_beneficiary(request,expense_beneficiary_id):
     expense = models.ExpenseBeneficiary.objects.get(pk=expense_beneficiary_id)
     expense.finalized = True
@@ -532,6 +568,7 @@ def finalized_expense_beneficiary(request,expense_beneficiary_id):
     
     
 #type-expense
+@login_required
 def create_type_expense(request):
     if request.method=="POST":
         name = request.POST["name"]
@@ -543,12 +580,14 @@ def create_type_expense(request):
            
     })
        
-       
+
+@login_required      
 def list_type_expense(request):
     type_expense = models.Type_expense.objects.all()
     return render(request,"beneficiaryapp/expense/type_expense/list_type_expense.html",{'type_expense':type_expense})
 
 
+@login_required
 def edit_type_expense(request,type_expense_id):
     type_expense = models.Type_expense.objects.get(pk=type_expense_id)
     if request.method=="POST":
@@ -562,6 +601,7 @@ def edit_type_expense(request,type_expense_id):
         })
     
 
+@login_required
 def destroy_type_expense(request, type_expense_id):
     type_expense = models.Type_expense.objects.get(pk=type_expense_id)
     type_expense.delete()
@@ -569,6 +609,7 @@ def destroy_type_expense(request, type_expense_id):
 
 
 #<--vista cuentas-->
+@login_required
 def balance(request): #expenses
     if request.method=="POST":
         date_init= request.POST["date_init"]
@@ -600,7 +641,8 @@ def balance(request): #expenses
             'expenses_beneficiary':expenses_beneficiary,
         })
 
-    
+
+@login_required   
 def balance_donations(request):
     if request.method=="POST":
         date_init= request.POST["date_init"]
@@ -622,7 +664,8 @@ def balance_donations(request):
             'total_donations': total_donations,
         })
     
-    
+
+@login_required
 def balance_total(request):
     if request.method=="POST":
         date_init= request.POST["date_init"]
@@ -666,6 +709,7 @@ def balance_total(request):
 
 
 #<-- delete balance -->
+@login_required
 def delete_donation(request,donation_id):
     donation = models.Donation.objects.get(pk=donation_id)
     donation.active=False
@@ -673,6 +717,7 @@ def delete_donation(request,donation_id):
     return HttpResponseRedirect(reverse("beneficiary:balance_donations",))
 
 
+@login_required
 def delete_expense(request,expense_id):
     expense = models.Expense.objects.get(pk=expense_id)
     expense.active=False
@@ -680,6 +725,7 @@ def delete_expense(request,expense_id):
     return HttpResponseRedirect(reverse("beneficiary:balance",))
 
 
+@login_required
 def delete_expense_beneficiary(request,expense_id):#expense beneficiary
     expense = models.ExpenseBeneficiary.objects.get(pk=expense_id)
     expense.active=False
@@ -729,3 +775,11 @@ def graphic_type_cancer(request):
     return render(request,'beneficiaryapp/graphics/type_cancer.html',{
         'data_type_cancer': data,
     })
+    
+
+def view_404(request, exception):
+    return HttpResponseNotFound(render(request, 'beneficiaryapp/404.html'))
+
+
+def view_404_acces(request):
+    return render(request, 'beneficiaryapp/404.html')

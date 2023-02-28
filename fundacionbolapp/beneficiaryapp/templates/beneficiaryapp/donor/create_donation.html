@@ -5,12 +5,10 @@
 <section id="main-create">
     
 <div class="container">
-    <div class="card mb-3 mt-5">
-        <div class="card-header text-bg-primary">
+    <div class="card">
+        <div class="card-header">
             <h2 class="h1">Nueva donación de: {{donor.name}}</h2>
         </div>
-    </div>
-    <div class="card">
         <div class="card-body">
             <form action="{% url 'beneficiary:create_donation' donor.id  %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}

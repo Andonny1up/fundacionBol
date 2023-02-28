@@ -3,12 +3,10 @@
 {% block main %}
 <section id="main-create">
 <div class="container">
-    <div class="card mb-3">
-        <div class="card-header text-bg-primary">
+    <div class="card">
+        <div class="card-header">
             <h2 class="h1">Registro de voluntarios</h2>
         </div>
-    </div>
-    <div class="card">
         <div class="card-body">
             <form action="{% url 'beneficiary:create_voluntary' %}" method="POST" enctype="multipart/form-data">
                 {% csrf_token %}

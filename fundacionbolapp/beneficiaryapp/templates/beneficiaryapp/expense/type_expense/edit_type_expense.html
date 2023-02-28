@@ -3,12 +3,10 @@
 {% block main %}
 <section id="main-create">
 <div class="container">
-    <div class="card mb-3">
-        <div class="card-header text-bg-primary">
+    <div class="card">
+        <div class="card-header">
             <h2 class="h1">Editar tipo de gasto</h2>
         </div>
-    </div>
-    <div class="card">
         <div class="card-body">
             <form action="{% url 'beneficiary:edit_type_expense' type_expense.id %}" method="POST">
                 {% csrf_token %}

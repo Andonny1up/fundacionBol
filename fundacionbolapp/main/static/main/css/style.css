@@ -1,3 +1,13 @@
+:root{
+    --color-primary: #EA4C89;
+    --color-secundary:#F082AC;
+    --color-background: #DDDDDD;
+    --color-text-secundary: #7c7c7c;
+}
+body{
+    /* background-color: var(--color-background); */
+    font-family: 'Merriweather','sans-serif';
+}
 header .navbar{
     min-height: 4vh;
     color: white;
@@ -13,4 +23,12 @@ main .Carousel img{
     height: 96vh;
     object-fit: cover;
     filter: grayscale(70%);
+}
+.my-primary{
+    background-color: var(--color-primary);
+}
+@media (max-width:992px){
+    header .navbar{
+        text-align: center;
+    }
 }

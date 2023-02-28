@@ -11,7 +11,7 @@
 <section id="balance">
 <div class="container">
     <div class="card">
-        <div class="card-header text-center text-bg-primary">
+        <div class="card-header text-center">
             <h2 class="h1 ">Balance Total</h2>
         </div>
         <div class="card-body">
@@ -25,14 +25,14 @@
                         <input class="form-control" type="date" value="{{date_limit}}" name="date_limit">
                     </div>
                     <div class="col d-grid gap-2 d-sm-block">
-                        <input class="btn btn-primary mb-3" type="submit" value="Filtrar">
+                        <input class="btn btn-rose mb-3" type="submit" value="Filtrar">
                     </div>
                 </form>
             </div>
             <hr>
             <div class="row">
                 <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-3">
-                    <div class="card border-warning mb-3">
+                    <div class="card card-no border-warning mb-3">
                         <div class="card-header text-bg-warning"><i class="fa-solid fa-money-bill me-2"></i>Monto de donaciones:</div>
                         <div class="card-body">
                           <h5 class="card-title">La sumatoria ha sido</h5>
@@ -41,7 +41,7 @@
                     </div>
                 </div>
                 <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-3">
-                    <div class="card border-warning mb-3">
+                    <div class="card card-no border-warning mb-3">
                         <div class="card-header text-bg-warning"><i class="fa-solid fa-money-bill me-2"></i>Gasto Total:</div>
                         <div class="card-body">
                           <h5 class="card-title">La sumatoria ha sido</h5>
@@ -51,7 +51,7 @@
                 </div>
                 {% if total_balance < 0 %}
                 <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-3">
-                    <div class="card border-danger mb-3">
+                    <div class="card card-no border-danger mb-3">
                         <div class="card-header text-bg-danger"><i class="fa-solid fa-money-bill me-2"></i>Balance:</div>
                         <div class="card-body">
                           <h5 class="card-title">La sumatoria ha sido</h5>
@@ -61,7 +61,7 @@
                 </div>
                 {% else %}
                 <div class="col-10 offset-1 col-sm-6 offset-sm-0 col-md-3">
-                    <div class="card border-success mb-3">
+                    <div class="card card-no border-success mb-3">
                         <div class="card-header text-bg-success"><i class="fa-solid fa-money-bill me-2"></i>Balance:</div>
                         <div class="card-body">
                           <h5 class="card-title">La sumatoria ha sido</h5>

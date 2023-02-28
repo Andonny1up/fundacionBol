@@ -5,38 +5,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" href="{% static 'favicon.ico' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'beneficiaryapp/css/style.css' %}">
     {% block t-head %}{% endblock t-head %}
     <title>{% block title %}Index{% endblock title %}</title>
 </head>
-<body class="bg-body-tertiary">
+<body class="">
     <!--header -->
     <header id="header">
-        <nav class="navbar navbar-dark bg-primary fixed-top" data-bs-theme="dark">
+        <nav class="navbar fixed-top my-primary">
             <div class="container">
-              <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+              <button class="navbar-toggler navbar-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon navbar-dark"></span>
               </button>
-              <a class="navbar-brand" href="#">
-                <img src="{% static 'beneficiaryapp/img/un_boliviano_REDONDO.png' %}" alt="" style="width: 4rem; height:3.5rem">
+              <a class="navbar-brand navbar-dark" href="#">
+                <i class="fa-solid fa-ribbon" style="font-size: 3.5rem"></i>
               </a>
-              <div class="offcanvas offcanvas-start text-bg-primary" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
+              <div class="offcanvas offcanvas-start my-secundary-text" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
                   <h5 class="offcanvas-title h1" id="offcanvasDarkNavbarLabel">Menu</h5>
-                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <hr>
                 <div class="offcanvas-body">
                   <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{% url 'beneficiary:home' %}"><i class="fa-solid fa-house me-2"></i>Inicio</a>
+                      <a class="nav-link link-btn" aria-current="page" href="{% url 'beneficiary:home' %}"><i class="fa-solid fa-house me-2"></i>Inicio</a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a class="nav-link dropdown-toggle link-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-hospital-user me-2"></i>Beneficiarios
                       </a>
-                      <ul class="dropdown-menu dropdown-menu-dark">
+                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'beneficiary:create_beneficiary' %}">Registrar Beneficiarios</a></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_beneficiary' %}">Lista de Beneficiarios</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -44,10 +48,10 @@
                       </ul>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a class="nav-link dropdown-toggle link-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-circle-dollar-to-slot me-2"></i>Donaciones
                       </a>
-                      <ul class="dropdown-menu dropdown-menu-dark">
+                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'beneficiary:create_donor' %}">Registrar nuevo donador</a></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_donor' %}">Lista de Donadores</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -55,13 +59,13 @@
                       </ul>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="{% url 'beneficiary:list_voluntary' %}"><i class="fa-solid fa-circle-user me-2"></i>Voluntarios</a>
+                      <a class="nav-link link-btn" aria-current="page" href="{% url 'beneficiary:list_voluntary' %}"><i class="fa-solid fa-circle-user me-2"></i>Voluntarios</a>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a class="nav-link dropdown-toggle link-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-money-check-dollar me-2"></i>Gastos
                       </a>
-                      <ul class="dropdown-menu dropdown-menu-dark">
+                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'beneficiary:create_expense' %}">Registrar Gastos</a></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_expense' %}">Lista de Gastos</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -69,10 +73,10 @@
                       </ul>
                     </li>
                     <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      <a class="nav-link dropdown-toggle link-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-scale-balanced me-2"></i>Balance
                       </a>
-                      <ul class="dropdown-menu dropdown-menu-dark">
+                      <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="{% url 'beneficiary:balance_donations' %}">Donaciones</a></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:balance' %}">Gastos</a></li>
                         <li><hr class="dropdown-divider"></li>
@@ -81,7 +85,7 @@
                     </li>
                     <li><hr></li>
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'beneficiary:logout' %}">Logout</a></li>
+                    <li><a href="{% url 'beneficiary:logout' %}" class="link-btn">Cerrar sesión</a></li>
                     {% else %}
                     <li><a href="{% url 'beneficiary:login' %}">Login</a></li>
                     {% endif %}
@@ -93,6 +97,7 @@
           </nav>
     </header>
     <!--header -->
+    
     <main id="main">
         {% block main %}
         
@@ -103,6 +108,10 @@
         <div class="container">
             <div class="row text-center">
               <div class="col-12 col-lg">
+                @2023 Todos los derechos reservados.
+              </div>
+              
+              {% comment %} <div class="col-12 col-lg">
                 <a href="#">Preguntas frecuentes</a>
               </div>
               <div class="col-12 col-lg">
@@ -110,7 +119,7 @@
               </div>
               <div class="col-12 col-lg">
                 <a href="#">Contacto</a>
-              </div>
+              </div> {% endcomment %}
             </div>
         </div>
     </footer>
