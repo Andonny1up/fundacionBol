@@ -32,6 +32,8 @@ class Cancer(models.Model):
 class Beneficiary(models.Model):
     id_perso = models.ForeignKey(Person,on_delete=models.CASCADE)
     id_cancer = models.ForeignKey(Cancer,on_delete=models.SET_NULL, null=True, blank=True)
+    origin = models.CharField("Lugar de Origen",max_length=100,null=True, blank=True)
+    file_solicitud = models.FileField("solicitud de inclusión",upload_to="solicitud/",null=True, blank=True)
     
 
 class Companion(models.Model):

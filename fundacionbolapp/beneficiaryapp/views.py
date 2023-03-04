@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect,HttpResponseNotFound
 from django.urls import reverse
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
@@ -11,7 +11,24 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
-from django.http import HttpResponseNotFound
+
+from django.views.generic import View
+from openpyxl import Workbook
+
+class ExportToExcel(View):
+    def get(self, request):
+        response = HttpResponse(content_type='application/vnd.ms-excel')
+        response['Content-Disposition'] = 'attachment; filename="datos.xlsx"'
+        wb = Workbook()
+        ws = wb.active
+        ws.title = "Datos"
+        ws.append(['CI','Nombre', 'Fecha de Nacimiento','Genero','Celular','Lugar Origen','Dirreccion','Diagnostico'])
+        for item in models.Beneficiary.objects.all().values_list('id_perso__dni', 'id_perso__name', 'id_perso__birthday','id_perso__gender','id_perso__phone','origin','id_perso__address','id_cancer__c_name'):
+        #ws.append(['CI','Nombre'])
+        #for item in models.Beneficiary.objects.all().values_list('id_perso__dni', 'id_perso__name'):    
+            ws.append(item)
+        wb.save(response)
+        return response
 
 
 @login_required
@@ -34,7 +51,7 @@ def register(request):
 # <-- home -->
 @login_required
 def home(request):
-    return render(request,"beneficiaryapp/home.html")
+    return render(request,"beneficiaryapp/home.html",{})
 # <-- home-->
 
 # <-- Beneficiary -->
@@ -48,6 +65,8 @@ def create_beneficiary(request):
         phone = request.POST["phone"]
         address = request.POST["address"]
         c_name =request.POST["c_name"]
+        origin = request.POST["origin"]
+        file_solicitud = request.FILES["file_solicitud"]
 
         if request.FILES.get('photo'):
             photo= request.FILES["photo"]
@@ -60,7 +79,7 @@ def create_beneficiary(request):
         else:
             cancer = None
             
-        bene= models.Beneficiary.objects.create(id_perso=person,id_cancer=cancer)
+        bene= models.Beneficiary.objects.create(id_perso=person,id_cancer=cancer,origin=origin,file_solicitud=file_solicitud)
         return HttpResponseRedirect(reverse("beneficiary:details_beneficiary",args=(bene.id,)))
     else:
         date_now = timezone.now().strftime('%Y-%m-%d')
@@ -87,7 +106,9 @@ def edit_beneficiary(request,beneficiary_id):
         beneficiary.id_perso.save()
             
         cancer =models.Cancer.objects.get(pk=request.POST["c_name"])
+        origin = request.POST["origin"]
         beneficiary.id_cancer = cancer
+        beneficiary.origin = origin
         beneficiary.save()
         return HttpResponseRedirect(reverse("beneficiary:details_beneficiary",args=(beneficiary.id,)))
     else:
@@ -331,7 +352,7 @@ def create_donor(request):
 @login_required      
 def details_donor(request,donor_id):
     donor = get_object_or_404(models.Donor,pk=donor_id)
-    donations = donor.donation_set.all()
+    donations = donor.donation_set.all().order_by('-date_donation')
     return render(request,"beneficiaryapp/donor/details_donor.html",{
         'donor': donor,
         'donations':donations
@@ -401,7 +422,7 @@ def create_donation(request,donor_id):
 @login_required
 def list_diagnostic(request,beneficiary_id):
     beneficiary = get_object_or_404(models.Beneficiary,pk=beneficiary_id)
-    diagnostics = beneficiary.diagnostic_set.all()
+    diagnostics = beneficiary.diagnostic_set.all().order_by("-diagnostic_date")
     return render(request,"beneficiaryapp/diagnostic/list_diagnostic.html",{
         'beneficiary': beneficiary,
         'diagnostics':diagnostics,
@@ -501,7 +522,7 @@ def create_expense(request):
 
 @login_required
 def list_expense(request):
-    expenses = models.Expense.objects.all()
+    expenses = models.Expense.objects.all().order_by('-expense_date')
     return render(request,"beneficiaryapp/expense/list_expense.html",{
         'expenses':expenses
     })
@@ -552,7 +573,7 @@ def create_expense_beneficiary(request,beneficiary_id):
 @login_required
 def list_expense_beneficiary(request,beneficiary_id):
     beneficiary = models.Beneficiary.objects.get(pk=beneficiary_id)
-    expenses = beneficiary.expensebeneficiary_set.all()
+    expenses = beneficiary.expensebeneficiary_set.all().order_by('-expense_date')
     return render(request,"beneficiaryapp/expense/list_expense_beneficiary.html",{
         'beneficiary':beneficiary,
         'expenses':expenses

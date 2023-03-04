@@ -8,15 +8,19 @@
             <h2 class="h1">Lista de donadores actuales</h2>
         </div>
         <div class="card-body">
+            <div class="hstack">
+                <a href="{% url 'beneficiary:create_donor' %}" class="btn btn-primary ms-auto">Crear Nuevo donador</a>
+            </div>
+            <hr>
             <div class="table-responsive">
                 <hr>
                 <table class="table table-bordered">
                     <thead>
                         <tr class="table-primary">
-                            <th scope="col">Dni</th>
+                            <th scope="col">CI</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Tipo de donante</th>
-                            <th scope="col">Detalles</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,7 +29,10 @@
                             <td>{{donor.dni}}</td>
                             <td>{{donor.name}}</td>
                             <td>{{donor.type_donor}}</td>
-                            <td><a href="{% url 'beneficiary:details_donor' donor.id %}" class="badge text-bg-warning">Ver más</a></td>  
+                            <td class="hstack gap-3">
+                                <a href="{% url 'beneficiary:details_donor' donor.id %}" class="badge text-bg-warning">Ver más</a>
+                                <a href="{% url 'beneficiary:create_donation' donor.id %}" class="badge text-bg-primary">Nueva donación</a>
+                            </td>  
                         </tr>
                         {% endfor %}
                     </tbody>

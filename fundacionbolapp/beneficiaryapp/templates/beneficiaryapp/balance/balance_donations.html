@@ -72,7 +72,7 @@
                                 <td>{{donation.id_donor.name}}</td>
                                 <td>{{donation.num_cta}}</td>
                                 <td>{{donation.date_donation}}</td>
-                                <td><a href="">{{donation.voucher_dona}}</a></td>
+                                <td><a href="{{donation.voucher_dona.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></a></td>
                                 <td>
                                     <a href="{% url 'beneficiary:delete_donation' donation.id %}" class="badge text-bg-danger" onclick='return confirmDelete()' style="text-decoration:none;">Borrar</a>
                                 </td>
@@ -83,7 +83,7 @@
                                 <td><del>{{donation.id_donor.name}}</del></td>
                                 <td><del>{{donation.num_cta}}</del></td>
                                 <td><del>{{donation.date_donation}}</del></td>
-                                <td><del><a href="" style="color: #fff;">{{donation.voucher_dona}}</a></del></td>
+                                <td><del><a href="{{donation.voucher_dona.url}}" style="color: #fff;"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></del></td>
                                 <td>
                                     <span class="badge text-bg-danger" style="text-decoration:none;">Eliminado</span>
                                 </td>

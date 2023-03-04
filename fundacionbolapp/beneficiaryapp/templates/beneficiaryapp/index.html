@@ -41,7 +41,6 @@
                         <i class="fa-solid fa-hospital-user me-2"></i>Beneficiarios
                       </a>
                       <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'beneficiary:create_beneficiary' %}">Registrar Beneficiarios</a></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_beneficiary' %}">Lista de Beneficiarios</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_cancer' %}">Lista de Tipos de Cancer</a></li>                        
@@ -52,7 +51,6 @@
                         <i class="fa-solid fa-circle-dollar-to-slot me-2"></i>Donaciones
                       </a>
                       <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'beneficiary:create_donor' %}">Registrar nuevo donador</a></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_donor' %}">Lista de Donadores</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_donation' %}">Lista de Donaciones</a></li>
@@ -66,7 +64,6 @@
                         <i class="fa-solid fa-money-check-dollar me-2"></i>Gastos
                       </a>
                       <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'beneficiary:create_expense' %}">Registrar Gastos</a></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_expense' %}">Lista de Gastos</a></li>
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_type_expense' %}">Tipos Gastos beneficiarios</a></li>

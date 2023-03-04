@@ -67,6 +67,14 @@
                             </div>
                             <div class="row">
                                 <div class="col">
+                                    <p><strong>Lugar de origen:</strong></p>
+                                </div>
+                                <div class="col">
+                                    <p>{{beneficiary.origin}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
                                     <p><strong>Dirección:</strong></p>
                                 </div>
                                 <div class="col">
@@ -79,6 +87,16 @@
                                 </div>
                                 <div class="col">
                                     <p>{{beneficiary.id_cancer.c_name}}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <p><strong>Archivo de solicitud de inclusion:</strong></p>
+                                </div>
+                                <div class="col">
+                                    {% if beneficiary.file_solicitud %}
+                                    <a href="{{beneficiary.file_solicitud.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

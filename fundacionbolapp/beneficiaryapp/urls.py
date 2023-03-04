@@ -72,7 +72,7 @@ urlpatterns = [
      
     #graphics
     path("graphics/",views.graphic_type_cancer,name="graphic_type_cancer"),
-    
+    path('export-to-excel/', views.ExportToExcel.as_view(), name='export_to_excel'),
     #login
     path("login/", auth_views.LoginView.as_view(),name='login'),
     path('register/', views.register, name='register'),

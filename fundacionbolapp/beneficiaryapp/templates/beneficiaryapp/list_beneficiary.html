@@ -26,7 +26,10 @@
                                     <button type="submit" class="btn btn-rose">Buscar</button>
                                 </div>    
                             </form>
+                            <hr>
+                            <a href="{% url 'beneficiary:export_to_excel' %}" class="btn btn-success"><i class="fa-solid fa-file-excel me-2"></i>Exportar</a>
                         </div>
+                        
                         {% comment %} <div class="col">
                             <form action="{% url 'beneficiary:list_beneficiary' %}" role="search" method="POST">
                                 {% csrf_token %}
@@ -45,7 +48,7 @@
                         </div> {% endcomment %}
                         <hr>
                         <div class="d-grid">
-                            <a href="{% url 'beneficiary:create_beneficiary' %}" class="btn btn-rose">Registrar nuevo beneficiario</a>
+                            <a href="{% url 'beneficiary:create_beneficiary' %}" class="btn btn-primary">Registrar nuevo beneficiario</a>
                         </div>
                     </div>
                 </div>
@@ -67,7 +70,12 @@
                                     <tr>
                                         <td>{{beneficiary.id_perso.dni}}</td>
                                         <td>{{beneficiary.id_perso.name}}</td>
+                                        {% if beneficiary.id_cancer %}
                                         <td>{{beneficiary.id_cancer.c_name}}</td>
+                                        {% else %}
+                                        <td>Ninguno</td>
+                                        {% endif %}
+                                        
                                         <td><a class="badge text-bg-warning" href="{% url 'beneficiary:details_beneficiary' beneficiary.id %}"><i class="fa-solid fa-eye me-1"></i>Ver más</a></td>  
                                     </tr>
                                     {% else %}
