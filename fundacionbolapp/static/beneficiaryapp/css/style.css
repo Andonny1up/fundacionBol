@@ -1,0 +1,139 @@
+:root{
+    --color-primary: #EA4C89;
+    --color-secundary:#F082AC;
+    --color-background: #DDDDDD;
+    --color-text-secundary: #7c7c7c;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+}
+a{
+    text-decoration: none;
+}
+html{
+    font-size: 62.5%;
+}
+body{
+    font-family: 'Merriweather','sans-serif';
+    background-color: white;
+    min-width: 320px;
+    font-size: 1.6rem;
+}
+.card{
+    box-shadow: 0rem 0rem 2rem 1.5rem var(--color-background);
+}
+.card-no{
+    box-shadow: none !important;
+}
+.my-primary{
+    background-color: var(--color-primary);
+}
+.my-secundary{
+    background-color: var(--color-secundary);
+    color: white;
+}
+.my-primary-text{
+    color: var(--color-primary);
+}
+.my-secundary-text{
+    color: var(--color-text-secundary);
+}
+.link-btn{
+    color: var(--color-text-secundary);
+}
+.link-btn:hover{
+    color: var(--color-primary);
+}
+.btn-rose{
+    background-color:var(--color-primary);
+    color: white;
+}
+.btn-rose:hover{
+    background-color:var(--color-secundary);
+    color: white;
+}
+#header {
+    font-size: 2rem;
+}
+#header .navbar-toggler-icon,#header .navbar-brand{
+    font-size: 2rem;
+}
+#header .dropdown-item{
+    font-size: 1.2rem;
+}
+#header .navbar {
+    border-bottom: 0.5px solid var(--color-background);
+}
+#main{
+    min-height: 90vh;
+    margin: 8rem auto;
+}
+#main label, #main input, #main select,#main textarea{
+    display: block;
+}
+#balance input{
+    height: 4rem;
+    font-size: 1.4rem;
+}
+#main-create input,#main select{
+    width: 100%;
+    height: 4rem;
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+}
+#main-create input[type="radio"]{
+    width: 1rem;
+    height: 1rem;
+    padding: 0.5rem;
+}
+#main textarea{
+    width: 100%;
+    margin: 0.5rem 0;
+}
+#main .btn{
+    height: 4rem;
+    font-size: 1.6rem;
+}
+#footer{
+    background: linear-gradient(90deg, #157D7E, #2CAA9F 25%, #61C6C0);
+}
+#footer a{
+    color: white;
+    text-decoration: none;
+}
+/* #header .nav-item,.dropdown-menu{
+    text-align: center;
+} */
+
+@media (max-width: 576px){
+    #header .nav-item,#header .dropdown-menu{
+        
+    }
+}
+#home{
+    display: flex;
+    min-height: 90vh;
+    justify-content: center;
+    align-items: center;
+}
+#home .main-home{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#home h2{
+    font-size: 4rem;
+}
+#details h3{
+    font-size: 3rem;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+#list a{
+    text-decoration: none;
+}

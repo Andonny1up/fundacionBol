@@ -1,0 +1,94 @@
+:root{
+    --color-primary: #EA4C89;
+    --color-secundary:#F082AC;
+    --color-background: #DDDDDD;
+    --color-text-secundary: #7c7c7c;
+}
+body{
+    /* background-color: var(--color-background); */
+    font-family: 'Merriweather','sans-serif';
+}
+header .navbar{
+    min-height: 4vh;
+    color: white;
+    font-size: 1.2rem;
+}
+header .navbar .nav-link{
+    color: white;
+}
+header .navbar .hstack{
+    font-size: 1.4rem;
+}
+h2{
+    font-weight: 700;
+}
+
+.card{
+    box-shadow: 0rem 0rem 2rem 1.5rem var(--color-background);
+}
+.card-body{
+    margin: 5rem; 
+}
+.card-body p{
+    font-size: 0.9rem;
+}
+.my-primary{
+    background-color: var(--color-primary);
+}
+.btn-rose{
+    background-color:var(--color-primary);
+    color: white;
+}
+.btn-rose:hover{
+    background-color:var(--color-secundary);
+    color: white;
+}
+input{
+    width: 100%;
+    border: var(--color-background) solid 0.1rem;
+    border-radius: 0.1rem;
+    padding: 0.3rem;
+    color: var(--color-text-secundary);
+}
+input:focus{
+    outline: none;
+    border-color: var(--color-background);
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    box-shadow: 0 0 0 30px white inset !important;
+    color: var(--color-text-secundary) !important;
+}
+.col-ocul #img-ocul{
+    width: 25rem;
+}
+/*text*/
+.text-secundary{
+    color: var(--color-text-secundary);
+}
+@media (min-width: 992px) {
+    .card-header{
+        border-top-right-radius: 0px !important;
+    }
+}
+@media (max-width: 992px) {
+    header .navbar{
+        text-align: center;
+    }
+    .col-ocul{
+        display: none;
+    }
+    .col-ocul #img-ocul{
+        display: none !important;
+    }
+}
+@media (max-width: 576px) {
+    .card-body{
+        margin: 3rem;
+    }
+}
+@media (max-width: 376px) {
+    .card-body{
+        margin: 1rem;
+    }
+}
