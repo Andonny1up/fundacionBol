@@ -98,3 +98,13 @@ class Expense(models.Model):
     id_voluntary = models.ForeignKey(Voluntary,on_delete=models.CASCADE)
     type_expense = models.ForeignKey(Type_expense,on_delete=models.SET_NULL, null=True, blank=True)
     active = models.BooleanField("activo", default=1)
+    
+    
+class BankAccount(models.Model):
+    account_number = models.CharField('numero de cuenta',max_length=20)
+    account_holder = models.CharField('titular de cuenta',max_length=255)
+    bank_name = models.CharField('banco',max_length=255)
+    id_perso = models.ForeignKey(Person,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.account_number
