@@ -36,6 +36,7 @@
                     <li class="nav-item">
                       <a class="nav-link link-btn" aria-current="page" href="{% url 'beneficiary:home' %}"><i class="fa-solid fa-house me-2"></i>Inicio</a>
                     </li>
+                    {% if perms.beneficiaryapp.view_beneficiary %}
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle link-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-hospital-user me-2"></i>Beneficiarios
@@ -46,6 +47,8 @@
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_cancer' %}">Lista de Tipos de Cancer</a></li>                        
                       </ul>
                     </li>
+                    {% endif %}
+                    {% if perms.beneficiaryapp.view_donation %}
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle link-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-circle-dollar-to-slot me-2"></i>Donaciones
@@ -56,9 +59,13 @@
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_donation' %}">Lista de Donaciones</a></li>
                       </ul>
                     </li>
+                    {% endif %}
+                    {% if perms.beneficiaryapp.view_voluntary %}
                     <li class="nav-item">
                       <a class="nav-link link-btn" aria-current="page" href="{% url 'beneficiary:list_voluntary' %}"><i class="fa-solid fa-circle-user me-2"></i>Voluntarios</a>
                     </li>
+                    {% endif %}
+                    {% if perms.beneficiaryapp.view_expense %}
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle link-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-money-check-dollar me-2"></i>Gastos
@@ -69,6 +76,8 @@
                         <li><a class="dropdown-item" href="{% url 'beneficiary:list_type_expense' %}">Tipos Gastos beneficiarios</a></li>
                       </ul>
                     </li>
+                    {% endif %}
+                    {% if perms.beneficiaryapp.view_expense %}
                     <li class="nav-item dropdown">
                       <a class="nav-link dropdown-toggle link-btn" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa-solid fa-scale-balanced me-2"></i>Balance
@@ -80,6 +89,7 @@
                         <li><a class="dropdown-item" href="{% url 'beneficiary:balance_total' %}">Total</a></li>
                       </ul>
                     </li>
+                    {% endif %}
                     <li><hr></li>
                     {% if user.is_authenticated %}
                     <li><a href="{% url 'beneficiary:logout' %}" class="link-btn">Cerrar sesión</a></li>
