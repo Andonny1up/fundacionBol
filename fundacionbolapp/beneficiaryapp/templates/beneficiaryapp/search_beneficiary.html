@@ -4,37 +4,33 @@
 <section id="list">
     <div class="container">
         <div class="card">
-            <div class="card-header my-secundary">
+            <div class="card-header">
                 <h2 class="h1">Lista de beneficiarios</h2>
             </div>
             <div class="card-body">
                 <div class="container">
                     <div class="row">
                         <div class="col-md-6 col-12">
-                            <form action="" method="GET">
+                            <form action="{% url 'beneficiary:search_beneficiary' %}" method="GET">
                                 <label for="id_f_filter" class="form-label">Buscar por:</label>
                                 <div class="hstack gap-3">
                                     <select name="f_filter" id="id_f_filter" class="form-select form-select-lg" style="font-size: 1.6rem; min-width: 10rem">
-                                        {% if f_filter %}
-                                        <option value="dni" selected>Dni</option>
+                                        <option value="dni">CI</option>
                                         <option value="name">Nombre</option>
-                                        {% else %}
-                                        <option value="dni">Dni</option>
-                                        <option value="name" selected>Nombre</option>
-                                        {% endif %}
-                                        
                                     </select>
                                     <label for="id_text" class="visually-hidden">Escribe lo que deseas buscar</label>
-                                    <input  value="{{search_text}}" name="search_text"type="text" class="form-control" id="id_text" placeholder="Escribe.." maxlength="150" style="font-size: 1.6rem; padding: 0.7rem;">
+                                    <input  name="search_text"type="text" class="form-control" id="id_text" placeholder="Escribe.." maxlength="150" style="font-size: 1.6rem; padding: 0.7rem;" value="{{search_text}}">
                                     <button type="submit" class="btn btn-rose">Buscar</button>
                                 </div>    
                             </form>
+                            <hr>
+                            <a href="{% url 'beneficiary:export_to_excel' %}" class="btn btn-success"><i class="fa-solid fa-file-excel me-2"></i>Exportar</a>
                         </div>
                         <div class="col">
                         </div>
                         <hr>
                         <div class="d-grid">
-                            <a href="{% url 'beneficiary:create_beneficiary' %}" class="btn btn-rose">Registrar nuevo beneficiario</a>
+                            <a href="{% url 'beneficiary:create_beneficiary' %}" class="btn btn-primary">Registrar nuevo beneficiario</a>
                         </div>
                     </div>
                 </div>
@@ -43,10 +39,10 @@
                         <hr>
                         <table class="table table-bordered">
                             <thead>
-                                <tr class="my-secundary">
+                                <tr class="table-primary">
                                     <th scope="col">CI</th>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">Tipo de Cancer</th>
+                                    <th scope="col">Patología</th>
                                     <th scope="col">Detalles</th>
                                 </tr>
                             </thead>
@@ -56,7 +52,12 @@
                                     <tr>
                                         <td>{{beneficiary.id_perso.dni}}</td>
                                         <td>{{beneficiary.id_perso.name}}</td>
+                                        {% if beneficiary.id_cancer %}
                                         <td>{{beneficiary.id_cancer.c_name}}</td>
+                                        {% else %}
+                                        <td>Ninguno</td>
+                                        {% endif %}
+                                        
                                         <td><a class="badge text-bg-warning" href="{% url 'beneficiary:details_beneficiary' beneficiary.id %}"><i class="fa-solid fa-eye me-1"></i>Ver más</a></td>  
                                     </tr>
                                     {% else %}
@@ -72,10 +73,9 @@
                         </table>
                     </div>
                 </div>
-                </section>
             </div>
         </div>
     </div>
-    
+</section>  
 
 {% endblock main %}

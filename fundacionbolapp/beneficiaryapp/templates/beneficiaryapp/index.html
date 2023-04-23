@@ -25,6 +25,10 @@
               <a class="navbar-brand navbar-dark" href="#">
                 <i class="fa-solid fa-ribbon" style="font-size: 3.5rem"></i>
               </a>
+              <!-- Button trigger modal -->
+              <a class="navbar-brand navbar-dark" href="#" data-bs-toggle="modal" data-bs-target="#searchModal">
+                <i id="id_btn_search" class="fa-solid fa-magnifying-glass"></i>
+              </a>
               <div class="offcanvas offcanvas-start my-secundary-text" tabindex="-1" id="offcanvasDarkNavbar" aria-labelledby="offcanvasDarkNavbarLabel">
                 <div class="offcanvas-header">
                   <h5 class="offcanvas-title h1" id="offcanvasDarkNavbarLabel">Menu</h5>
@@ -103,6 +107,7 @@
             </div>
           </nav>
     </header>
+    
     <!--header -->
     
     <main id="main">
@@ -131,6 +136,49 @@
         </div>
     </footer>
     <!--footer -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Buscar Beneficiario por:</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="form-search"action="{% url 'beneficiary:search_beneficiary' %}" method="GET">
+              <label for="id_search_select" class="form-label" style="display:none">Opciones de busqueda:</label>
+              <select name="f_filter" id="id_search_select" class="">
+                <option value="dni">CI</option>
+                <option value="name">Nombre</option>
+              </select>
+              <div class="search-input">
+                <label for="id_search_input" class="visually-hidden">Escribe lo que deseas buscar</label>
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input name="search_text"type="text" class="" id="id_search_input" placeholder="Buscar.." maxlength="150" autocomplete="off">
+              </div> 
+              {% comment %} <button type="submit" class="btn btn-rose">Buscar</button>  {% endcomment %}
+            </form>
+          </div>
+          <div class="modal-footer my-primary-text">
+            <i class="fa-solid fa-ribbon" style="font-size: 2.5rem"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal -->
+    <script>
+      {% comment %} document.getElementById("").addEventListener("keydown", function(event) {
+        console.log("enter2");
+        if (event.keyCode === 13) {
+            //event.preventDefault(); // previene el comportamiento predeterminado del Enter
+            //document.getElementById("form-search").submit(); // envía el formulario
+            console.log("enter2");
+        }
+      }); {% endcomment %}
+      
+    </script>
+
     <script src="{% static 'beneficiaryapp/js/script.js' %} "></script>
     <script src="https://kit.fontawesome.com/df236c7e60.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

@@ -2,6 +2,7 @@
     --color-primary: #EA4C89;
     --color-secundary:#F082AC;
     --color-background: #DDDDDD;
+    --color-background-light: #fcfcfc;
     --color-text-secundary: #7c7c7c;
 }
 
@@ -137,3 +138,59 @@ body{
 #list a{
     text-decoration: none;
 }
+/* Buscador */
+#searchModal .modal-header,#searchModal .modal-body{
+    background-color: var(--color-background-light);
+}
+#form-search{
+    display: flex;
+}
+#form-search select{
+    font-size: 1.6rem;
+    background-color: var(--color-primary);
+    color: #FFF;
+    border-radius: 0.5rem;
+    border: none;
+    margin-right: 0.1rem;
+    padding: 1rem;
+}
+#form-search select:focus {
+    outline: none;
+}
+#form-search select option{
+    background: #fff;
+    color: #333;
+}
+#form-search button{
+    display: none;
+}
+.search-input{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    min-width: 100px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 0.5rem;
+    border: 0.1rem solid var(--color-primary);
+    padding: 1rem;
+}
+  
+.search-input label{
+    display: none;
+}
+  
+.search-input i{
+    margin-right: 10px;
+    color: var(--color-primary);
+}
+.search-input input{
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 16px;
+    line-height: 20px;
+}
+  
+  
