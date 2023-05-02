@@ -9,12 +9,23 @@ from . import forms, models
 from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
-
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import user_passes_test
 
 from django.views.generic import View
+from django.contrib.auth import views as auth_views
 from openpyxl import Workbook
 
+def user_is_not_authenticated(user):
+    return not user.is_authenticated
+
+
+@user_passes_test(user_is_not_authenticated, login_url='beneficiary:home')
+def my_login_view(request):
+    # Usa el `LoginView` de Django para renderizar la vista de inicio de sesión
+    return auth_views.LoginView.as_view()(request)   
+    
+    
 class ExportToExcel(View):
     def get(self, request):
         response = HttpResponse(content_type='application/vnd.ms-excel')

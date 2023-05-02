@@ -114,7 +114,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es'
+#LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/La_Paz'
 
@@ -137,6 +138,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+LOGIN_URL = 'beneficiary:login'
 LOGIN_REDIRECT_URL = 'beneficiary:home'
 LOGOUT_REDIRECT_URL = 'main:home'
 

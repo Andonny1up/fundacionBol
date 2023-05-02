@@ -84,7 +84,6 @@ class ExpenseBeneficiary(models.Model):
     expense_date = models.DateField("fecha gasto")
     motive = models.TextField(max_length=150)
     id_companion = models.ForeignKey(Companion,on_delete=models.SET_NULL, null=True, blank=True)
-    id_voluntary = models.ForeignKey(Voluntary,on_delete=models.CASCADE)
     voucher_expense = models.FileField(upload_to="expense/")
     finalized = models.BooleanField("finalizado", default=1)
     active = models.BooleanField("activo", default=1)
@@ -95,6 +94,11 @@ class Expense(models.Model):
     expense_date = models.DateField("fecha otros gastos")
     Description_expense  = models.TextField("Descripcion de gastos",max_length=350)
     voucher_expense  = models.FileField("comprobante de gastos",upload_to="expense/")
-    id_voluntary = models.ForeignKey(Voluntary,on_delete=models.CASCADE)
     type_expense = models.ForeignKey(Type_expense,on_delete=models.SET_NULL, null=True, blank=True)
     active = models.BooleanField("activo", default=1)
+    
+    
+class BankAccount(models.Model):
+    bank_name = models.CharField("Nombre del banco",max_length=80)
+    account_number = models.CharField("Numero de cuenta",max_length=80)
+    id_perso = models.ForeignKey(Person,on_delete=models.CASCADE)
