@@ -23,7 +23,7 @@
                             <th scope="col">Descripción</th>
                             <th scope="col">Fecha</th>
                             <th scope="col">Acompañante</th>
-                            <th scope="col">Encargado</th>
+                            {% comment %} <th scope="col">Encargado</th> {% endcomment %}
                             <th scope="col">Comprobante</th>
                         </tr>
                     </thead>
@@ -33,7 +33,7 @@
                             {% if expense.finalized %}
                             <td class="table-success"><span class="badge text-bg-success">Finalizado</span></td>
                             {% else %}
-                            <td class="table-danger"><span class="badge text-bg-danger"><a href="{% url 'beneficiary:finalized_expense_beneficiary' expense.id %}" onclick="return confirmFinalized()" style="color:white; text-decoration:none;">Pendiente</a></span></td>
+                            <td class="table-danger"><span class="badge text-bg-danger">Pendiente</span></td>
                             {% endif %}
                             <td>Bs {{expense.expense_amount}}</td>
                             <td>{{expense.motive}}</td>
@@ -43,8 +43,12 @@
                             {% else %}
                             <td>Ninguno</td>
                             {% endif %}
-                            <td>{{expense.id_voluntary.id_perso.name}}</td>
-                            <td><a href="{{expense.voucher_expense.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></td>  
+                            {% comment %} <td>{{expense.id_voluntary.id_perso.name}}</td> {% endcomment %}
+                            {% if expense.voucher_expense %}
+                                <td><a href="{{expense.voucher_expense.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></td>  
+                            {% else %}
+                            <td><a href="{% url 'beneficiary:finalized_form_expense' expense.id %}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Subir Documento</a></td>
+                            {% endif %}  
                         </tr>
                         {% endfor %}
                     </tbody>

@@ -20,7 +20,7 @@
                             <th scope="col">Tipo de gasto</th>
                             <th scope="col">Descripción</th>
                             <th scope="col">Fecha</th>
-                            <th scope="col">Encargado</th>
+                            {% comment %} <th scope="col">Encargado</th> {% endcomment %}
                             <th scope="col">Comprobante</th>
                         </tr>
                     </thead>
@@ -28,10 +28,15 @@
                         {% for expense in expenses %}
                         <tr>
                             <td>{{expense.expense_amount}}</td>
-                            <td>{{expense.type_expense.name}}</td>
+                            {% if expense.type_expense %}
+                                <td>{{expense.type_expense.name}}</td>
+                            {% else %}
+                                <td>Ninguno</td>
+                            {% endif %}
+                            
                             <td>{{expense.Description_expense}}</td>
                             <td>{{expense.expense_date}}</td>
-                            <td>{{expense.id_voluntary.id_perso.name}}</td>
+                            {% comment %} <td>{{expense.id_voluntary.id_perso.name}}</td> {% endcomment %}
                             <td><a href="{{expense.voucher_expense.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></td>  
                         </tr>
                         {% endfor %}

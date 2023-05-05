@@ -25,7 +25,7 @@ def my_login_view(request):
     # Usa el `LoginView` de Django para renderizar la vista de inicio de sesión
     return auth_views.LoginView.as_view()(request)   
     
-    
+   
 class ExportToExcel(View):
     def get(self, request):
         response = HttpResponse(content_type='application/vnd.ms-excel')
@@ -178,10 +178,13 @@ def details(request,beneficiary_id):
     bene = get_object_or_404(models.Beneficiary,pk=beneficiary_id)
     companions = bene.companion_set.filter(id_perso__active=True)
     expense_pendien = bene.expensebeneficiary_set.filter(finalized=False)
+    perso = bene.id_perso
+    account_bank = perso.bankaccount_set.all()
     return render(request,"beneficiaryapp/details_beneficiary.html",{
         'beneficiary': bene,
         'companions': companions,
         'expense_pendien':expense_pendien,
+        'account_bank':account_bank,
     })
     
 
@@ -509,7 +512,6 @@ def create_expense(request):
         expense_date = request.POST["expense_date"]
         Description_expense = request.POST["Description_expense"]
         voucher_expense = request.FILES["voucher_expense"]
-        id_voluntary = request.POST["id_voluntary"]
         id_type_expense = request.POST["type_expense"]
         
         if id_type_expense:
@@ -517,15 +519,12 @@ def create_expense(request):
         else:
             type_expense = None
             
-        voluntary = models.Voluntary.objects.get(pk=id_voluntary)
-        expense = models.Expense.objects.create(expense_amount=expense_amount,expense_date=expense_date,Description_expense=Description_expense,voucher_expense=voucher_expense,type_expense=type_expense,id_voluntary=voluntary)
+        expense = models.Expense.objects.create(expense_amount=expense_amount,expense_date=expense_date,Description_expense=Description_expense,voucher_expense=voucher_expense,type_expense=type_expense)
         return HttpResponseRedirect(reverse("beneficiary:list_expense"))
     else:
         date_now = timezone.now().strftime('%Y-%m-%d')
-        voluntaries = models.Voluntary.objects.filter(job='Administrador del sistema',id_perso__active = True)
         type_expense = models.Type_expense.objects.all()
         return render(request,"beneficiaryapp/expense/create_expense.html",{
-            'voluntaries':voluntaries,
             'date_now':date_now,
             'type_expense':type_expense,
         })
@@ -548,12 +547,14 @@ def create_expense_beneficiary(request,beneficiary_id):
         expense_amount = request.POST["expense_amount"]
         expense_date = request.POST["expense_date"]
         motive = request.POST["motive"]
-        voucher_expense= request.FILES["voucher_expense"]
+        file = request.FILES.get('voucher_expense')
+        if file:
+            voucher_expense= request.FILES["voucher_expense"]
+        else:
+            voucher_expense = None
         #id_type_expense = request.POST["id_type_expense"]
         id_companion = request.POST["id_companion"]
-        id_voluntary = request.POST["id_voluntary"]
         finalized = request.POST["finalized"]
-        voluntary = models.Voluntary.objects.get(pk=id_voluntary)
         if id_companion:
             companion = models.Companion.objects.get(pk=id_companion)
         else:
@@ -565,7 +566,6 @@ def create_expense_beneficiary(request,beneficiary_id):
             motive = motive,
             voucher_expense = voucher_expense,
             id_companion = companion,
-            id_voluntary = voluntary,
             finalized = finalized,
         )
         return HttpResponseRedirect(reverse("beneficiary:list_expense_beneficiary",args=(beneficiary.id,)))
@@ -592,10 +592,21 @@ def list_expense_beneficiary(request,beneficiary_id):
     
 
 @login_required
+def finalized_form_expense(request,expense_beneficiary_id):
+    return render(request,"beneficiaryapp/expense/expense_confirme.html",{
+        'expense_beneficiary_id':expense_beneficiary_id,
+    })
+
+
+
+@login_required
 def finalized_expense_beneficiary(request,expense_beneficiary_id):
-    expense = models.ExpenseBeneficiary.objects.get(pk=expense_beneficiary_id)
-    expense.finalized = True
-    expense.save()
+    if request.method == "POST":
+        expense = models.ExpenseBeneficiary.objects.get(pk=expense_beneficiary_id)
+        expense.voucher_expense = request.FILES["voucher_expense"]
+        expense.finalized = True
+        expense.save()
+    
     return HttpResponseRedirect(reverse("beneficiary:list_expense_beneficiary",args=(expense.id_beneficiary.id,)))
     
     
@@ -777,7 +788,25 @@ def deleted(request):
         'voluntaries': voluntary,
         'donors': donor,
     })
-    
+
+
+@login_required
+def create_account_bank(request,beneficiary_id):
+    if request.method=="POST":
+        number = request.POST["number"]
+        bank = request.POST["bank"]
+        bene = models.Beneficiary.objects.get(pk=beneficiary_id)
+        person = bene.id_perso
+        models.BankAccount.objects.create(bank_name=bank,account_number=number,id_perso=person)
+        return HttpResponseRedirect(reverse("beneficiary:details_beneficiary",args=(bene.id,)))
+
+
+@login_required
+def destroy_banck_account(request, account_id,beneficiary_id):
+    account = models.BankAccount.objects.get(pk=account_id)
+    account.delete()
+    return HttpResponseRedirect(reverse("beneficiary:details_beneficiary",args=(beneficiary_id,)))
+
 
 #<----------------------- GRAPHICS ------------------>
 def graphic_type_cancer(request):
@@ -807,7 +836,7 @@ def graphic_type_cancer(request):
     return render(request,'beneficiaryapp/graphics/type_cancer.html',{
         'data_type_cancer': data,
     })
-    
+
 
 def view_404(request, exception):
     return HttpResponseNotFound(render(request, 'beneficiaryapp/404.html'))

@@ -23,14 +23,6 @@
                             {% endfor %} 
                         </select>
                     </label>
-                    <label for="id_id_voluntary" class="col-10 offset-1 col-md-6 offset-md-0">Voluntario:
-                        <select name="id_voluntary" id="id_id_voluntary" required>
-                            {% for voluntary in voluntaries %}
-                                <option value="{{voluntary.id}}">{{voluntary.id_perso.name}}</option>
-                            {% endfor %} 
-                        </select>
-                    </label>
-                    
                 </div>
                 <div class="row">
                     <label for="id_motive" class="col-10 offset-1 col-md offset-md-0">Motivo:<textarea name="motive" cols="40" rows="10" maxlength="350" required id="id_motive"></textarea></label>
@@ -42,7 +34,7 @@
                             <option value="1">Finalizado</option>
                         </select>
                     </label>
-                    <label for="id_voucher_expense" class="col-10 offset-1 col-md-6 offset-md-0">Comprobante:<input type="file" name="voucher_expense" required id="voucher_expense"></label>
+                    <label for="id_voucher_expense" class="col-10 offset-1 col-md-6 offset-md-0">Comprobante:<input type="file" name="voucher_expense" id="voucher_expense"></label>
                 </div>
                 <div class="row">
                     <div class="col-10 offset-1 col-md offset-md-0">

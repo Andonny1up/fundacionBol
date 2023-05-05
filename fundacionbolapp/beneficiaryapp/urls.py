@@ -50,6 +50,7 @@ urlpatterns = [
     path("expense-beneficiary/create/<int:beneficiary_id>",views.create_expense_beneficiary,name="create_expense_beneficiary"),
     #path("donor/details/<int:donor_id>",views.details_donor,name="details_donor"),
     path("expense-beneficiary/list/<int:beneficiary_id>",views.list_expense_beneficiary,name="list_expense_beneficiary"),
+    path("expense-beneficiary/finalized_form/<int:expense_beneficiary_id>",views.finalized_form_expense,name="finalized_form_expense"),
     path("expense-beneficiary/finalized/<int:expense_beneficiary_id>",views.finalized_expense_beneficiary,name="finalized_expense_beneficiary"),
     #type_expense
     path("type-expense/create/",views.create_type_expense,name="create_type_expense"),
@@ -79,6 +80,9 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     
     path('404/', views.view_404_acces, name="view_404_acces"),
+    #cuenta bancarias
+    path("beneficiary/account_bank/<int:beneficiary_id>",views.create_account_bank,name="c_account_bank"),
+    path("beneficiary/account_delete/<int:account_id>/<int:beneficiary_id>",views.destroy_banck_account,name="account_delete"),
 ]
 handler404 = views.view_404
 

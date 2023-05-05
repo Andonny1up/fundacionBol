@@ -150,7 +150,11 @@
                                 <td>{{expense.expense_date}}</td>
                                 <td>{{expense.id_voluntary.id_perso.name}}</td>
                                 <td>{{expense.id_companion.id_perso.name}}</td>
-                                <td><a href="{{expense.voucher_expense.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></td>
+                                {% if expense.voucher_expense %}
+                                <td><a href="{{expense.voucher_expense.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></td>  
+                                {% else %}
+                                <td><a href=""><i class="fa-solid fa-file" style="font-size: 2rem"></i>Subir Documento</a></td>
+                                {% endif %}  
                                 <td>
                                     <a href="{% url 'beneficiary:delete_expense_beneficiary' expense.id %}" class="badge text-bg-danger" onclick='return confirmDelete()' style="text-decoration:none;">Borrar</a>
                                 </td> 
@@ -162,7 +166,11 @@
                                 <td><del>{{expense.expense_date}}</del></td>
                                 <td><del>{{expense.id_voluntary.id_perso.name}}</del></td>
                                 <td><del>{{expense.id_companion.id_perso.name}}</del></td>
-                                <td><del><a style="color:white"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</del></a></td>
+                                {% if expense.voucher_expense %}
+                                <td><a style="color:white" href="{{expense.voucher_expense.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></td>  
+                                {% else %}
+                                <td><a style="color:white" href=""><i class="fa-solid fa-file" style="font-size: 2rem"></i>Subir Documento</a></td>
+                                {% endif %}
                                 <td>
                                     <span class="badge text-bg-danger" style="text-decoration:none;">Eliminado</span>
                                 </td>

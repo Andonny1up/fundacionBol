@@ -1,0 +1,26 @@
+{% extends 'beneficiaryapp/index.html' %}
+{% block title %}Registro de Gastos{% endblock  %}
+{% block main %}
+<section id="main-create">
+<div class="container">
+    <div class="card">
+        <div class="card-header ">
+            <h2 class="h1">Finalizar descargo</h2>
+        </div>
+        <div class="card-body">
+            <form action="{% url 'beneficiary:finalized_expense_beneficiary' expense_beneficiary_id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="row">
+                    <label for="id_voucher_expense" class="col-10 offset-1 col-md-6 offset-md-0">Comprobante:<input type="file" name="voucher_expense" id="voucher_expense" required></label>
+                </div>
+                <div class="row">
+                    <div class="col-10 offset-1 col-md offset-md-0">
+                        <input type="submit" value="Enviar" class="btn btn-dark">
+                    </div>
+                </div>     
+            </form>
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}

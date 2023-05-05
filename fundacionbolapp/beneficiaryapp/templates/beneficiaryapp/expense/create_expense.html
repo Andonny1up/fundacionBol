@@ -15,18 +15,11 @@
                     <label for="id_expense_date" class="col-10 offset-1 col-md-6 offset-md-0">Fecha del Gasto:<input type="date" name="expense_date" required id="id_expense_date" value="{{date_now}}"></label>
                 </div>
                 <div class="row">
-                    <label for="id_id_voluntary" class="col-10 offset-1 col-md-6 offset-md-0">Voluntario:
-                        <select name="id_voluntary" id="id_id_voluntary" required>
-                            {% for voluntary in voluntaries %}
-                                <option value="{{voluntary.id}}">{{voluntary.id_perso.name}}</option>
-                            {% endfor %} 
-                        </select>
-                    </label>
                     <label for="id_voucher_expense" class="col-10 offset-1 col-md-6 offset-md-0">Comprobante:<input type="file" name="voucher_expense" required id="voucher_expense"></label>
                 </div>
                 <div class="row">
                     <label for="id_type_expense" class="col-10 offset-1 col-md-12 offset-md-0">Tipo de gasto:
-                        <select name="type_expense" id="id_type_expense" required>
+                        <select name="type_expense" id="id_type_expense">
                             <option value="">--Ninguno--</option>
                             {% for expense in type_expense %}
                                 <option value="{{expense.id}}">{{expense.name}}</option>
