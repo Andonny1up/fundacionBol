@@ -74,11 +74,11 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr class="table-primary">
+                                <th scope="col">Fecha</th>
+                                <th scope="col">Descripción</th>
                                 <th scope="col">Monto</th>
                                 <th scope="col">Tipo de gasto</th>
-                                <th scope="col">Descripción</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Encargado</th>
+                                {% comment %} <th scope="col">Encargado</th> {% endcomment %}
                                 <th scope="col">Comprobante</th>
                                 <th scope="col">Acciones</th>
                             </tr>
@@ -87,10 +87,10 @@
                             {% for expense in expenses %}
                             {% if expense.active %}
                             <tr>
-                                <td>{{expense.expense_amount}}</td>
-                                <td>{{expense.type_expense.name}}</td>
-                                <td>{{expense.Description_expense}}</td>
                                 <td>{{expense.expense_date}}</td>
+                                <td>{{expense.Description_expense}}</td>
+                                <td>{{expense.expense_amount}}</td>
+                                {% comment %} <td>{{expense.type_expense.name}}</td> {% endcomment %}
                                 <td>{{expense.id_voluntary.id_perso.name}}</td>
                                 <td><a href="{{expense.voucher_expense.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></td>
                                 <td>
@@ -99,11 +99,11 @@
                             </tr>
                             {% else %}
                             <tr class="text-bg-danger">
+                                <td><del>{{expense.expense_date}}</del></td>
+                                <td><del>{{expense.Description_expense}}</del></td>
                                 <td><del>{{expense.expense_amount}}</del></td>
                                 <td><del>{{expense.type_expense.name}}</del></td>
-                                <td><del>{{expense.Description_expense}}</del></td>
-                                <td><del>{{expense.expense_date}}</del></td>
-                                <td><del>{{expense.id_voluntary.id_perso.name}}</del></td>
+                                {% comment %} <td><del>{{expense.id_voluntary.id_perso.name}}</del></td> {% endcomment %}
                                 <td><del><a href="" style="color:white"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></del></td>
                                 <td>
                                     <span class="badge text-bg-danger" style="text-decoration:none;">Eliminado</span>
@@ -132,11 +132,14 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr class="table-primary">
-                                <th scope="col">Monto</th>
-                                <th scope="col">Motivo</th>
                                 <th scope="col">Fecha</th>
-                                <th scope="col">Encargado</th>
-                                <th scope="col">Acompañante</th>
+                                <th scope="col">Motivo</th>
+                                <th scope="col">Beneficiario</th>
+                                <th scope="col">Monto</th>
+                                
+                                
+                                {% comment %} <th scope="col">Encargado</th> {% endcomment %}
+                                
                                 <th scope="col">Comprobante</th>
                                 <th scope="col">Acciones</th>
                             </tr>
@@ -145,15 +148,18 @@
                             {% for expense in expenses_beneficiary %}
                             {% if expense.active %}
                             <tr>
-                                <td>{{expense.expense_amount}}</td>
-                                <td>{{expense.motive}}</td>
                                 <td>{{expense.expense_date}}</td>
-                                <td>{{expense.id_voluntary.id_perso.name}}</td>
-                                <td>{{expense.id_companion.id_perso.name}}</td>
+                                <td>{{expense.motive}}</td>
+                                <td>{{expense.id_beneficiary.id_perso.name}}</td>
+                                <td>{{expense.expense_amount}}</td>
+                                
+                                
+                                {% comment %} <td>{{expense.id_voluntary.id_perso.name}}</td> {% endcomment %}
+                                
                                 {% if expense.voucher_expense %}
                                 <td><a href="{{expense.voucher_expense.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></td>  
                                 {% else %}
-                                <td><a href=""><i class="fa-solid fa-file" style="font-size: 2rem"></i>Subir Documento</a></td>
+                                <td><a href=""><i class="fa-solid fa-file" style="font-size: 2rem"></i>Sin documento</a></td>
                                 {% endif %}  
                                 <td>
                                     <a href="{% url 'beneficiary:delete_expense_beneficiary' expense.id %}" class="badge text-bg-danger" onclick='return confirmDelete()' style="text-decoration:none;">Borrar</a>
@@ -161,11 +167,12 @@
                             </tr>
                             {% else %}
                             <tr class="text-bg-danger">
-                                <td><del>{{expense.expense_amount}}</del></td>
-                                <td><del>{{expense.motive}}</del></td>
                                 <td><del>{{expense.expense_date}}</del></td>
-                                <td><del>{{expense.id_voluntary.id_perso.name}}</del></td>
-                                <td><del>{{expense.id_companion.id_perso.name}}</del></td>
+                                <td><del>{{expense.motive}}</del></td>
+                                <td><del>{{expense.id_beneficiary.id_perso.name}}</del></td>
+                                <td><del>{{expense.expense_amount}}</del></td>
+                                {% comment %} <td><del>{{expense.id_voluntary.id_perso.name}}</del></td> {% endcomment %}
+                                
                                 {% if expense.voucher_expense %}
                                 <td><a style="color:white" href="{{expense.voucher_expense.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></td>  
                                 {% else %}

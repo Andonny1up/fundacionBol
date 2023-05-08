@@ -18,10 +18,11 @@
                     
                     <thead>
                         <tr class="table-primary">
+                            <th scope="col">Fecha</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Monto</th>
                             <th scope="col">Descripción</th>
-                            <th scope="col">Fecha</th>
+                            
                             <th scope="col">Acompañante</th>
                             {% comment %} <th scope="col">Encargado</th> {% endcomment %}
                             <th scope="col">Comprobante</th>
@@ -30,6 +31,7 @@
                     <tbody>
                         {% for expense in expenses %}
                         <tr>
+                            <td>{{expense.expense_date}}</td>
                             {% if expense.finalized %}
                             <td class="table-success"><span class="badge text-bg-success">Finalizado</span></td>
                             {% else %}
@@ -37,14 +39,14 @@
                             {% endif %}
                             <td>Bs {{expense.expense_amount}}</td>
                             <td>{{expense.motive}}</td>
-                            <td>{{expense.expense_date}}</td>
+                            
                             {% if expense.id_companion.id_perso.name %}
                             <td>{{expense.id_companion.id_perso.name}}</td>
                             {% else %}
                             <td>Ninguno</td>
                             {% endif %}
                             {% comment %} <td>{{expense.id_voluntary.id_perso.name}}</td> {% endcomment %}
-                            {% if expense.voucher_expense %}
+                            {% if expense.voucher_expense and expense.finalized %}
                                 <td><a href="{{expense.voucher_expense.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></td>  
                             {% else %}
                             <td><a href="{% url 'beneficiary:finalized_form_expense' expense.id %}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Subir Documento</a></td>

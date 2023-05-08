@@ -54,8 +54,9 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr class="table-primary">
-                                <th scope="col">Monto de la donacion</th>
                                 <th scope="col">Fecha donacion</th>
+                                <th scope="col">Monto de la donacion</th>
+                                
                                 <th scope="col">Numero de cuenta</th>
                                 <th scope="col">Comprobante</th>
                             </tr>
@@ -63,8 +64,9 @@
                         <tbody>
                             {% for donation in donations %}
                             <tr>
-                                <td>{{donation.amount_donation}}</td>
                                 <td>{{donation.date_donation}}</td>
+                                <td>{{donation.amount_donation}}</td>
+                                
                                 <td>{{donation.num_cta}}</td>
                                 <td><a href="{{donation.voucher_dona.url}}"><i class="fa-solid fa-file" style="font-size: 2rem"></i>Documento</a></td>  
                             </tr>
